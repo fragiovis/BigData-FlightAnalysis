@@ -24,7 +24,7 @@ Il benchmark si basa sul popolare dataset pubblico **"Flight Delay Dataset — 2
 * **Dimensioni per il Benchmark:** per valutare la scalabilità, su HDFS ogni dataset è una cartella `/user/<utente>/data/<dataset>/`:
   * `flights_1`, `flights_20`, `flights_50`, `flights_70`: porzioni del dataset pulito (1%, 20%, 50%, 70%). Sono **annidate e riproducibili**: ogni riga riceve un numero casuale con seed fisso e la porzione del p% contiene le righe con valore < p, quindi ogni porzione contiene tutte quelle più piccole;
   * `flights_cleaned`: il dataset pulito completo (100%);
-  * `flights_x2`, `flights_x5`, `flights_x10`: **repliche controllate** per le dimensioni maggiori, cioè cartelle con 2, 5 e 10 copie identiche del dataset completo (fino a circa 2 GB). I conteggi si moltiplicano per il fattore di replica, medie e cause restano invariate.
+  * `flights_x2`, `flights_x5`: **repliche controllate** per le dimensioni maggiori, cioè cartelle con 2 e 5 copie identiche del dataset completo (fino a circa 1 GB). I conteggi si moltiplicano per il fattore di replica, medie e cause restano invariate.
 
 ---
 
@@ -216,7 +216,7 @@ pip install -r requirements.txt
 ```
 ### 2. Download, Preprocessing e Frazionamento del Dataset
 
-Esegui lo script Python per scaricare il file originale da Kaggle e, successivamente, l'orchestratore Bash che valida e ripulisce i dati (riepilogo in `results/qualita_dati.json`), genera le porzioni in **data/processed/** e crea su **HDFS** le cartelle dei dataset, comprese le repliche 2×, 5× e 10× (fattori modificabili con `REPLICAS="2 5" bash generate_data.sh local[*]`). Lo script carica anche le librerie di Spark in `/spark/jars` su HDFS, usate dai job su YARN al posto dell'upload a ogni esecuzione:
+Esegui lo script Python per scaricare il file originale da Kaggle e, successivamente, l'orchestratore Bash che valida e ripulisce i dati (riepilogo in `results/qualita_dati.json`), genera le porzioni in **data/processed/** e crea su **HDFS** le cartelle dei dataset, comprese le repliche 2× e 5× (fattori modificabili, es. `REPLICAS="2" bash generate_data.sh local[*]`). Lo script carica anche le librerie di Spark in `/spark/jars` su HDFS, usate dai job su YARN al posto dell'upload a ogni esecuzione:
 ```bash
 cd dataset/
 
@@ -336,7 +336,7 @@ for f in ~/target_data/*.csv; do
 done
 
 # 4. Repliche controllate: N copie del dataset completo nella stessa cartella
-for n in 2 5 10; do
+for n in 2 5; do
     hdfs dfs -mkdir -p /user/hadoop/data/flights_x$n
     for i in $(seq 1 $n); do
         hdfs dfs -cp /user/hadoop/data/flights_cleaned/flights_cleaned.csv /user/hadoop/data/flights_x$n/part-$i.csv

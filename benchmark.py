@@ -25,7 +25,7 @@ def main():
     parser.add_argument("master", type=str, choices=["local[*]", "yarn"], help="Master type execution environment")
     parser.add_argument("--fractions", type=str, default="0.01 0.2 0.5 0.7", help="Fractions of dataset to use")
     parser.add_argument("--aws", action="store_true", help="Execute using cloud scripts (run_aws.sh)")
-    parser.add_argument("--replicas", type=str, default="2 5 10", help="Repliche del dataset completo (es. \"2 5 10\", vuoto per nessuna)")
+    parser.add_argument("--replicas", type=str, default="2 5", help="Repliche del dataset completo (es. \"2 5\", vuoto per nessuna)")
     parser.add_argument("--repeat", type=int, default=1, help="Ripetizioni per ogni combinazione")
     args = parser.parse_args()
 

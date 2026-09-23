@@ -6,7 +6,7 @@ Ogni riga riceve una sola volta un numero casuale u in [0, 1) con seed fisso; la
 contiene le righe con u < p. Le porzioni sono quindi annidate (1% ⊂ 20% ⊂ 50% ⊂ 70% ⊂ 100%) e
 riproducibili: un dataset più grande contiene sempre tutti i voli di quelli più piccoli.
 
-Le dimensioni maggiori (repliche 2×, 5×, 10×) vengono create direttamente su HDFS da generate_data.sh.
+Le dimensioni maggiori (repliche 2× e 5×) vengono create direttamente su HDFS da generate_data.sh.
 """
 
 import argparse

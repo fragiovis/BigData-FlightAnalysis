@@ -38,8 +38,8 @@ def main():
     data_rdd = raw_rdd.filter(lambda line: line != header_line) # Filtra header
 
     # Le due pipeline leggono entrambe data_rdd, ma l'RDD NON viene messo in cache: con la memoria
-    # predefinita (1 GB) la cache dell'input più grande (replica 10x, 2 GB) esaurisce lo heap
-    # (OutOfMemoryError), mentre rileggere i dati da HDFS costa poco e scala con l'input
+    # predefinita (1 GB) la cache delle repliche più grandi rischia di esaurire lo heap,
+    # mentre rileggere i dati da HDFS costa poco e scala con l'input
 
     print("[JOB 2 CORE] Elaborazione Fase 1: Calcolo statistiche fasce di ritardo...")
     start_job = time.time()

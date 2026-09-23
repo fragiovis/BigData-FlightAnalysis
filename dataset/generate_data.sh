@@ -10,8 +10,8 @@ export ROOT_DIR=$(cd ../ && pwd)
 export SPARK_HOME=$HOME/spark-3.5.5-bin-hadoop3
 SPARK_CMD="$SPARK_HOME/bin/spark-submit"
 
-# Fattori di replica per le dimensioni maggiori (sovrascrivibili: REPLICAS="2 5" bash generate_data.sh local[*])
-REPLICAS=${REPLICAS:-"2 5 10"}
+# Fattori di replica per le dimensioni maggiori (sovrascrivibili: REPLICAS="2" bash generate_data.sh local[*])
+REPLICAS=${REPLICAS:-"2 5"}
 
 echo -e "[SH] ========================================================"
 echo -e "[SH] 1. AVVIO DEL PREPROCESSING (File Completo)"

@@ -49,7 +49,7 @@ ENVIRONMENTS = {
 AWS_EMR_CSV = RESULTS_DIR / "aws_emr" / "tempi_aws_emr.csv"
 
 DEFAULT_DATASETS = ["flights_1", "flights_20", "flights_50", "flights_70", "flights_cleaned",
-                    "flights_x2", "flights_x5", "flights_x10"]
+                    "flights_x2", "flights_x5"]
 
 
 def hdfs_base(env):

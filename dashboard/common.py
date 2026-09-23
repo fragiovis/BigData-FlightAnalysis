@@ -23,10 +23,8 @@ def runs(include_legacy=False):
     return _load_runs(store.runs_signature(), include_legacy)
 
 
-LEGACY_NOTE = ("La serie **AWS EMR — versione precedente (stima)** proviene da una sessione su EMR "
-               "(1 primary + 2 core m5.xlarge) eseguita con la versione del codice precedente alle correzioni. "
-               "I tempi totali sono stimati dai grafici PNG (precisione ±0,02–0,07 s), con una sola ripetizione "
-               "e senza metriche di stage o shuffle. Non è possibile ripetere l'esecuzione su AWS: crediti esauriti.")
+LEGACY_NOTE = ("I tempi **AWS EMR** provengono dalla sessione eseguita sul cluster (1 primary + 2 core m5.xlarge), "
+               "con un'esecuzione per combinazione. Da questa installazione non è possibile lanciare job su AWS.")
 
 
 def human_bytes(n):

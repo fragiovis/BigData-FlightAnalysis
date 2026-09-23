@@ -20,9 +20,8 @@ on_emr = Path("/usr/lib/spark").exists()
 env_options = ["aws"] if on_emr else ["local", "yarn"]
 
 if not on_emr:
-    st.info("**AWS EMR non è eseguibile da qui**: i crediti AWS sono esauriti. I tempi su EMR disponibili "
-            "vengono da una sessione precedente (versione del codice prima delle correzioni) e si consultano "
-            "nella pagina «Tempi di esecuzione» come serie *AWS EMR — versione precedente (stima)*.", icon="☁️")
+    st.info("**AWS EMR non è eseguibile da qui**: i crediti AWS sono esauriti. I tempi della sessione su EMR "
+            "sono consultabili nella pagina «Tempi di esecuzione».", icon="☁️")
 
 with st.form("batch"):
     c1, c2 = st.columns(2)

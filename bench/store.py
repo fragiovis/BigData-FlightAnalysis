@@ -10,12 +10,12 @@ from . import config
 
 
 def load_legacy():
-    """Esecuzioni su AWS EMR della versione precedente, ricostruite dai grafici (sola consultazione)."""
-    if not config.LEGACY_CSV.exists():
+    """Tempi della sessione su AWS EMR (results/aws_emr/): solo tempi totali, senza log né metriche."""
+    if not config.AWS_EMR_CSV.exists():
         return pd.DataFrame()
-    df = pd.read_csv(config.LEGACY_CSV)
-    df["run_id"] = "legacy-" + df["tool"] + "-" + df["job"] + "-" + df["dataset"]
-    df["batch_id"] = "legacy-aws-emr"
+    df = pd.read_csv(config.AWS_EMR_CSV)
+    df["run_id"] = "aws-emr-" + df["tool"] + "-" + df["job"] + "-" + df["dataset"]
+    df["batch_id"] = "aws-emr"
     df["timestamp"] = pd.NaT
     df["status"] = "ok"
     df["repetition"] = 1
@@ -26,7 +26,7 @@ def load_legacy():
 def load_runs(include_legacy=False):
     """Tutte le esecuzioni come DataFrame, dalla più recente.
 
-    include_legacy aggiunge i tempi AWS della versione precedente (senza log né metriche).
+    include_legacy aggiunge i tempi della sessione su AWS EMR (senza log né metriche).
     """
     records = []
     for path in config.RUNS_DIR.glob("*/record.json"):
@@ -53,8 +53,8 @@ def load_runs(include_legacy=False):
 def runs_signature():
     """Cambia quando si aggiunge un'esecuzione: serve a invalidare la cache di Streamlit."""
     paths = list(config.RUNS_DIR.glob("*/record.json"))
-    if config.LEGACY_CSV.exists():
-        paths.append(config.LEGACY_CSV)
+    if config.AWS_EMR_CSV.exists():
+        paths.append(config.AWS_EMR_CSV)
     return len(paths), max((p.stat().st_mtime for p in paths), default=0)
 
 

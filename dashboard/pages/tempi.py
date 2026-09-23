@@ -22,7 +22,7 @@ colors = tool_color_map()
 
 # --- Indicatori -------------------------------------------------------------------------------
 k = st.columns(5)
-k[0].metric("Esecuzioni", len(df), help="Comprese quelle AWS della versione precedente, se selezionate")
+k[0].metric("Esecuzioni", len(df), help="Comprese quelle della sessione su AWS EMR, se selezionate")
 k[1].metric("Fallite", int((df["status"] != "ok").sum()))
 k[2].metric("Tempo totale", f"{ok['wall_seconds'].sum() / 60:,.1f} min")
 k[3].metric("Dati elaborati", human_bytes(ok["input_bytes"].sum()))
@@ -61,7 +61,7 @@ st.caption("L'overhead comprende avvio della JVM, sottomissione a YARN, pulizia 
            "la copia del dataset nella cartella di staging e la compilazione delle query.")
 c1, c2 = st.columns(2)
 job_sel = c1.selectbox("Job", sorted(agg["job"].unique()), key="ovh_job")
-# Solo gli ambienti con il tempo di calcolo misurato (non la serie AWS ricostruita dai grafici)
+# Solo gli ambienti per cui è disponibile il tempo di calcolo
 envs_engine = sorted(agg.loc[agg["engine_mean"].notna(), "env"].unique()) or sorted(agg["env"].unique())
 env_sel = c2.selectbox("Ambiente", envs_engine, key="ovh_env",
                        format_func=lambda e: config.ENVIRONMENTS[e]["label"])

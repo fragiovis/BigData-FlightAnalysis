@@ -4,7 +4,7 @@ import plotly.express as px
 import streamlit as st
 
 from bench import config, store
-from common import runs, tool_color_map
+from common import LEGACY_NOTE, runs, tool_color_map
 
 st.title("✈️ Flight Analysis — Benchmark Big Data")
 st.write(
@@ -24,18 +24,18 @@ with c2:
     st.write("Per ogni aeroporto e mese: voli nelle fasce di ritardo in partenza (< 15, 15–60, > 60 minuti), "
              "ritardi medi in partenza e arrivo per fascia e le tre cause di ritardo o cancellazione più frequenti.")
 
-df = runs()
+df = runs(include_legacy=True)
 st.divider()
 if df.empty:
     st.info("Non ci sono ancora esecuzioni registrate. Parti dalla pagina «Esegui job».")
     st.stop()
 
-ok = df[df["status"] == "ok"]
+real = df[~df["legacy"]]
 k = st.columns(4)
-k[0].metric("Esecuzioni registrate", len(df))
-k[1].metric("Riuscite", f"{len(ok) / len(df):.0%}")
+k[0].metric("Esecuzioni registrate", len(real))
+k[1].metric("Riuscite", f"{(real['status'] == 'ok').mean():.0%}" if len(real) else "—")
 k[2].metric("Ambienti", ", ".join(config.ENVIRONMENTS[e]["label"] for e in sorted(df["env"].unique())))
-k[3].metric("Ultima esecuzione", f"{df['timestamp'].max():%d/%m %H:%M}")
+k[3].metric("Ultima esecuzione", f"{real['timestamp'].max():%d/%m %H:%M}" if len(real) else "—")
 
 agg = store.aggregate(df)
 if not agg.empty:
@@ -49,3 +49,5 @@ if not agg.empty:
     fig.update_layout(height=380, legend_title_text="")
     st.plotly_chart(fig, width="stretch")
     st.caption("Tutti i grafici, con filtri e tabelle, sono nella pagina «Tempi di esecuzione».")
+    if df["legacy"].any():
+        st.caption(LEGACY_NOTE)

@@ -5,14 +5,16 @@ import plotly.graph_objects as go
 import streamlit as st
 
 from bench import config, store
-from common import filter_runs, human_bytes, runs, tool_color_map
+from common import LEGACY_NOTE, filter_runs, human_bytes, runs, tool_color_map
 
 st.title("⏱️ Tempi di esecuzione")
 
-df = filter_runs(runs(), key="tempi")
+df = filter_runs(runs(include_legacy=True), key="tempi")
 if df.empty:
     st.info("Nessuna esecuzione registrata con questi filtri. Lancia dei job dalla pagina «Esegui job».")
     st.stop()
+if df["legacy"].any():
+    st.info(LEGACY_NOTE, icon="ℹ️")
 
 ok = df[df["status"] == "ok"]
 agg = store.aggregate(df)
@@ -20,7 +22,7 @@ colors = tool_color_map()
 
 # --- Indicatori -------------------------------------------------------------------------------
 k = st.columns(5)
-k[0].metric("Esecuzioni", len(df))
+k[0].metric("Esecuzioni", len(df), help="Comprese quelle AWS della versione precedente, se selezionate")
 k[1].metric("Fallite", int((df["status"] != "ok").sum()))
 k[2].metric("Tempo totale", f"{ok['wall_seconds'].sum() / 60:,.1f} min")
 k[3].metric("Dati elaborati", human_bytes(ok["input_bytes"].sum()))
@@ -59,7 +61,9 @@ st.caption("L'overhead comprende avvio della JVM, sottomissione a YARN, pulizia 
            "la copia del dataset nella cartella di staging e la compilazione delle query.")
 c1, c2 = st.columns(2)
 job_sel = c1.selectbox("Job", sorted(agg["job"].unique()), key="ovh_job")
-env_sel = c2.selectbox("Ambiente", sorted(agg["env"].unique()), key="ovh_env",
+# Solo gli ambienti con il tempo di calcolo misurato (non la serie AWS ricostruita dai grafici)
+envs_engine = sorted(agg.loc[agg["engine_mean"].notna(), "env"].unique()) or sorted(agg["env"].unique())
+env_sel = c2.selectbox("Ambiente", envs_engine, key="ovh_env",
                        format_func=lambda e: config.ENVIRONMENTS[e]["label"])
 sub = agg[(agg["job"] == job_sel) & (agg["env"] == env_sel)].copy()
 sub["x"] = sub["tool_label"] + " · " + sub["dataset_label"]
@@ -89,15 +93,17 @@ if agg["env"].nunique() > 1:
 st.subheader("Shuffle e I/O")
 st.caption("Spark: byte scritti nello shuffle (dall'event log). Hive: byte letti da HDFS da tutti i job MapReduce "
            "della query, che rileggono i dati a ogni stage.")
-io = ok.copy()
+io = ok[~ok["legacy"]].copy()
 io["byte_mb"] = io.apply(
-    lambda r: (r.get("shuffle_write_bytes") if r["tool"] != "hive" else r.get("hdfs_read_bytes")) or 0, axis=1
+    lambda r: r.get("shuffle_write_bytes") if r["tool"] != "hive" else r.get("hdfs_read_bytes"), axis=1
 ) / 2**20
-io["metrica"] = io["tool"].map(lambda t: "HDFS letti (Hive)" if t == "hive" else "Shuffle scritto (Spark)")
-io = io.groupby(["env", "tool_label", "job", "input_mb", "metrica"], as_index=False)["byte_mb"].mean()
-fig = px.line(io, x="input_mb", y="byte_mb", color="tool_label", facet_col="job", line_dash="metrica",
+io = io.dropna(subset=["byte_mb"])
+io["ambiente"] = io["env"].map(lambda e: config.ENVIRONMENTS[e]["label"])
+io = io.groupby(["ambiente", "tool_label", "job", "input_mb"], as_index=False)["byte_mb"].mean()
+fig = px.line(io, x="input_mb", y="byte_mb", color="tool_label", facet_col="job", line_dash="ambiente",
               markers=True, color_discrete_map=colors,
-              labels={"input_mb": "Dimensione input (MB)", "byte_mb": "MB", "tool_label": "Tecnologia"})
+              labels={"input_mb": "Dimensione input (MB)", "byte_mb": "MB", "tool_label": "Tecnologia",
+                      "ambiente": "Ambiente"})
 fig.update_layout(height=380, legend_title_text="")
 st.plotly_chart(fig, width="stretch")
 

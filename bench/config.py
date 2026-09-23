@@ -43,7 +43,12 @@ ENVIRONMENTS = {
     "local": {"label": "Locale (local[*])", "master": "local[*]", "script": "run.sh"},
     "yarn": {"label": "Pseudo-cluster YARN", "master": "yarn", "script": "run.sh"},
     "aws": {"label": "AWS EMR", "master": "yarn", "script": "run_aws.sh"},
+    # Solo consultazione: tempi della sessione su EMR con la versione precedente del codice,
+    # stimati dai grafici (results/legacy/). Non eseguibile: crediti AWS esauriti.
+    "aws_legacy": {"label": "AWS EMR — versione precedente (stima)", "master": None, "script": None},
 }
+
+LEGACY_CSV = RESULTS_DIR / "legacy" / "aws_emr_versione_precedente.csv"
 
 DEFAULT_DATASETS = ["flights_1", "flights_20", "flights_50", "flights_70", "flights_cleaned"]
 

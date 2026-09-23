@@ -9,18 +9,40 @@ import pandas as pd
 from . import config
 
 
-def load_runs():
-    """Tutte le esecuzioni come DataFrame, dalla più recente."""
+def load_legacy():
+    """Esecuzioni su AWS EMR della versione precedente, ricostruite dai grafici (sola consultazione)."""
+    if not config.LEGACY_CSV.exists():
+        return pd.DataFrame()
+    df = pd.read_csv(config.LEGACY_CSV)
+    df["run_id"] = "legacy-" + df["tool"] + "-" + df["job"] + "-" + df["dataset"]
+    df["batch_id"] = "legacy-aws-emr"
+    df["timestamp"] = pd.NaT
+    df["status"] = "ok"
+    df["repetition"] = 1
+    df["legacy"] = True
+    return df
+
+
+def load_runs(include_legacy=False):
+    """Tutte le esecuzioni come DataFrame, dalla più recente.
+
+    include_legacy aggiunge i tempi AWS della versione precedente (senza log né metriche).
+    """
     records = []
     for path in config.RUNS_DIR.glob("*/record.json"):
         try:
             records.append(json.loads(path.read_text()))
         except (OSError, json.JSONDecodeError):
             continue
-    if not records:
+
+    frames = [pd.DataFrame(records).assign(legacy=False)] if records else []
+    if include_legacy:
+        frames.append(load_legacy())
+    frames = [f for f in frames if not f.empty]
+    if not frames:
         return pd.DataFrame()
 
-    df = pd.DataFrame(records)
+    df = pd.concat(frames, ignore_index=True)
     df["timestamp"] = pd.to_datetime(df["timestamp"])
     df["tool_label"] = df["tool"].map(config.TOOL_LABELS)
     df["dataset_label"] = df["dataset"].map(config.dataset_label)
@@ -31,6 +53,8 @@ def load_runs():
 def runs_signature():
     """Cambia quando si aggiunge un'esecuzione: serve a invalidare la cache di Streamlit."""
     paths = list(config.RUNS_DIR.glob("*/record.json"))
+    if config.LEGACY_CSV.exists():
+        paths.append(config.LEGACY_CSV)
     return len(paths), max((p.stat().st_mtime for p in paths), default=0)
 
 

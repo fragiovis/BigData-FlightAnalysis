@@ -37,9 +37,8 @@ def main():
 
     data_rdd = raw_rdd.filter(lambda line: line != header_line) # Filtra header
 
-    # Le due pipeline leggono entrambe data_rdd, ma l'RDD NON viene messo in cache: con la memoria
-    # predefinita (1 GB) la cache delle repliche più grandi rischia di esaurire lo heap,
-    # mentre rileggere i dati da HDFS costa poco e scala con l'input
+    # Cache del dataset di dati pulito perché verrà letto da due pipeline diverse
+    data_rdd.cache()
 
     print("[JOB 2 CORE] Elaborazione Fase 1: Calcolo statistiche fasce di ritardo...")
     start_job = time.time()
@@ -167,6 +166,7 @@ def main():
         .map(lambda x: x[1]) \
         .saveAsTextFile(args.output)
 
+    data_rdd.unpersist()
     spark.stop()
 
 if __name__ == "__main__":

@@ -20,6 +20,7 @@ st.set_page_config(page_title="Flight Analysis — Benchmark", page_icon="✈️
 pages = st.navigation({
     "Progetto": [
         st.Page("pages/panoramica.py", title="Panoramica", icon="🏠", default=True),
+        st.Page("pages/dataset.py", title="Dataset e qualità", icon="🧹"),
     ],
     "Esecuzione": [
         st.Page("pages/esegui.py", title="Esegui job", icon="▶️"),

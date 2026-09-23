@@ -1,0 +1,111 @@
+{
+ "generato": "2026-09-23T20:37:03",
+ "sorgente": "data/raw/flight_data_2024.csv",
+ "colonne_iniziali": 35,
+ "colonne_finali": [
+  "month",
+  "op_unique_carrier",
+  "origin",
+  "dest",
+  "dep_delay",
+  "arr_delay",
+  "cancelled",
+  "cancellation_code",
+  "delay_code"
+ ],
+ "righe_iniziali": 7079081,
+ "righe_finali": 7061582,
+ "passi": [
+  {
+   "id": "dirottato",
+   "tipo": "esclusione",
+   "descrizione": "Volo dirottato: atterra in un aeroporto diverso da quello previsto, quindi ritardo in arrivo e cancellazione non sono confrontabili con gli altri voli",
+   "righe": 17499
+  },
+  {
+   "id": "campi_chiave_mancanti",
+   "tipo": "esclusione",
+   "descrizione": "Compagnia, aeroporto di partenza o di arrivo, mese o flag di cancellazione mancanti",
+   "righe": 0
+  },
+  {
+   "id": "mese_non_valido",
+   "tipo": "esclusione",
+   "descrizione": "Mese fuori dall'intervallo 1–12",
+   "righe": 0
+  },
+  {
+   "id": "codice_aeroporto_non_valido",
+   "tipo": "esclusione",
+   "descrizione": "Codice aeroporto diverso da tre lettere maiuscole (IATA)",
+   "righe": 0
+  },
+  {
+   "id": "cancellazione_incoerente",
+   "tipo": "esclusione",
+   "descrizione": "Flag di cancellazione diverso da 0/1, oppure incoerente con la presenza del codice di cancellazione",
+   "righe": 0
+  },
+  {
+   "id": "ritardi_mancanti",
+   "tipo": "esclusione",
+   "descrizione": "Volo non cancellato senza ritardo in partenza o in arrivo",
+   "righe": 0
+  },
+  {
+   "id": "cause_incoerenti",
+   "tipo": "esclusione",
+   "descrizione": "Minuti attribuiti alle cause di ritardo la cui somma differisce dal ritardo in arrivo di oltre 1 minuto",
+   "righe": 0
+  },
+  {
+   "id": "duplicati",
+   "tipo": "esclusione",
+   "descrizione": "Stesso volo ripetuto (data, compagnia, numero di volo, tratta e orario programmato)",
+   "righe": 0
+  },
+  {
+   "id": "ritardo_cancellati",
+   "tipo": "trasformazione",
+   "descrizione": "Voli cancellati con un ritardo registrato (hanno lasciato il gate prima della cancellazione): ritardi azzerati, così non entrano nelle fasce di ritardo",
+   "righe": 3345
+  },
+  {
+   "id": "causa_prevalente",
+   "tipo": "trasformazione",
+   "descrizione": "Voli con minuti attribuiti alle cause di ritardo: delay_code = causa con più minuti",
+   "righe": 1449970
+  }
+ ],
+ "valori_mancanti": {
+  "month": 0,
+  "op_unique_carrier": 0,
+  "origin": 0,
+  "dest": 0,
+  "dep_delay": 96315,
+  "arr_delay": 96315,
+  "cancelled": 0,
+  "cancellation_code": 6965267,
+  "delay_code": 5611612
+ },
+ "statistiche": {
+  "cancellati": 96315,
+  "ritardo_partenza_oltre_24h": 556,
+  "ritardo_arrivo_oltre_24h": 567,
+  "dep_delay_min": -96.0,
+  "dep_delay_max": 3777.0,
+  "arr_delay_min": -126.0,
+  "arr_delay_max": 3803.0,
+  "compagnie": 15,
+  "aeroporti_partenza": 348,
+  "aeroporti_sotto_soglia": 3,
+  "voli_aeroporti_sotto_soglia": 99,
+  "soglia_aeroporti_voli": 50
+ },
+ "scelte": [
+  "I ritardi superiori a 24 ore vengono mantenuti: sono voli riprogrammati reali e la traccia chiede il ritardo massimo.",
+  "Gli aeroporti con meno di 50 voli nell'anno vengono mantenuti: non alterano le statistiche per compagnia o per mese.",
+  "Per ogni volo si conta una sola causa di ritardo, quella con più minuti attribuiti.",
+  "I voli cancellati non hanno ritardo: contano nel tasso di cancellazione e nelle cause (tramite il codice di cancellazione), non nelle fasce di ritardo né nelle medie."
+ ]
+}

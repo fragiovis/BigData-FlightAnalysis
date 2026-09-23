@@ -13,7 +13,7 @@ SPARK_CMD="$SPARK_HOME/bin/spark-submit"
 echo -e "[SH] ========================================================"
 echo -e "[SH] 1. AVVIO DEL PREPROCESSING (File Completo)"
 echo -e "[SH] ========================================================"
-$SPARK_CMD --master "local[*]" preprocessing.py
+$SPARK_CMD --master "local[*]" --driver-memory 2g preprocessing.py
 
 if [ $? -ne 0 ]; then
     echo "[ERRORE] Il preprocessing è fallito. Interrompo la pipeline."

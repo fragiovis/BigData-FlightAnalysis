@@ -37,16 +37,17 @@ def yarn_nodes(env="local"):
 
 
 def hdfs_datasets(env="local"):
-    rc, out = _run(["hdfs", "dfs", "-ls", f"{config.hdfs_base(env)}/data/"], env)
+    """Dataset su HDFS: una cartella per dataset in <base>/data/ (le repliche contengono più file)."""
+    rc, out = _run(["hdfs", "dfs", "-du", f"{config.hdfs_base(env)}/data/"], env)
     rows = []
     for line in out.splitlines():
         parts = line.split()
-        if len(parts) >= 8 and parts[-1].endswith(".csv"):
-            name = Path(parts[-1]).stem
+        if len(parts) >= 3 and parts[0].isdigit() and "/data/" in parts[-1]:
+            name = Path(parts[-1]).name
             rows.append({
                 "dataset": name,
                 "dimensione": config.dataset_label(name),
-                "MB": round(int(parts[4]) / 2**20, 1),
+                "MB": round(int(parts[0]) / 2**20, 1),
                 "percorso": parts[-1],
             })
     return sorted(rows, key=lambda r: config.dataset_percent(r["dataset"]) or 0)

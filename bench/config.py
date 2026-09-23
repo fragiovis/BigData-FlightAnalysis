@@ -48,7 +48,8 @@ ENVIRONMENTS = {
 # Tempi della sessione su AWS EMR (1 primary + 2 core m5.xlarge), mostrati nella dashboard
 AWS_EMR_CSV = RESULTS_DIR / "aws_emr" / "tempi_aws_emr.csv"
 
-DEFAULT_DATASETS = ["flights_1", "flights_20", "flights_50", "flights_70", "flights_cleaned"]
+DEFAULT_DATASETS = ["flights_1", "flights_20", "flights_50", "flights_70", "flights_cleaned",
+                    "flights_x2", "flights_x5", "flights_x10"]
 
 
 def hdfs_base(env):

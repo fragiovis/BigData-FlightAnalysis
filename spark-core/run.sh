@@ -15,11 +15,19 @@ fi
 export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
 export SPARK_HOME=$HOME/spark-3.5.5-bin-hadoop3
 
+# Su YARN le librerie di Spark vengono lette da HDFS (caricate una volta da generate_data.sh)
+# invece di essere ricaricate a ogni esecuzione: niente upload di ~320 MB per job
+YARN_OPTS=""
+if [ "$3" == "yarn" ]; then
+    YARN_OPTS="--conf spark.yarn.jars=hdfs://localhost:9000/spark/jars/*.jar"
+fi
+
 # Rimuove la cartella di output precedente su HDFS se già esistente per evitare conflitti
 hdfs dfs -rm -r -f /user/$USER/spark-core/$1
 
+# Ogni dataset è una cartella su HDFS (le repliche contengono più copie del file)
 $SPARK_HOME/bin/spark-submit \
-    --master $3 $SPARK_SUBMIT_EXTRA \
+    --master $3 $YARN_OPTS $SPARK_SUBMIT_EXTRA \
     $1.py \
-    -input hdfs://localhost:9000/user/$USER/data/$2.csv \
+    -input hdfs://localhost:9000/user/$USER/data/$2 \
     -output hdfs://localhost:9000/user/$USER/spark-core/$1

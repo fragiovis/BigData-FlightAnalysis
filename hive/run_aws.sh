@@ -12,13 +12,10 @@ DATASET_TAG=$2
 
 # Nel Cloud l'utente è rigidamente hadoop e i percorsi sono nativi senza porte
 HDFS_BASE="/user/hadoop"
-STAGING_PATH="$HDFS_BASE/hive_staging/$SCRIPT_NAME"
+# La tabella esterna punta direttamente alla cartella del dataset (nessuna copia in staging)
+INPUT_PATH="$HDFS_BASE/data/$DATASET_TAG"
 OUTPUT_PATH="$HDFS_BASE/hive/$SCRIPT_NAME"
 
-echo "[HIVE AWS] Isolamento del dataset su HDFS per la Tabella Esterna..."
-hdfs dfs -mkdir -p "$STAGING_PATH"
-hdfs dfs -rm -f "$STAGING_PATH/*" 2>/dev/null
-hdfs dfs -cp "$HDFS_BASE/data/$DATASET_TAG.csv" "$STAGING_PATH/"
 hdfs dfs -rm -r -f "$OUTPUT_PATH" 2>/dev/null
 
 echo "[HIVE AWS] Pre-compilazione del file SQL (Sostituzione variabili in Bash)..."
@@ -27,8 +24,8 @@ echo "[HIVE AWS] Pre-compilazione del file SQL (Sostituzione variabili in Bash).
 echo "SET hive.variable.substitute=true;" > "temp_aws_$SCRIPT_NAME.hql"
 echo "SET mapreduce.framework.name=yarn;" >> "temp_aws_$SCRIPT_NAME.hql"
 
-# Accodiamo la query originale sostituendo i tag di Staging e Output
-sed -e "s|\${staging_path}|$STAGING_PATH|g" \
+# Accodiamo la query originale sostituendo i percorsi di input e output
+sed -e "s|\${input_path}|$INPUT_PATH|g" \
     -e "s|\${output_path}|$OUTPUT_PATH|g" \
     "$SCRIPT_NAME.hql" >> "temp_aws_$SCRIPT_NAME.hql"
 
@@ -43,8 +40,7 @@ if [ $BEELINE_RC -eq 0 ]; then
 fi
 
 # Pulizia finale dei file temporanei
-echo "[HIVE AWS] Pulizia dello staging e dei file temporanei..."
-hdfs dfs -rm -r -f "$STAGING_PATH" 2>/dev/null
+echo "[HIVE AWS] Pulizia dei file temporanei..."
 rm -f "temp_aws_$SCRIPT_NAME.hql"
 
 exit $BEELINE_RC

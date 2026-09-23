@@ -16,5 +16,5 @@ hdfs dfs -rm -r -f $HDFS_BASE/spark-sql/$1
 spark-submit \
     --master $3 $SPARK_SUBMIT_EXTRA \
     $1.py \
-    -input $HDFS_BASE/data/$2.csv \
+    -input $HDFS_BASE/data/$2 \
     -output $HDFS_BASE/spark-sql/$1

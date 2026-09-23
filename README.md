@@ -21,12 +21,10 @@ Il benchmark si basa sul popolare dataset pubblico **"Flight Delay Dataset — 2
 * **Dataset Shape (Matrice dei Dati):**
   * **Numero di Righe (Record):** ~7 milioni di righe nella versione completa (`flights_cleaned.csv`).
   * **Numero di Colonne (Attributi):** 9 features selezionate per l'analisi (`month`, `op_unique_carrier`, `origin`, `dest`, `dep_delay`, `arr_delay`, `cancelled`, `cancellation_code`, `delay_code`).
-* **Frazionamento per il Benchmark:** Per valutare la scalabilità in modo analitico, il dataset originale è stato campionato in 5 frazioni progressive caricate su HDFS:
-  * `flights_1.csv` (1% del dataset)
-  * `flights_20.csv` (20% del dataset)
-  * `flights_50.csv` (50% del dataset)
-  * `flights_70.csv` (70% del dataset)
-  * `flights_cleaned.csv` (100% del dataset)
+* **Dimensioni per il Benchmark:** per valutare la scalabilità, su HDFS ogni dataset è una cartella `/user/<utente>/data/<dataset>/`:
+  * `flights_1`, `flights_20`, `flights_50`, `flights_70`: porzioni del dataset pulito (1%, 20%, 50%, 70%). Sono **annidate e riproducibili**: ogni riga riceve un numero casuale con seed fisso e la porzione del p% contiene le righe con valore < p, quindi ogni porzione contiene tutte quelle più piccole;
+  * `flights_cleaned`: il dataset pulito completo (100%);
+  * `flights_x2`, `flights_x5`, `flights_x10`: **repliche controllate** per le dimensioni maggiori, cioè cartelle con 2, 5 e 10 copie identiche del dataset completo (fino a circa 2 GB). I conteggi si moltiplicano per il fattore di replica, medie e cause restano invariate.
 
 ---
 
@@ -218,7 +216,7 @@ pip install -r requirements.txt
 ```
 ### 2. Download, Preprocessing e Frazionamento del Dataset
 
-Esegui lo script Python per scaricare il file originale da Kaggle e, successivamente, l'orchestratore Bash per ripulire i dati, generare le frazioni (1%, 20%, 50%, 70%, 100%) e caricarle automaticamente sia in locale (**data/processed/**) che su **HDFS**:
+Esegui lo script Python per scaricare il file originale da Kaggle e, successivamente, l'orchestratore Bash che valida e ripulisce i dati (riepilogo in `results/qualita_dati.json`), genera le porzioni in **data/processed/** e crea su **HDFS** le cartelle dei dataset, comprese le repliche 2×, 5× e 10× (fattori modificabili con `REPLICAS="2 5" bash generate_data.sh local[*]`). Lo script carica anche le librerie di Spark in `/spark/jars` su HDFS, usate dai job su YARN al posto dell'upload a ogni esecuzione:
 ```bash
 cd dataset/
 
@@ -231,9 +229,9 @@ bash generate_data.sh local[*]
 
 ### 3. Verifica dei File su HDFS
 
-Per assicurarti che tutte le porzioni di dataset siano state caricate correttamente nello storage distribuito, lancia il comando di controllo:
+Per assicurarti che tutti i dataset siano stati caricati correttamente nello storage distribuito, lancia il comando di controllo:
 ```bash
-hdfs dfs -ls -h /user/hadoop/data/
+hdfs dfs -du -h /user/$USER/data/
 ```
 
 ## 🚀 Esecuzione della Pipeline (HOST)
@@ -330,19 +328,28 @@ mkdir -p ~/target_data
 # 2. Scarica i file CSV da S3 alla cartella locale (Sostituisci il nome reale del tuo bucket)
 aws s3 cp s3://IL-NOME-REALE-DEL-TUO-BUCKET/data/ ~/target_data/ --recursive --exclude "*" --include "*.csv"
 
-# 3. Crea la directory di destinazione dentro HDFS
-hdfs dfs -mkdir -p /user/hadoop/data/
+# 3. Crea una cartella HDFS per ogni dataset e caricaci il CSV corrispondente
+for f in ~/target_data/*.csv; do
+    name=$(basename "$f" .csv)
+    hdfs dfs -mkdir -p /user/hadoop/data/$name
+    hdfs dfs -put "$f" /user/hadoop/data/$name/
+done
 
-# 4. Sposta i CSV dentro HDFS
-hdfs dfs -put ~/target_data/*.csv /user/hadoop/data/
+# 4. Repliche controllate: N copie del dataset completo nella stessa cartella
+for n in 2 5 10; do
+    hdfs dfs -mkdir -p /user/hadoop/data/flights_x$n
+    for i in $(seq 1 $n); do
+        hdfs dfs -cp /user/hadoop/data/flights_cleaned/flights_cleaned.csv /user/hadoop/data/flights_x$n/part-$i.csv
+    done
+done
 
 # 5. Pulisci la cartella temporanea locale per liberare spazio
 rm -rf ~/target_data
 ```
 
-Per accertarti che le porzioni di dataset siano state agganciate dal cluster Cloud, lancia il comando di controllo:
+Per accertarti che i dataset siano stati agganciati dal cluster Cloud, lancia il comando di controllo:
 ```bash
-hdfs dfs -ls -h /user/hadoop/data/
+hdfs dfs -du -h /user/hadoop/data/
 ```
 
 ### 5. Configurazione Ambiente e Clonazione Progetto

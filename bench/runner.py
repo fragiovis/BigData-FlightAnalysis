@@ -47,7 +47,7 @@ def hdfs(env, *args):
 
 
 def input_size(env, dataset):
-    out = hdfs(env, "-du", "-s", f"{config.hdfs_base(env)}/data/{dataset}.csv").stdout.split()
+    out = hdfs(env, "-du", "-s", f"{config.hdfs_base(env)}/data/{dataset}").stdout.split()
     return int(out[0]) if out else None
 
 

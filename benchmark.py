@@ -25,11 +25,13 @@ def main():
     parser.add_argument("master", type=str, choices=["local[*]", "yarn"], help="Master type execution environment")
     parser.add_argument("--fractions", type=str, default="0.01 0.2 0.5 0.7", help="Fractions of dataset to use")
     parser.add_argument("--aws", action="store_true", help="Execute using cloud scripts (run_aws.sh)")
+    parser.add_argument("--replicas", type=str, default="2 5 10", help="Repliche del dataset completo (es. \"2 5 10\", vuoto per nessuna)")
     parser.add_argument("--repeat", type=int, default=1, help="Ripetizioni per ogni combinazione")
     args = parser.parse_args()
 
     env = "aws" if args.aws else ("local" if "local" in args.master else "yarn")
-    datasets = [f"flights_{int(float(x) * 100)}" for x in args.fractions.split()] + ["flights_cleaned"]
+    datasets = ([f"flights_{int(float(x) * 100)}" for x in args.fractions.split()] + ["flights_cleaned"]
+                + [f"flights_x{n}" for n in args.replicas.split()])
     batch_id = f"batch-{datetime.now():%Y%m%d-%H%M%S}-{env}"
 
     records = []
@@ -62,7 +64,7 @@ def plot(df, job, env, datasets):
                      label=config.TOOL_LABELS[tool], color=config.TOOL_COLORS[tool])
 
     plt.xticks(range(len(datasets)), [config.dataset_label(d) for d in datasets])
-    plt.xlabel("Dimensione Dataset (% su scala reale)", fontsize=11, fontweight="bold")
+    plt.xlabel("Dimensione Dataset (% del dataset completo, poi repliche)", fontsize=11, fontweight="bold")
     plt.ylabel("Tempo di esecuzione (Secondi)", fontsize=11, fontweight="bold")
     plt.title(f"Benchmark Execution Time ({env.upper()} Mode) - {job.upper()}", fontsize=13, fontweight="bold", pad=15)
     plt.grid(True, linestyle="--", alpha=0.5)

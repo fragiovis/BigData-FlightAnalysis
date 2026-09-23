@@ -1,4 +1,4 @@
--- 1. Pulizia e Creazione della Tabella Esterna mappata sulla cartella di staging HDFS
+-- 1. Pulizia e Creazione della Tabella Esterna mappata sulla cartella HDFS del dataset
 DROP TABLE IF EXISTS flights_input;
 
 CREATE EXTERNAL TABLE flights_input (
@@ -15,7 +15,7 @@ CREATE EXTERNAL TABLE flights_input (
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','
 STORED AS TEXTFILE
-LOCATION '${staging_path}'
+LOCATION '${input_path}'
 TBLPROPERTIES ("skip.header.line.count"="1");
 
 -- 2. Elaborazione immediata e scrittura dei risultati direttamente nella directory HDFS di output

@@ -114,14 +114,11 @@ else
 fi
 
 # 2. DEFINIZIONE DEI PERCORSI SU HDFS
-INPUT_HDFS_FILE="/user/$USER/data/$2.csv"
-STAGING_PATH="/user/$USER/hive_staging/$1"
+# Ogni dataset è già una cartella dedicata su HDFS: la tabella esterna punta direttamente lì,
+# senza copiare i dati in una cartella di staging
+INPUT_PATH="/user/$USER/data/$2"
 OUTPUT_PATH="/user/$USER/hive/$1"
 
-echo "[HIVE] Isolamento del dataset su HDFS per la Tabella Esterna..."
-hdfs dfs -mkdir -p "$STAGING_PATH"
-hdfs dfs -rm -f "$STAGING_PATH/*" 2>/dev/null
-hdfs dfs -cp "$INPUT_HDFS_FILE" "$STAGING_PATH/"
 hdfs dfs -rm -r -f "$OUTPUT_PATH" 2>/dev/null
 
 echo "[HIVE] Pre-compilazione del file SQL (Sostituzione variabili in Bash)..."
@@ -137,8 +134,8 @@ if [ "$FRAMEWORK" == "local" ]; then
     echo "SET hive.exec.scratchdir=/tmp/hive/scratch;" >> "temp_$1.hql"
 fi
 
-# Accodiamo la query originale sostituendo i tag di Staging e Output
-sed -e "s|\${staging_path}|$STAGING_PATH|g" \
+# Accodiamo la query originale sostituendo i percorsi di input e output
+sed -e "s|\${input_path}|$INPUT_PATH|g" \
     -e "s|\${output_path}|$OUTPUT_PATH|g" \
     "$1.hql" >> "temp_$1.hql"
 
@@ -162,7 +159,6 @@ if [ -f "${REAL_MAPRED_SITE}.bak" ]; then
 fi
 cp $HADOOP_HOME/etc/hadoop/*.xml $HIVE_HOME/conf/ 2>/dev/null
 
-hdfs dfs -rm -r -f "$STAGING_PATH" 2>/dev/null
 rm -f "temp_$1.hql"
 
 exit $BEELINE_RC

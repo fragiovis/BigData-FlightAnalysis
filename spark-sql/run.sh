@@ -29,7 +29,7 @@ fi
 
 # Lancio di Spark con l'host esplicito
 $SPARK_CMD \
-    --master $3 \
+    --master $3 $SPARK_SUBMIT_EXTRA \
     $1.py \
     -input hdfs://localhost:9000/user/$USER/data/$2.csv \
     -output hdfs://localhost:9000/user/$USER/spark-sql/$1

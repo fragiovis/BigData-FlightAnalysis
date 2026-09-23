@@ -25,3 +25,6 @@ __pycache__/
 # Escludi i metadati locali di Hive
 **/metastore_db/
 **/derby.log
+# Risultati del benchmark: si versionano record, log e anteprime, non gli event log grezzi di Spark
+results/runs/*/spark-events/
+results/.runner.lock

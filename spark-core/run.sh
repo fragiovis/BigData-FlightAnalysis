@@ -19,7 +19,7 @@ export SPARK_HOME=$HOME/spark-3.5.5-bin-hadoop3
 hdfs dfs -rm -r -f /user/$USER/spark-core/$1
 
 $SPARK_HOME/bin/spark-submit \
-    --master $3 \
+    --master $3 $SPARK_SUBMIT_EXTRA \
     $1.py \
     -input hdfs://localhost:9000/user/$USER/data/$2.csv \
     -output hdfs://localhost:9000/user/$USER/spark-core/$1

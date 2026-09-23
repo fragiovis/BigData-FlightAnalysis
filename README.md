@@ -262,10 +262,34 @@ A seconda dell'architettura che desideri testare, esegui uno dei seguenti comand
 
 ### 2. Output dei Test e Reportistica Grafica (logs/)
 
-Al termine della suite di esperimenti, il motore Python integrato (benchmark.py) raccoglie i tempi di risposta (espressi in secondi) di ciascun framework e genera automaticamente i report all'interno della directory logs/ (suddivisi nelle sottocartelle logs/local/ o logs/yarn/ in base alla modalità scelta).
-All'interno della rispettiva cartella troverai:
-* File di Log Testuali: I log dettagliati con i tempi esatti di computazione registrati per ogni singolo Job su ogni frazione di dataset.
-* Grafici Comparativi PNG: Immagini autogenerate tramite Matplotlib che mostrano le metriche di esecuzione. I grafici mettono in relazione i tempi di calcolo (sull'asse Y) delle tre tecnologie utilizzate (Spark Core, Spark SQL, Hive) al variare della dimensione del dataset (1%, 20%, 50%, 70%, 100% sull'asse X), permettendo di valutare analiticamente la scalabilità delle diverse tecnologie.
+Ogni esecuzione viene salvata in `results/runs/<run_id>/`:
+* `record.json`: tempo totale, tempo di calcolo, overhead, dimensione dell'input, righe prodotte e metriche del motore (stage, task e shuffle per Spark; job MapReduce e letture/scritture HDFS per Hive);
+* `stages.json`: dettaglio di ogni stage Spark (dall'event log) o job MapReduce di Hive;
+* `log.txt` e `preview.csv`: log completo e prime 10 righe dell'output.
+
+Al termine, `benchmark.py` genera anche il grafico `logs/<ambiente>/benchmark_<job>.png` (media delle ripetizioni, con deviazione standard). Con `--repeat N` ogni combinazione viene eseguita N volte.
+
+Per verificare che le tre tecnologie producano gli stessi risultati:
+```bash
+python3 verify_outputs.py job_1
+python3 verify_outputs.py job_2
+```
+
+### 3. Dashboard Streamlit
+
+La dashboard permette di lanciare i job, seguirne il log in tempo reale ed esplorare tempi e risultati:
+```bash
+source env/bin/activate
+streamlit run dashboard/app.py
+```
+Si apre su http://localhost:8501 con le pagine:
+* **Esegui job**: scelta di ambiente, tecnologie, job, dataset e ripetizioni; i job girano in background (si può cambiare pagina) e al termine viene verificata la coerenza degli output;
+* **Cluster e dati**: stato dei demoni Hadoop, avvio e arresto di HDFS/YARN, nodi YARN e dataset su HDFS;
+* **Tempi di esecuzione**: scalabilità al crescere dell'input, calcolo contro overhead, confronto tra ambienti, shuffle e I/O, tabelle scaricabili in CSV;
+* **Dettaglio esecuzione**: timeline degli stage, metriche, prime 10 righe e log di ogni singola esecuzione;
+* **Risultati dei job**: esplorazione degli output (compagnie, aeroporti, fasce di ritardo, cause).
+
+La dashboard deve girare sulla macchina che ospita il cluster. Su AWS EMR si avvia sul Master Node e si raggiunge con un tunnel SSH (`ssh -i chiave.pem -L 8501:localhost:8501 hadoop@IP-MASTER`). Per portare in locale i risultati del cloud basta copiare le cartelle `results/runs/*` dal master.
 
 ## ☁️ Esecuzione della Pipeline su Cloud (AWS - Cluster EMR)
 

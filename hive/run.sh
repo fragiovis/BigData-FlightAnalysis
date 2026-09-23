@@ -42,6 +42,15 @@ REAL_MAPRED_SITE="$HADOOP_HOME/etc/hadoop/mapred-site.xml"
 # Crea backup di sicurezza
 cp "$REAL_MAPRED_SITE" "${REAL_MAPRED_SITE}.bak"
 
+# Ripristina la configurazione originale anche se lo script viene interrotto
+restore_mapred_site() {
+    if [ -f "${REAL_MAPRED_SITE}.bak" ]; then
+        mv "${REAL_MAPRED_SITE}.bak" "$REAL_MAPRED_SITE"
+    fi
+}
+trap restore_mapred_site EXIT
+trap 'exit 143' TERM INT
+
 # Esportiamo le variabili nell'ambiente per passarle a Python senza problemi di escaping di caratteri speciali (* o :)
 export JVM_FLAGS_ENV="$JVM_FLAGS_ONELINE"
 export HADOOP_CP_ENV=$($HADOOP_HOME/bin/hadoop classpath)

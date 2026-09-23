@@ -1,0 +1,14 @@
+Deleted /user/hadoop/spark-core/job_2
+[JOB 2 CORE] Caricamento del dataset da HDFS: /user/hadoop/data/flights_cleaned.csv
+[JOB 2 CORE] Elaborazione Fase 1: Calcolo statistiche fasce di ritardo...
+[JOB 2 CORE] Elaborazione Fase 2: Calcolo classifica TOP 3 cause...
+[JOB 2 CORE] FUSIONE delle pipeline tramite Left Outer Join...
+
+--- ANTEPRIMA RISULTATI SPARK CORE JOB 2 (TOP 5) ---
+('ABE', 1, 275, -5.51, -14.56, 30, 34.9, 32.5, 30, 241.3, 234.03, 'L,N,C')
+('ABE', 2, 296, -6.62, -19.57, 19, 28.53, 10.11, 14, 227.93, 217.93, 'C,N,L')
+('ABE', 3, 339, -6.19, -18.37, 28, 30.68, 19.89, 23, 173.43, 163.39, 'N,L,C')
+('ABE', 4, 303, -6.45, -17.3, 29, 33.45, 27.66, 29, 258.66, 250.38, 'C,L,N')
+('ABE', 5, 320, -6.4, -12.5, 26, 30.08, 29.58, 39, 183.13, 177.13, 'L,N,C')
+[JOB 2 CORE] Calcolo completato in 24.72 secondi.
+[JOB 2 CORE] Salvataggio dei risultati in HDFS: /user/hadoop/spark-core/job_2

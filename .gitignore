@@ -1,0 +1,26 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.pyc
+*.pyo
+*.pyd
+.env
+.env.*
+.idea/
+.vscode/
+.DS_Store
+
+# Data directories
+/data/raw/*
+!/data/raw/.gitkeep
+/data/interim/*
+!/data/interim/.gitkeep
+/data/processed/*
+!/data/processed/.gitkeep
+/data/external/*
+!/data/external/.gitkeep
+
+# Escludi i metadati locali di Hive
+**/metastore_db/
+**/derby.log

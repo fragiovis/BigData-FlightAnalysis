@@ -1,0 +1,20 @@
+[JOB 2] Caricamento del dataset da HDFS: /user/hadoop/data/flights_1.csv
+[JOB 2] Esecuzione della query SQL complessa in corso...
++---------+----+------------------+-----------------------+-----------------------+------------------+-----------------------+-----------------------+-----------------+----------------------+----------------------+------------------------+
+|aeroporto|mese|voli_ritardo_basso|ritardo_medio_dep_basso|ritardo_medio_arr_basso|voli_ritardo_medio|ritardo_medio_dep_medio|ritardo_medio_arr_medio|voli_ritardo_alto|ritardo_medio_dep_alto|ritardo_medio_arr_alto|top_3_cause_ritardo_canc|
++---------+----+------------------+-----------------------+-----------------------+------------------+-----------------------+-----------------------+-----------------+----------------------+----------------------+------------------------+
+|ABE      |1   |2                 |-10.0                  |-13.0                  |0                 |null                   |null                   |0                |null                  |null                  |N/D                     |
+|ABE      |2   |3                 |-8.67                  |-16.67                 |0                 |null                   |null                   |0                |null                  |null                  |N/D                     |
+|ABE      |3   |4                 |-0.25                  |-14.75                 |0                 |null                   |null                   |0                |null                  |null                  |N/D                     |
+|ABE      |4   |5                 |-12.0                  |-23.2                  |0                 |null                   |null                   |1                |459.0                 |438.0                 |C                       |
+|ABE      |5   |2                 |-0.5                   |-9.5                   |0                 |null                   |null                   |0                |null                  |null                  |B                       |
+|ABE      |6   |5                 |-11.4                  |-21.0                  |1                 |16.0                   |9.0                    |0                |null                  |null                  |N/D                     |
+|ABE      |7   |4                 |-12.25                 |-17.0                  |1                 |24.0                   |10.0                   |0                |null                  |null                  |N/D                     |
+|ABE      |8   |1                 |-5.0                   |-10.0                  |1                 |49.0                   |38.0                   |1                |127.0                 |155.0                 |L,C                     |
+|ABE      |9   |2                 |-6.0                   |-15.0                  |0                 |null                   |null                   |0                |null                  |null                  |N/D                     |
+|ABE      |11  |2                 |-7.5                   |-11.0                  |0                 |null                   |null                   |0                |null                  |null                  |N/D                     |
++---------+----+------------------+-----------------------+-----------------------+------------------+-----------------------+-----------------------+-----------------+----------------------+----------------------+------------------------+
+only showing top 10 rows
+
+[JOB 2] Calcolo completato in 6.74 secondi.
+[JOB 2] Salvataggio dei risultati in HDFS: /user/hadoop/spark-sql/job_2

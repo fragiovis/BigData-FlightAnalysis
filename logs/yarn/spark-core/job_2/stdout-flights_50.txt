@@ -1,0 +1,14 @@
+Deleted /user/cavins/spark-core/job_2
+[JOB 2 CORE] Caricamento del dataset da HDFS: hdfs://localhost:9000/user/cavins/data/flights_50.csv
+[JOB 2 CORE] Elaborazione Fase 1: Calcolo statistiche fasce di ritardo...
+[JOB 2 CORE] Elaborazione Fase 2: Calcolo classifica TOP 3 cause...
+[JOB 2 CORE] FUSIONE delle pipeline tramite Left Outer Join...
+
+--- ANTEPRIMA RISULTATI SPARK CORE JOB 2 (TOP 5) ---
+('ABE', 1, 134, -5.74, -16.99, 17, 35.71, 32.12, 13, 272.85, 263.08, 'L,N,C')
+('ABE', 2, 153, -6.21, -19.86, 10, 28.6, 8.3, 10, 168.7, 162.8, 'C,N,L')
+('ABE', 3, 175, -6.19, -19.14, 12, 30.17, 19.75, 14, 171.07, 162.14, 'L,N,C')
+('ABE', 4, 154, -6.26, -17.29, 18, 33.67, 29.44, 13, 210.38, 204.92, 'C,L,N')
+('ABE', 5, 158, -6.09, -11.91, 10, 28.6, 32.2, 20, 145.5, 139.05, 'C,N,L')
+[JOB 2 CORE] Calcolo completato in 7.69 secondi.
+[JOB 2 CORE] Salvataggio dei risultati in HDFS: hdfs://localhost:9000/user/cavins/spark-core/job_2

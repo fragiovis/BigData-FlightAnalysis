@@ -36,9 +36,10 @@ def main():
     idx_delay_code = header_fields.index("delay_code")
 
     data_rdd = raw_rdd.filter(lambda line: line != header_line) # Filtra header
-    
-    # Cache del dataset di dati pulito perché verrà letto da due pipeline diverse
-    data_rdd.cache()
+
+    # Le due pipeline leggono entrambe data_rdd, ma l'RDD NON viene messo in cache: con la memoria
+    # predefinita (1 GB) la cache dell'input più grande (replica 10x, 2 GB) esaurisce lo heap
+    # (OutOfMemoryError), mentre rileggere i dati da HDFS costa poco e scala con l'input
 
     print("[JOB 2 CORE] Elaborazione Fase 1: Calcolo statistiche fasce di ritardo...")
     start_job = time.time()
@@ -166,7 +167,6 @@ def main():
         .map(lambda x: x[1]) \
         .saveAsTextFile(args.output)
 
-    data_rdd.unpersist()
     spark.stop()
 
 if __name__ == "__main__":

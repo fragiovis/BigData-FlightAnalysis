@@ -5,6 +5,8 @@ Il thread è indipendente dalla sessione Streamlit: si può cambiare pagina (o r
 mentre i job girano, e ogni pagina legge lo stato aggiornato dall'istanza condivisa.
 """
 
+from __future__ import annotations  # sintassi "X | None" anche con Python 3.9 (AWS EMR)
+
 import subprocess
 import sys
 import threading

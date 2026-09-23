@@ -74,6 +74,10 @@ def job_env(env):
     """Variabili d'ambiente per run.sh: in locale completa quelle di Hadoop/Spark/Hive se mancano."""
     e = os.environ.copy()
     if env == "aws":
+        # Driver ed executor devono usare la stessa versione di Python: sui nodi EMR è quella di sistema,
+        # anche se la dashboard gira in un ambiente virtuale con un Python più recente
+        e["PYSPARK_PYTHON"] = "/usr/bin/python3"
+        e["PYSPARK_DRIVER_PYTHON"] = "/usr/bin/python3"
         return e
 
     home = Path.home()

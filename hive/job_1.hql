@@ -32,7 +32,9 @@ SELECT
     MAX(arr_delay) as ritardo_max_arrivo,
     ROUND(AVG(arr_delay), 2) as ritardo_medio_arrivo,
     ROUND(SUM(cancelled) / COUNT(*), 4) as tasso_cancellazione,
-    array_join(sort_array(collect_set(month)), '|') as mesi_operativi
+    -- Mesi ordinati numericamente: ordinamento su stringhe a 2 cifre ("01".."12") e rimozione
+    -- dello zero iniziale. Evita array_join, disponibile solo da Hive 4 (EMR usa Hive 3.1)
+    regexp_replace(concat_ws('|', sort_array(collect_set(lpad(cast(month AS STRING), 2, '0')))), '(^|\\|)0', '$1') as mesi_operativi
 FROM flights_input
 -- Hive 4 non applica skip.header.line.count in questa configurazione: l'header del CSV
 -- verrebbe letto come un volo (con month = NULL), quindi lo escludiamo esplicitamente

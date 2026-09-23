@@ -66,13 +66,19 @@ def main():
     ),
     ranked_causes AS (
         -- Classifichiamo le cause dalla più frequente alla meno frequente
+        -- (a parità di frequenza vince la causa alfabeticamente minore: risultato deterministico)
         SELECT aeroporto, mese, causa,
-               ROW_NUMBER() OVER (PARTITION BY aeroporto, mese ORDER BY frequenza DESC) as ranking
+               ROW_NUMBER() OVER (PARTITION BY aeroporto, mese ORDER BY frequenza DESC, causa ASC) as ranking
         FROM counted_causes
     ),
     top_3_causes AS (
-        -- Raggruppiamo le prime 3 cause in una stringa separata da virgole (es: "C,W,N")
-        SELECT aeroporto, mese, CONCAT_WS(',', COLLECT_LIST(causa)) AS top_3_cause
+        -- Pivot delle prime 3 cause in ordine di ranking, unite con '|' (es: "DELAY_CARRIER|DELAY_NAS")
+        -- COLLECT_LIST non garantisce l'ordine, per questo si usa un MAX per posizione
+        SELECT aeroporto, mese,
+               CONCAT_WS('|',
+                   MAX(CASE WHEN ranking = 1 THEN causa END),
+                   MAX(CASE WHEN ranking = 2 THEN causa END),
+                   MAX(CASE WHEN ranking = 3 THEN causa END)) AS top_3_cause
         FROM ranked_causes
         WHERE ranking <= 3
         GROUP BY aeroporto, mese

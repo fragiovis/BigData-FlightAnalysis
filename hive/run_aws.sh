@@ -35,8 +35,16 @@ sed -e "s|\${staging_path}|$STAGING_PATH|g" \
 echo "[HIVE AWS] Avvio esecuzione MapReduce tramite Beeline su EMR..."
 # Su AWS ci si connette all'endpoint HiveServer2 locale pre-configurato
 beeline -u "jdbc:hive2://localhost:10000/default" -n "hadoop" -f "temp_aws_$SCRIPT_NAME.hql"
+BEELINE_RC=$?
+
+if [ $BEELINE_RC -eq 0 ]; then
+    echo -e "\n--- ANTEPRIMA RISULTATI HIVE $SCRIPT_NAME (TOP 10) ---"
+    hdfs dfs -cat "$OUTPUT_PATH/*" 2>/dev/null | head -10
+fi
 
 # Pulizia finale dei file temporanei
 echo "[HIVE AWS] Pulizia dello staging e dei file temporanei..."
 hdfs dfs -rm -r -f "$STAGING_PATH" 2>/dev/null
 rm -f "temp_aws_$SCRIPT_NAME.hql"
+
+exit $BEELINE_RC

@@ -6,8 +6,8 @@ CREATE EXTERNAL TABLE flights_input (
     op_unique_carrier STRING,
     origin STRING,
     dest STRING,
-    dep_delay FLOAT,
-    arr_delay FLOAT,
+    dep_delay DOUBLE,
+    arr_delay DOUBLE,
     cancelled INT,
     cancellation_code STRING,
     delay_code STRING
@@ -19,10 +19,12 @@ LOCATION '${staging_path}'
 TBLPROPERTIES ("skip.header.line.count"="1");
 
 -- 2. Elaborazione immediata e scrittura dei risultati direttamente nella directory HDFS di output
+-- NULL DEFINED AS '' scrive i valori mancanti come campi vuoti (come Spark) invece di \N
 INSERT OVERWRITE DIRECTORY '${output_path}'
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','
-SELECT 
+NULL DEFINED AS ''
+SELECT
     op_unique_carrier,
     origin,
     COUNT(*) as numero_voli,
@@ -30,8 +32,11 @@ SELECT
     MAX(arr_delay) as ritardo_max_arrivo,
     ROUND(AVG(arr_delay), 2) as ritardo_medio_arrivo,
     ROUND(SUM(cancelled) / COUNT(*), 4) as tasso_cancellazione,
-    concat_ws(',', collect_set(cast(month as string))) as mesi_operativi
+    array_join(sort_array(collect_set(month)), '|') as mesi_operativi
 FROM flights_input
+-- Hive 4 non applica skip.header.line.count in questa configurazione: l'header del CSV
+-- verrebbe letto come un volo (con month = NULL), quindi lo escludiamo esplicitamente
+WHERE month IS NOT NULL
 GROUP BY op_unique_carrier, origin
 ORDER BY op_unique_carrier ASC, numero_voli DESC;
 

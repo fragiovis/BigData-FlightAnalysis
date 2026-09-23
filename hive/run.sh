@@ -135,8 +135,14 @@ sed -e "s|\${staging_path}|$STAGING_PATH|g" \
 
 echo "[HIVE] Avvio esecuzione MapReduce tramite Beeline per il file $1.hql ($3)..."
 
-# Lancio lineare tramite Beeline
+# Lancio lineare tramite Beeline (salviamo l'esito per restituirlo a benchmark.py)
 beeline -u jdbc:hive2:// -n "$USER" -f "temp_$1.hql"
+BEELINE_RC=$?
+
+if [ $BEELINE_RC -eq 0 ]; then
+    echo -e "\n--- ANTEPRIMA RISULTATI HIVE $1 (TOP 10) ---"
+    hdfs dfs -cat "$OUTPUT_PATH/*" 2>/dev/null | head -10
+fi
 
 # ========================================================================
 # 🧹 RIPRISTINO DI SICUREZZA ASSOLUTO (AVVIENE ADESSO CON HADOOP ATTIVO)
@@ -149,3 +155,5 @@ cp $HADOOP_HOME/etc/hadoop/*.xml $HIVE_HOME/conf/ 2>/dev/null
 
 hdfs dfs -rm -r -f "$STAGING_PATH" 2>/dev/null
 rm -f "temp_$1.hql"
+
+exit $BEELINE_RC

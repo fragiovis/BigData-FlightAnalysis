@@ -27,13 +27,24 @@ for c in delay_cols:
 
 max_delay = greatest(*[col(c) for c in delay_cols])
 
+# Causa prevalente del ritardo. I codici hanno il prefisso DELAY_ per non collidere con
+# quelli di cancellazione (es. "C" = Carrier nei ritardi ma National Air System nelle cancellazioni)
 df_with_code = df_filtered.withColumn("delay_code",
     when(max_delay == 0.0, None)
-    .when(col("carrier_delay") == max_delay, "C")
-    .when(col("weather_delay") == max_delay, "W")
-    .when(col("nas_delay") == max_delay, "N")
-    .when(col("security_delay") == max_delay, "S")
-    .otherwise("L")
+    .when(col("carrier_delay") == max_delay, "DELAY_CARRIER")
+    .when(col("weather_delay") == max_delay, "DELAY_WEATHER")
+    .when(col("nas_delay") == max_delay, "DELAY_NAS")
+    .when(col("security_delay") == max_delay, "DELAY_SECURITY")
+    .otherwise("DELAY_LATE_AIRCRAFT")
+)
+
+# Codici di cancellazione BTS (A-D) tradotti in etichette esplicite con prefisso CANC_
+df_with_code = df_with_code.withColumn("cancellation_code",
+    when(col("cancellation_code") == "A", "CANC_CARRIER")
+    .when(col("cancellation_code") == "B", "CANC_WEATHER")
+    .when(col("cancellation_code") == "C", "CANC_NAS")
+    .when(col("cancellation_code") == "D", "CANC_SECURITY")
+    .otherwise(None)
 )
 
 final_columns = ["month", "op_unique_carrier", "origin", "dest", "dep_delay", "arr_delay", "cancelled", "cancellation_code", "delay_code"]

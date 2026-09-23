@@ -51,26 +51,34 @@ def main():
         month = int(fields[idx_month])
         cancelled = int(float(fields[idx_cancelled]))
         
-        # Gestione sicura del ritardo in arrivo (se il volo è cancellato, il dato potrebbe essere vuoto)
+        # Gestione sicura del ritardo in arrivo (se il volo è cancellato, il dato è vuoto).
+        # Un ritardo mancante vale None e viene escluso da min, max e media, come fa AVG in SQL
         try:
             arr_delay = float(fields[idx_arr_delay])
             valid_delay = 1
         except (ValueError, TypeError):
-            arr_delay = 0.0
+            arr_delay = None
             valid_delay = 0
 
         return (
-            (carrier, origin), 
-            (1, valid_delay, arr_delay, arr_delay, arr_delay, cancelled, {month})
+            (carrier, origin),
+            (1, valid_delay, arr_delay, arr_delay, arr_delay or 0.0, cancelled, {month})
         )
+
+    # Min/max che ignorano i valori mancanti (None)
+    def min_none(a, b):
+        return b if a is None else a if b is None else min(a, b)
+
+    def max_none(a, b):
+        return b if a is None else a if b is None else max(a, b)
 
     # 5. Fase di REDUCE: Aggreghiamo i valori per la stessa combinazione di Chiave
     def reduce_flight_stats(v1, v2):
         return (
             v1[0] + v2[0],                     # Numero voli totali
             v1[1] + v2[1],                     # Conteggio voli con ritardo valido
-            min(v1[2], v2[2]) if v1[1]>0 and v2[1]>0 else (v1[2] if v1[1]>0 else v2[2]), # Min ritardo
-            max(v1[3], v2[3]),                 # Max ritardo
+            min_none(v1[2], v2[2]),            # Min ritardo
+            max_none(v1[3], v2[3]),            # Max ritardo
             v1[4] + v2[4],                     # Somma ritardi (per media)
             v1[5] + v2[5],                     # Somma voli cancellati
             v1[6] | v2[6]                      # Unione dei set dei mesi operativi
@@ -88,9 +96,9 @@ def main():
             x[1][0],                                                       # numero_voli
             x[1][2],                                                       # ritardo_min_arrivo
             x[1][3],                                                       # ritardo_max_arrivo
-            round(x[1][4] / max(1, x[1][1]), 2),                           # ritardo_medio_arrivo
+            round(x[1][4] / x[1][1], 2) if x[1][1] > 0 else None,          # ritardo_medio_arrivo
             round(x[1][5] / x[1][0], 4),                                   # tasso_cancellazione
-            ",".join(map(str, sorted(list(x[1][6]))))                      # mesi_operativi
+            "|".join(map(str, sorted(x[1][6])))                            # mesi_operativi
         )) \
         .sortBy(lambda x: (x[0], -x[2])) # Ordina per compagnia (ASC) e numero voli (DESC)
 
@@ -110,7 +118,8 @@ def main():
     header_rdd = sc.parallelize([(0, header_str)])
     
     # Assocviamo ai dati un indice di ordinamento pari a 1
-    data_rdd_mapped = processed_rdd.map(lambda x: (1, ",".join(map(str, x))))
+    # I valori mancanti (None) diventano campi vuoti, come nel CSV scritto da Spark SQL e Hive
+    data_rdd_mapped = processed_rdd.map(lambda x: (1, ",".join("" if v is None else str(v) for v in x)))
     
     # Uniamo, ordiniamo per la chiave (0 o 1) in un unico part, e rimuoviamo l'indice temporaneo
     sc.union([header_rdd, data_rdd_mapped]) \

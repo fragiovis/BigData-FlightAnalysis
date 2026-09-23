@@ -6,8 +6,8 @@ CREATE EXTERNAL TABLE flights_input (
     op_unique_carrier STRING,
     origin STRING,
     dest STRING,
-    dep_delay FLOAT,
-    arr_delay FLOAT,
+    dep_delay DOUBLE,
+    arr_delay DOUBLE,
     cancelled INT,
     cancellation_code STRING,
     delay_code STRING
@@ -37,6 +37,9 @@ stats_fasce AS (
         ROUND(AVG(CASE WHEN dep_delay > 60 THEN dep_delay END), 2) as ritardo_medio_dep_alto,
         ROUND(AVG(CASE WHEN dep_delay > 60 THEN arr_delay END), 2) as ritardo_medio_arr_alto
     FROM flights_input
+    -- Hive 4 non applica skip.header.line.count in questa configurazione: l'header del CSV
+    -- verrebbe letto come un volo (con month = NULL), quindi lo escludiamo esplicitamente
+    WHERE month IS NOT NULL
     GROUP BY origin, month
 ),
 -- Fase B: flatMap delle cause (Uniamo i codici cancellazione e ritardo ignorando stringhe vuote o 'None')
@@ -54,28 +57,31 @@ counted_causes AS (
     GROUP BY origin, month, code
 ),
 -- Fase D: Classifica delle cause tramite Row Number
+-- (a parità di frequenza vince il codice alfabeticamente minore: risultato deterministico)
 ranked_causes AS (
     SELECT origin, month, code,
-           ROW_NUMBER() OVER (PARTITION BY origin, month ORDER BY freq DESC) as rn
+           ROW_NUMBER() OVER (PARTITION BY origin, month ORDER BY freq DESC, code ASC) as rn
     FROM counted_causes
 ),
--- Fase E: Selezione dei primi 3 codici più frequenti
-top_3_list AS (
-    SELECT origin, month, code, rn
+-- Fase E: Pivot dei primi 3 codici in ordine di ranking, uniti con '|'
+-- (COLLECT_LIST non garantisce l'ordine, per questo si usa un MAX per posizione)
+top_3_string AS (
+    SELECT origin, month,
+           CONCAT_WS('|',
+               MAX(CASE WHEN rn = 1 THEN code END),
+               MAX(CASE WHEN rn = 2 THEN code END),
+               MAX(CASE WHEN rn = 3 THEN code END)) as top_3_cause_ritardo_canc
     FROM ranked_causes
     WHERE rn <= 3
-),
--- Fase F: Aggregazione dei top 3 codici in un'unica stringa separata da virgola
-top_3_string AS (
-    SELECT origin, month, CONCAT_WS(',', COLLECT_LIST(code)) as top_3_cause_ritardo_canc
-    FROM (SELECT origin, month, code FROM top_3_list ORDER BY origin, month, rn) sorted_causes
     GROUP BY origin, month
 )
 -- Ora che le CTE sono pronte, inseriamo l'istruzione di scrittura e selezione finale
+-- NULL DEFINED AS '' scrive i valori mancanti come campi vuoti (come Spark) invece di \N
 INSERT OVERWRITE DIRECTORY '${output_path}'
 ROW FORMAT DELIMITED
 FIELDS TERMINATED BY ','
-SELECT 
+NULL DEFINED AS ''
+SELECT
     f.origin as aeroporto,
     f.month as mese,
     f.voli_ritardo_basso,

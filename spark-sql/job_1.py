@@ -46,7 +46,7 @@ def main():
         MAX(arr_delay) AS ritardo_max_arrivo,
         ROUND(AVG(arr_delay), 2) AS ritardo_medio_arrivo,
         ROUND(AVG(cancelled), 4) AS tasso_cancellazione,
-        CONCAT_WS(',', SORT_ARRAY(COLLECT_SET(month))) AS mesi_operativi
+        ARRAY_JOIN(SORT_ARRAY(COLLECT_SET(month)), '|') AS mesi_operativi
     FROM 
         flights_data
     GROUP BY 

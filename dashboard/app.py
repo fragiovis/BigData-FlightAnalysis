@@ -32,9 +32,20 @@ pages = st.navigation({
     ],
 })
 
-# Indicatore del batch in corso, visibile da ogni pagina
-state = batch_manager().state
-if state.running:
-    st.sidebar.info(f"⏳ Batch in corso: {state.current + 1}/{len(state.plan)}\n\n{state.current_label}")
+# Indicatore del batch in corso, visibile da ogni pagina e aggiornato senza ricaricare la pagina
+@st.fragment(run_every="2s")
+def batch_indicator():
+    state = batch_manager().state
+    if state.running:
+        st.info(f"⏳ Batch in corso: {state.current + 1}/{len(state.plan)}\n\n{state.current_label}")
+        st.progress(len(state.records) / len(state.plan))
+    elif state.plan and state.finished_at:
+        esito = "interrotto" if state.stop_requested else "completato"
+        st.success(f"✅ Ultimo batch {esito}: {len(state.records)}/{len(state.plan)} "
+                   f"esecuzioni alle {state.finished_at:%H:%M}")
+
+
+with st.sidebar:
+    batch_indicator()
 
 pages.run()

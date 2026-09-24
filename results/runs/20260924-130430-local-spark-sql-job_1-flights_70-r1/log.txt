@@ -1,0 +1,63 @@
+2026-09-24 13:04:30,739 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+26/09/24 13:04:31 WARN Utils: Your hostname, MacBook-Air-di-Francesco-5.local resolves to a loopback address: 127.0.0.1; using 192.168.1.102 instead (on interface en0)
+26/09/24 13:04:31 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+26/09/24 13:04:32 INFO SparkContext: Running Spark version 3.5.5
+26/09/24 13:04:32 INFO SparkContext: OS info Mac OS X, 26.3, aarch64
+26/09/24 13:04:32 INFO SparkContext: Java version 21.0.9
+26/09/24 13:04:32 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+26/09/24 13:04:32 INFO ResourceUtils: ==============================================================
+26/09/24 13:04:32 INFO ResourceUtils: No custom resources configured for spark.driver.
+26/09/24 13:04:32 INFO ResourceUtils: ==============================================================
+26/09/24 13:04:32 INFO SparkContext: Submitted application: spark-sql#job-1
+26/09/24 13:04:32 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 1, script: , vendor: , memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+26/09/24 13:04:32 INFO ResourceProfile: Limiting resource is cpu
+26/09/24 13:04:32 INFO ResourceProfileManager: Added ResourceProfile id: 0
+26/09/24 13:04:32 INFO SecurityManager: Changing view acls to: fra
+26/09/24 13:04:32 INFO SecurityManager: Changing modify acls to: fra
+26/09/24 13:04:32 INFO SecurityManager: Changing view acls groups to: 
+26/09/24 13:04:32 INFO SecurityManager: Changing modify acls groups to: 
+26/09/24 13:04:32 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: fra; groups with view permissions: EMPTY; users with modify permissions: fra; groups with modify permissions: EMPTY
+26/09/24 13:04:32 INFO Utils: Successfully started service 'sparkDriver' on port 59086.
+26/09/24 13:04:32 INFO SparkEnv: Registering MapOutputTracker
+26/09/24 13:04:32 INFO SparkEnv: Registering BlockManagerMaster
+26/09/24 13:04:32 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+26/09/24 13:04:32 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+26/09/24 13:04:32 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+26/09/24 13:04:32 INFO DiskBlockManager: Created local directory at /private/var/folders/8m/r7py2s4j70gd4356xg4b3p3h0000gn/T/blockmgr-aad037fa-0a65-4ab9-a85a-58f2cda15b55
+26/09/24 13:04:32 INFO MemoryStore: MemoryStore started with capacity 434.4 MiB
+26/09/24 13:04:32 INFO SparkEnv: Registering OutputCommitCoordinator
+26/09/24 13:04:32 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+26/09/24 13:04:32 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+26/09/24 13:04:32 INFO Executor: Starting executor ID driver on host 192.168.1.102
+26/09/24 13:04:32 INFO Executor: OS info Mac OS X, 26.3, aarch64
+26/09/24 13:04:32 INFO Executor: Java version 21.0.9
+26/09/24 13:04:32 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''
+26/09/24 13:04:32 INFO Executor: Created or updated repl class loader org.apache.spark.util.MutableURLClassLoader@41c6b0bc for default.
+26/09/24 13:04:32 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 59087.
+26/09/24 13:04:32 INFO NettyBlockTransferService: Server created on 192.168.1.102:59087
+26/09/24 13:04:32 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+26/09/24 13:04:32 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 192.168.1.102, 59087, None)
+26/09/24 13:04:32 INFO BlockManagerMasterEndpoint: Registering block manager 192.168.1.102:59087 with 434.4 MiB RAM, BlockManagerId(driver, 192.168.1.102, 59087, None)
+26/09/24 13:04:32 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 192.168.1.102, 59087, None)
+26/09/24 13:04:32 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 192.168.1.102, 59087, None)
+26/09/24 13:04:32 INFO SingleEventLogFileWriter: Logging events to file:/Users/fra/Big_Data/Flight_Analysis/results/runs/20260924-130430-local-spark-sql-job_1-flights_70-r1/spark-events/local-1790247872635.inprogress
+[JOB 1] Caricamento del dataset da HDFS: hdfs://localhost:9000/user/fra/data/flights_70
+[JOB 1] Esecuzione della query SQL distribuita...
++---------+------------------+-----------+------------------+------------------+--------------------+-------------------+--------------------------+
+|compagnia|aeroporto_partenza|numero_voli|ritardo_min_arrivo|ritardo_max_arrivo|ritardo_medio_arrivo|tasso_cancellazione|mesi_operativi            |
++---------+------------------+-----------+------------------+------------------+--------------------+-------------------+--------------------------+
+|9E       |LGA               |22363      |-62.0             |1100.0            |-3.04               |0.0352             |1|2|3|4|5|6|7|8|9|10|11|12|
+|9E       |ATL               |18726      |-43.0             |991.0             |2.57                |0.0117             |1|2|3|4|5|6|7|8|9|10|11|12|
+|9E       |JFK               |11890      |-60.0             |994.0             |0.46                |0.0354             |1|2|3|4|5|6|7|8|9|10|11|12|
+|9E       |DTW               |8929       |-46.0             |941.0             |0.49                |0.0099             |1|2|3|4|5|6|7|8|9|10|11|12|
+|9E       |MSP               |5307       |-50.0             |849.0             |3.15                |0.0072             |1|2|3|4|5|6|7|8|9|10|11|12|
+|9E       |CVG               |4662       |-56.0             |732.0             |1.8                 |0.0169             |1|2|3|4|5|6|7|8|9|10|11|12|
+|9E       |RDU               |4533       |-46.0             |1018.0            |8.03                |0.0315             |1|2|3|4|5|6|7|8|9|10|11|12|
+|9E       |CLT               |2195       |-53.0             |1027.0            |9.38                |0.0364             |1|2|3|4|5|6|7|8|9|10|11|12|
+|9E       |TYS               |2022       |-49.0             |475.0             |-4.86               |0.0148             |1|2|3|4|5|6|7|8|9|10|11|12|
+|9E       |ROC               |1891       |-49.0             |912.0             |-0.12               |0.0338             |1|2|3|4|5|6|7|8|9|10|11|12|
++---------+------------------+-----------+------------------+------------------+--------------------+-------------------+--------------------------+
+only showing top 10 rows
+
+[JOB 1] Calcolo completato in 4.06 secondi.
+[JOB 1] Salvataggio dei risultati in HDFS: hdfs://localhost:9000/user/fra/spark-sql/job_1/local/flights_70

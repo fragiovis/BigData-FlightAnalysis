@@ -1,0 +1,74 @@
+[
+ {
+  "stage_id": "Stage-1",
+  "name": "MapReduce Stage-1",
+  "mappers": null,
+  "reducers": null,
+  "start_s": 0.0,
+  "end_s": 17.103999853134155,
+  "hdfs_read_bytes": 8508175066,
+  "hdfs_write_bytes": 0,
+  "status": "SUCCESS",
+  "duration_s": 17.103999853134155
+ },
+ {
+  "stage_id": "Stage-4",
+  "name": "MapReduce Stage-4",
+  "mappers": null,
+  "reducers": null,
+  "start_s": 18.753000020980835,
+  "end_s": 49.89999985694885,
+  "hdfs_read_bytes": 18202984516,
+  "hdfs_write_bytes": 0,
+  "status": "SUCCESS",
+  "duration_s": 31.146999835968018
+ },
+ {
+  "stage_id": "Stage-5",
+  "name": "MapReduce Stage-5",
+  "mappers": null,
+  "reducers": null,
+  "start_s": 51.6710000038147,
+  "end_s": 51.6710000038147,
+  "hdfs_read_bytes": 4308804200,
+  "hdfs_write_bytes": 0,
+  "status": "SUCCESS",
+  "duration_s": 0.0
+ },
+ {
+  "stage_id": "Stage-6",
+  "name": "MapReduce Stage-6",
+  "mappers": null,
+  "reducers": null,
+  "start_s": 53.26300001144409,
+  "end_s": 53.26300001144409,
+  "hdfs_read_bytes": 4308804200,
+  "hdfs_write_bytes": 0,
+  "status": "SUCCESS",
+  "duration_s": 0.0
+ },
+ {
+  "stage_id": "Stage-2",
+  "name": "MapReduce Stage-2",
+  "mappers": null,
+  "reducers": null,
+  "start_s": 56.503000020980835,
+  "end_s": 56.503000020980835,
+  "hdfs_read_bytes": 6463206300,
+  "hdfs_write_bytes": 0,
+  "status": "SUCCESS",
+  "duration_s": 0.0
+ },
+ {
+  "stage_id": "Stage-3",
+  "name": "MapReduce Stage-3",
+  "mappers": null,
+  "reducers": null,
+  "start_s": 58.28499984741211,
+  "end_s": 58.28499984741211,
+  "hdfs_read_bytes": 4308804200,
+  "hdfs_write_bytes": 389566,
+  "status": "SUCCESS",
+  "duration_s": 0.0
+ }
+]

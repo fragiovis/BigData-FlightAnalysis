@@ -367,10 +367,10 @@ esercizio: metastore, compatibilità con Java 21, intestazioni non ignorate, tip
         \RY{spark-core}{job_2} a \RY{spark-sql}{job_1} volte per Spark e fino a \RY{hive}{job_2} volte per il Job 2 di
         Hive. Il costo è in gran parte dentro il tempo di calcolo (Figura~\ref{fig:overhead}): richiesta dei container
         a YARN, avvio delle JVM degli executor e, per Spark, solo 2 executor da un core contro gli 8 thread del
-        locale. Hive lo paga a ogni job MapReduce: il Job 2 resta tra \T{yarn}{hive}{job_2}{flights_20} e
+        locale. Hive lo paga a ogni job MapReduce: il Job 2 resta tra \T{yarn}{hive}{job_2}{flights_1} e
         \T{yarn}{hive}{job_2}{flights_x5}\,s a ogni dimensione.
   \item \textbf{AWS EMR}: con questi volumi il cluster è più lento del locale (da \RA{hive}{job_2} a
-        \RA{spark-core}{job_1} volte sul dataset completo): tre nodi, rete e coordinamento non vengono ripagati da
+        \RA{spark-sql}{job_1} volte sul dataset completo): tre nodi, rete e coordinamento non vengono ripagati da
         appena \DS{mb}{flights_cleaned}\,MB. Hive, che su EMR usa Tez (un unico grafo di esecuzione invece di job
         MapReduce separati), è il più veloce nel Job 1 (\T{aws}{hive}{job_1}{flights_cleaned}\,s contro
         \T{aws}{spark-core}{job_1}{flights_cleaned} e \T{aws}{spark-sql}{job_1}{flights_cleaned}\,s).
@@ -379,12 +379,12 @@ esercizio: metastore, compatibilità con Java 21, intestazioni non ignorate, tip
 \subsection{Scalabilità}
 Moltiplicando l'input per 100 (dall'1\% al 100\%) i tempi crescono molto meno che linearmente: in locale di
 \GU{local}{hive}{job_2}--\GU{local}{spark-core}{job_2} volte, su EMR di \GU{aws}{hive}{job_1}--\GU{aws}{spark-core}{job_2}
-volte, mentre su YARN restano praticamente costanti (\GU{yarn}{hive}{job_2}--\GU{yarn}{spark-sql}{job_2} volte),
+volte e su YARN di appena \GU{yarn}{hive}{job_2}--\GU{yarn}{spark-sql}{job_2} volte,
 perché fino al dataset completo prevalgono i costi fissi. Oltre, la crescita si avvicina a quella dei dati: da 100\% a $5\times$ (input $\times 5$) in locale
 Spark Core cresce di \GC{local}{spark-core}{job_1}--\GC{local}{spark-core}{job_2} volte e Spark SQL di
 \GC{local}{spark-sql}{job_2}--\GC{local}{spark-sql}{job_1}, penalizzato dalle letture ripetute. Hive in locale cresce
 in modo simile a Spark Core (\GC{local}{hive}{job_2}--\GC{local}{hive}{job_1} volte), mentre su YARN cresce molto meno
-(\GC{yarn}{hive}{job_2}--\GC{yarn}{hive}{job_1} volte, contro \GC{yarn}{spark-core}{job_1}--\GC{yarn}{spark-core}{job_2} di
+(circa \GC{yarn}{hive}{job_1} volte, contro \GC{yarn}{spark-core}{job_1}--\GC{yarn}{spark-core}{job_2} di
 Spark Core) perché lì il suo costo fisso è molto più alto: al $5\times$ Hive supera Spark SQL nel Job 1
 (\T{yarn}{hive}{job_1}{flights_x5} contro \T{yarn}{spark-sql}{job_1}{flights_x5}\,s). Le curve di Spark e Hive tendono
 quindi a incrociarsi al crescere dell'input: il vantaggio dell'esecuzione in memoria è netto sui volumi piccoli e

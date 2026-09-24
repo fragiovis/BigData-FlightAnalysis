@@ -1,0 +1,26 @@
+[
+ {
+  "stage_id": "Stage-1",
+  "name": "MapReduce Stage-1",
+  "mappers": null,
+  "reducers": null,
+  "start_s": 0.0,
+  "end_s": 39.20799994468689,
+  "hdfs_read_bytes": 8508175066,
+  "hdfs_write_bytes": 0,
+  "status": "SUCCESS",
+  "duration_s": 39.20799994468689
+ },
+ {
+  "stage_id": "Stage-2",
+  "name": "MapReduce Stage-2",
+  "mappers": null,
+  "reducers": null,
+  "start_s": 40.93899989128113,
+  "end_s": 40.93899989128113,
+  "hdfs_read_bytes": 2154402100,
+  "hdfs_write_bytes": 105920,
+  "status": "SUCCESS",
+  "duration_s": 0.0
+ }
+]

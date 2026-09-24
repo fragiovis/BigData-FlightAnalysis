@@ -1,0 +1,386 @@
+2026-09-24 13:48:48,930 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+26/09/24 13:48:49 WARN Utils: Your hostname, MacBook-Air-di-Francesco-5.local resolves to a loopback address: 127.0.0.1; using 192.168.1.102 instead (on interface en0)
+26/09/24 13:48:49 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+26/09/24 13:48:50 INFO SparkContext: Running Spark version 3.5.5
+26/09/24 13:48:50 INFO SparkContext: OS info Mac OS X, 26.3, aarch64
+26/09/24 13:48:50 INFO SparkContext: Java version 21.0.9
+26/09/24 13:48:50 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+26/09/24 13:48:50 INFO ResourceUtils: ==============================================================
+26/09/24 13:48:50 INFO ResourceUtils: No custom resources configured for spark.driver.
+26/09/24 13:48:50 INFO ResourceUtils: ==============================================================
+26/09/24 13:48:50 INFO SparkContext: Submitted application: spark-sql#job-2
+26/09/24 13:48:50 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 1, script: , vendor: , memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+26/09/24 13:48:50 INFO ResourceProfile: Limiting resource is cpus at 1 tasks per executor
+26/09/24 13:48:50 INFO ResourceProfileManager: Added ResourceProfile id: 0
+26/09/24 13:48:50 INFO SecurityManager: Changing view acls to: fra
+26/09/24 13:48:50 INFO SecurityManager: Changing modify acls to: fra
+26/09/24 13:48:50 INFO SecurityManager: Changing view acls groups to: 
+26/09/24 13:48:50 INFO SecurityManager: Changing modify acls groups to: 
+26/09/24 13:48:50 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: fra; groups with view permissions: EMPTY; users with modify permissions: fra; groups with modify permissions: EMPTY
+26/09/24 13:48:50 INFO Utils: Successfully started service 'sparkDriver' on port 63034.
+26/09/24 13:48:50 INFO SparkEnv: Registering MapOutputTracker
+26/09/24 13:48:50 INFO SparkEnv: Registering BlockManagerMaster
+26/09/24 13:48:50 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+26/09/24 13:48:50 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+26/09/24 13:48:50 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+26/09/24 13:48:50 INFO DiskBlockManager: Created local directory at /private/var/folders/8m/r7py2s4j70gd4356xg4b3p3h0000gn/T/blockmgr-0457633f-285d-417d-ada0-ac1e5c9a46ff
+26/09/24 13:48:50 INFO MemoryStore: MemoryStore started with capacity 434.4 MiB
+26/09/24 13:48:50 INFO SparkEnv: Registering OutputCommitCoordinator
+26/09/24 13:48:50 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+26/09/24 13:48:51 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+26/09/24 13:48:51 INFO DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at /0.0.0.0:8032
+26/09/24 13:48:51 INFO Configuration: resource-types.xml not found
+26/09/24 13:48:51 INFO ResourceUtils: Unable to find 'resource-types.xml'.
+26/09/24 13:48:51 INFO Client: Verifying our application has not requested more than the maximum memory capability of the cluster (4096 MB per container)
+26/09/24 13:48:51 INFO Client: Will allocate AM container, with 896 MB memory including 384 MB overhead
+26/09/24 13:48:51 INFO Client: Setting up container launch context for our AM
+26/09/24 13:48:51 INFO Client: Setting up the launch environment for our AM container
+26/09/24 13:48:51 INFO Client: Preparing resources for our AM container
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/HikariCP-2.5.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/JLargeArrays-1.5.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/JTransforms-3.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/RoaringBitmap-0.9.45.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/ST4-4.0.4.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/activation-1.1.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/aircompressor-0.27.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/algebra_2.12-2.0.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/annotations-17.0.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/antlr-runtime-3.5.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/antlr4-runtime-4.9.3.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/aopalliance-repackaged-2.6.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/arpack-3.0.3.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/arpack_combined_all-0.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/arrow-format-12.0.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/arrow-memory-core-12.0.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/arrow-memory-netty-12.0.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/arrow-vector-12.0.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/audience-annotations-0.5.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/avro-1.11.4.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/avro-ipc-1.11.4.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/avro-mapred-1.11.4.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/blas-3.0.3.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/bonecp-0.8.0.RELEASE.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/breeze-macros_2.12-2.1.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/breeze_2.12-2.1.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/cats-kernel_2.12-2.1.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/chill-java-0.10.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/chill_2.12-0.10.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/commons-cli-1.5.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/commons-codec-1.16.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/commons-collections-3.2.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/commons-collections4-4.4.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/commons-compiler-3.1.9.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/commons-compress-1.23.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/commons-crypto-1.1.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/commons-dbcp-1.4.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/commons-io-2.16.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/commons-lang-2.6.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/commons-lang3-3.12.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/commons-logging-1.1.3.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/commons-math3-3.6.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/commons-pool-1.5.4.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/commons-text-1.10.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/compress-lzf-1.1.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/curator-client-2.13.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/curator-framework-2.13.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/curator-recipes-2.13.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/datanucleus-api-jdo-4.2.4.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/datanucleus-core-4.1.17.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/datanucleus-rdbms-4.1.19.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/datasketches-java-3.3.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/datasketches-memory-2.1.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/derby-10.14.2.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/dropwizard-metrics-hadoop-metrics2-reporter-0.1.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/flatbuffers-java-1.12.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/gson-2.2.4.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/guava-14.0.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/hadoop-client-api-3.3.4.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/hadoop-client-runtime-3.3.4.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/hadoop-shaded-guava-1.1.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/hadoop-yarn-server-web-proxy-3.3.4.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/hive-beeline-2.3.9.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/hive-cli-2.3.9.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/hive-common-2.3.9.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/hive-exec-2.3.9-core.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/hive-jdbc-2.3.9.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/hive-llap-common-2.3.9.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/hive-metastore-2.3.9.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/hive-serde-2.3.9.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/hive-service-rpc-3.1.3.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/hive-shims-0.23-2.3.9.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/hive-shims-2.3.9.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/hive-shims-common-2.3.9.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/hive-shims-scheduler-2.3.9.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/hive-storage-api-2.8.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/hk2-api-2.6.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/hk2-locator-2.6.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/hk2-utils-2.6.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/httpclient-4.5.14.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/httpcore-4.4.16.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/istack-commons-runtime-3.0.8.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/ivy-2.5.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/jackson-annotations-2.15.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/jackson-core-2.15.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/jackson-core-asl-1.9.13.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/jackson-databind-2.15.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/jackson-dataformat-yaml-2.15.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/jackson-datatype-jsr310-2.15.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/jackson-mapper-asl-1.9.13.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/jackson-module-scala_2.12-2.15.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/jakarta.annotation-api-1.3.5.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/jakarta.inject-2.6.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/jakarta.servlet-api-4.0.3.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/jakarta.validation-api-2.0.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/jakarta.ws.rs-api-2.1.6.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/jakarta.xml.bind-api-2.3.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/janino-3.1.9.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/javassist-3.29.2-GA.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/javax.jdo-3.2.0-m3.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/javolution-5.5.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/jaxb-runtime-2.3.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/jcl-over-slf4j-2.0.7.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/jdo-api-3.0.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/jersey-client-2.40.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/jersey-common-2.40.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/jersey-container-servlet-2.40.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/jersey-container-servlet-core-2.40.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/jersey-hk2-2.40.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/jersey-server-2.40.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/jline-2.14.6.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/joda-time-2.12.5.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/jodd-core-3.5.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/jpam-1.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/json-1.8.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/json4s-ast_2.12-3.7.0-M11.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/json4s-core_2.12-3.7.0-M11.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/json4s-jackson_2.12-3.7.0-M11.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/json4s-scalap_2.12-3.7.0-M11.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/jsr305-3.0.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/jta-1.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/jul-to-slf4j-2.0.7.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/kryo-shaded-4.0.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/kubernetes-client-6.7.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/kubernetes-client-api-6.7.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/kubernetes-httpclient-okhttp-6.7.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/kubernetes-model-admissionregistration-6.7.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/kubernetes-model-apiextensions-6.7.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/kubernetes-model-apps-6.7.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/kubernetes-model-autoscaling-6.7.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/kubernetes-model-batch-6.7.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/kubernetes-model-certificates-6.7.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/kubernetes-model-common-6.7.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/kubernetes-model-coordination-6.7.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/kubernetes-model-core-6.7.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/kubernetes-model-discovery-6.7.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/kubernetes-model-events-6.7.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/kubernetes-model-extensions-6.7.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/kubernetes-model-flowcontrol-6.7.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/kubernetes-model-gatewayapi-6.7.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/kubernetes-model-metrics-6.7.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/kubernetes-model-networking-6.7.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/kubernetes-model-node-6.7.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/kubernetes-model-policy-6.7.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/kubernetes-model-rbac-6.7.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/kubernetes-model-resource-6.7.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/kubernetes-model-scheduling-6.7.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/kubernetes-model-storageclass-6.7.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/lapack-3.0.3.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/leveldbjni-all-1.8.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/libfb303-0.9.3.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/libthrift-0.12.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/log4j-1.2-api-2.20.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/log4j-api-2.20.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/log4j-core-2.20.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/log4j-slf4j2-impl-2.20.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/logging-interceptor-3.12.12.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/lz4-java-1.8.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/mesos-1.4.3-shaded-protobuf.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/metrics-core-4.2.19.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/metrics-graphite-4.2.19.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/metrics-jmx-4.2.19.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/metrics-json-4.2.19.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/metrics-jvm-4.2.19.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/minlog-1.3.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/netty-all-4.1.96.Final.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/netty-buffer-4.1.96.Final.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/netty-codec-4.1.96.Final.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/netty-codec-http-4.1.96.Final.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/netty-codec-http2-4.1.96.Final.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/netty-codec-socks-4.1.96.Final.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/netty-common-4.1.96.Final.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/netty-handler-4.1.96.Final.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/netty-handler-proxy-4.1.96.Final.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/netty-resolver-4.1.96.Final.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/netty-transport-4.1.96.Final.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/netty-transport-classes-epoll-4.1.96.Final.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/netty-transport-classes-kqueue-4.1.96.Final.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/netty-transport-native-epoll-4.1.96.Final-linux-aarch_64.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/netty-transport-native-epoll-4.1.96.Final-linux-x86_64.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/netty-transport-native-kqueue-4.1.96.Final-osx-aarch_64.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/netty-transport-native-kqueue-4.1.96.Final-osx-x86_64.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/netty-transport-native-unix-common-4.1.96.Final.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/objenesis-3.3.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/okhttp-3.12.12.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/okio-1.17.6.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/opencsv-2.3.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/orc-core-1.9.5-shaded-protobuf.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/orc-mapreduce-1.9.5-shaded-protobuf.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/orc-shims-1.9.5.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/oro-2.0.8.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/osgi-resource-locator-1.0.3.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/paranamer-2.8.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/parquet-column-1.13.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/parquet-common-1.13.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/parquet-encoding-1.13.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/parquet-format-structures-1.13.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/parquet-hadoop-1.13.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/parquet-jackson-1.13.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/pickle-1.3.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/py4j-0.10.9.7.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/rocksdbjni-8.3.2.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/scala-collection-compat_2.12-2.7.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/scala-compiler-2.12.18.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/scala-library-2.12.18.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/scala-parser-combinators_2.12-2.3.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/scala-reflect-2.12.18.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/scala-xml_2.12-2.1.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/shims-0.9.45.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/slf4j-api-2.0.7.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/snakeyaml-2.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/snakeyaml-engine-2.6.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/snappy-java-1.1.10.5.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/spark-catalyst_2.12-3.5.5.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/spark-common-utils_2.12-3.5.5.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/spark-core_2.12-3.5.5.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/spark-graphx_2.12-3.5.5.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/spark-hive-thriftserver_2.12-3.5.5.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/spark-hive_2.12-3.5.5.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/spark-kubernetes_2.12-3.5.5.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/spark-kvstore_2.12-3.5.5.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/spark-launcher_2.12-3.5.5.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/spark-mesos_2.12-3.5.5.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/spark-mllib-local_2.12-3.5.5.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/spark-mllib_2.12-3.5.5.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/spark-network-common_2.12-3.5.5.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/spark-network-shuffle_2.12-3.5.5.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/spark-repl_2.12-3.5.5.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/spark-sketch_2.12-3.5.5.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/spark-sql-api_2.12-3.5.5.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/spark-sql_2.12-3.5.5.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/spark-streaming_2.12-3.5.5.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/spark-tags_2.12-3.5.5.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/spark-unsafe_2.12-3.5.5.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/spark-yarn_2.12-3.5.5.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/spire-macros_2.12-0.17.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/spire-platform_2.12-0.17.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/spire-util_2.12-0.17.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/spire_2.12-0.17.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/stax-api-1.0.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/stream-2.9.6.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/super-csv-2.2.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/threeten-extra-1.7.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/tink-1.9.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/transaction-api-1.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/univocity-parsers-2.9.1.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/xbean-asm9-shaded-4.23.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/xz-1.9.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/zjsonpatch-0.3.0.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/zookeeper-3.6.3.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/zookeeper-jute-3.6.3.jar
+26/09/24 13:48:51 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/zstd-jni-1.5.5-4.jar
+26/09/24 13:48:51 INFO Client: Uploading resource file:/Users/fra/spark-3.5.5-bin-hadoop3/python/lib/pyspark.zip -> hdfs://localhost:9000/user/fra/.sparkStaging/application_1790189154268_0269/pyspark.zip
+26/09/24 13:48:51 INFO Client: Uploading resource file:/Users/fra/spark-3.5.5-bin-hadoop3/python/lib/py4j-0.10.9.7-src.zip -> hdfs://localhost:9000/user/fra/.sparkStaging/application_1790189154268_0269/py4j-0.10.9.7-src.zip
+26/09/24 13:48:51 INFO Client: Uploading resource file:/private/var/folders/8m/r7py2s4j70gd4356xg4b3p3h0000gn/T/spark-a1f8ae1a-b030-424a-bf27-c34ed5838eae/__spark_conf__17826145592857634332.zip -> hdfs://localhost:9000/user/fra/.sparkStaging/application_1790189154268_0269/__spark_conf__.zip
+26/09/24 13:48:51 INFO SecurityManager: Changing view acls to: fra
+26/09/24 13:48:51 INFO SecurityManager: Changing modify acls to: fra
+26/09/24 13:48:51 INFO SecurityManager: Changing view acls groups to: 
+26/09/24 13:48:51 INFO SecurityManager: Changing modify acls groups to: 
+26/09/24 13:48:51 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: fra; groups with view permissions: EMPTY; users with modify permissions: fra; groups with modify permissions: EMPTY
+26/09/24 13:48:51 INFO Client: Submitting application application_1790189154268_0269 to ResourceManager
+26/09/24 13:48:51 INFO YarnClientImpl: Submitted application application_1790189154268_0269
+26/09/24 13:48:52 INFO Client: Application report for application_1790189154268_0269 (state: ACCEPTED)
+26/09/24 13:48:52 INFO Client: 
+	 client token: N/A
+	 diagnostics: AM container is launched, waiting for AM container to Register with RM
+	 ApplicationMaster host: N/A
+	 ApplicationMaster RPC port: -1
+	 queue: root.default
+	 start time: 1790250531730
+	 final status: UNDEFINED
+	 tracking URL: http://localhost:8088/proxy/application_1790189154268_0269/
+	 user: fra
+26/09/24 13:48:55 INFO YarnClientSchedulerBackend: Add WebUI Filter. org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter, Map(PROXY_HOSTS -> localhost, PROXY_URI_BASES -> http://localhost:8088/proxy/application_1790189154268_0269), /proxy/application_1790189154268_0269
+26/09/24 13:48:55 INFO YarnSchedulerBackend$YarnSchedulerEndpoint: ApplicationMaster registered as NettyRpcEndpointRef(spark-client://YarnAM)
+26/09/24 13:48:55 INFO Client: Application report for application_1790189154268_0269 (state: RUNNING)
+26/09/24 13:48:55 INFO Client: 
+	 client token: N/A
+	 diagnostics: N/A
+	 ApplicationMaster host: 192.168.1.102
+	 ApplicationMaster RPC port: -1
+	 queue: root.default
+	 start time: 1790250531730
+	 final status: UNDEFINED
+	 tracking URL: http://localhost:8088/proxy/application_1790189154268_0269/
+	 user: fra
+26/09/24 13:48:55 INFO YarnClientSchedulerBackend: Application application_1790189154268_0269 has started running.
+26/09/24 13:48:55 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 63048.
+26/09/24 13:48:55 INFO NettyBlockTransferService: Server created on 192.168.1.102:63048
+26/09/24 13:48:55 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+26/09/24 13:48:55 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 192.168.1.102, 63048, None)
+26/09/24 13:48:55 INFO BlockManagerMasterEndpoint: Registering block manager 192.168.1.102:63048 with 434.4 MiB RAM, BlockManagerId(driver, 192.168.1.102, 63048, None)
+26/09/24 13:48:55 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 192.168.1.102, 63048, None)
+26/09/24 13:48:55 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 192.168.1.102, 63048, None)
+26/09/24 13:48:55 INFO SingleEventLogFileWriter: Logging events to file:/Users/fra/Big_Data/Flight_Analysis/results/runs/20260924-134848-yarn-spark-sql-job_2-flights_x2-r1/spark-events/application_1790189154268_0269.inprogress
+26/09/24 13:48:55 INFO ServerInfo: Adding filter to /jobs: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/24 13:48:55 INFO ServerInfo: Adding filter to /jobs/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/24 13:48:55 INFO ServerInfo: Adding filter to /jobs/job: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/24 13:48:55 INFO ServerInfo: Adding filter to /jobs/job/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/24 13:48:55 INFO ServerInfo: Adding filter to /stages: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/24 13:48:55 INFO ServerInfo: Adding filter to /stages/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/24 13:48:55 INFO ServerInfo: Adding filter to /stages/stage: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/24 13:48:55 INFO ServerInfo: Adding filter to /stages/stage/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/24 13:48:55 INFO ServerInfo: Adding filter to /stages/pool: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/24 13:48:55 INFO ServerInfo: Adding filter to /stages/pool/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/24 13:48:55 INFO ServerInfo: Adding filter to /storage: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/24 13:48:55 INFO ServerInfo: Adding filter to /storage/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/24 13:48:55 INFO ServerInfo: Adding filter to /storage/rdd: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/24 13:48:55 INFO ServerInfo: Adding filter to /storage/rdd/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/24 13:48:55 INFO ServerInfo: Adding filter to /environment: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/24 13:48:55 INFO ServerInfo: Adding filter to /environment/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/24 13:48:55 INFO ServerInfo: Adding filter to /executors: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/24 13:48:55 INFO ServerInfo: Adding filter to /executors/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/24 13:48:55 INFO ServerInfo: Adding filter to /executors/threadDump: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/24 13:48:55 INFO ServerInfo: Adding filter to /executors/threadDump/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/24 13:48:55 INFO ServerInfo: Adding filter to /executors/heapHistogram: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/24 13:48:55 INFO ServerInfo: Adding filter to /executors/heapHistogram/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/24 13:48:55 INFO ServerInfo: Adding filter to /static: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/24 13:48:55 INFO ServerInfo: Adding filter to /: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/24 13:48:55 INFO ServerInfo: Adding filter to /api: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/24 13:48:55 INFO ServerInfo: Adding filter to /jobs/job/kill: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/24 13:48:55 INFO ServerInfo: Adding filter to /stages/stage/kill: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/24 13:48:55 INFO ServerInfo: Adding filter to /metrics/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/24 13:48:58 INFO YarnSchedulerBackend$YarnDriverEndpoint: Registered executor NettyRpcEndpointRef(spark-client://Executor) (192.168.1.102:63052) with ID 1,  ResourceProfileId 0
+26/09/24 13:48:58 INFO BlockManagerMasterEndpoint: Registering block manager localhost:63053 with 434.4 MiB RAM, BlockManagerId(1, localhost, 63053, None)
+26/09/24 13:48:59 INFO YarnSchedulerBackend$YarnDriverEndpoint: Registered executor NettyRpcEndpointRef(spark-client://Executor) (192.168.1.102:63055) with ID 2,  ResourceProfileId 0
+26/09/24 13:48:59 INFO YarnClientSchedulerBackend: SchedulerBackend is ready for scheduling beginning after reached minRegisteredResourcesRatio: 0.8
+26/09/24 13:48:59 INFO BlockManagerMasterEndpoint: Registering block manager localhost:63057 with 434.4 MiB RAM, BlockManagerId(2, localhost, 63057, None)
+[JOB 2] Caricamento del dataset da HDFS: hdfs://localhost:9000/user/fra/data/flights_x2
+[JOB 2] Esecuzione della query SQL complessa in corso...
++---------+----+------------------+-----------------------+-----------------------+------------------+-----------------------+-----------------------+-----------------+----------------------+----------------------+-----------------------------------------------+
+|aeroporto|mese|voli_ritardo_basso|ritardo_medio_dep_basso|ritardo_medio_arr_basso|voli_ritardo_medio|ritardo_medio_dep_medio|ritardo_medio_arr_medio|voli_ritardo_alto|ritardo_medio_dep_alto|ritardo_medio_arr_alto|top_3_cause_ritardo_canc                       |
++---------+----+------------------+-----------------------+-----------------------+------------------+-----------------------+-----------------------+-----------------+----------------------+----------------------+-----------------------------------------------+
+|ABE      |1   |550               |-5.51                  |-14.56                 |60                |34.9                   |32.5                   |60               |241.3                 |234.03                |DELAY_LATE_AIRCRAFT|DELAY_NAS|DELAY_CARRIER    |
+|ABE      |2   |592               |-6.62                  |-19.57                 |38                |28.53                  |10.11                  |28               |227.93                |217.93                |DELAY_CARRIER|DELAY_NAS|DELAY_LATE_AIRCRAFT    |
+|ABE      |3   |678               |-6.19                  |-18.37                 |56                |30.68                  |19.89                  |46               |173.43                |163.39                |DELAY_NAS|DELAY_LATE_AIRCRAFT|DELAY_CARRIER    |
+|ABE      |4   |606               |-6.45                  |-17.3                  |58                |33.45                  |27.66                  |58               |258.66                |250.38                |DELAY_CARRIER|DELAY_LATE_AIRCRAFT|DELAY_NAS    |
+|ABE      |5   |640               |-6.4                   |-12.5                  |52                |30.08                  |29.58                  |78               |183.13                |177.13                |DELAY_LATE_AIRCRAFT|DELAY_NAS|DELAY_CARRIER    |
+|ABE      |6   |670               |-6.85                  |-16.46                 |74                |26.65                  |17.22                  |74               |173.24                |172.32                |DELAY_CARRIER|DELAY_LATE_AIRCRAFT|DELAY_NAS    |
+|ABE      |7   |560               |-6.36                  |-10.59                 |82                |34.61                  |30.15                  |74               |138.08                |137.08                |DELAY_LATE_AIRCRAFT|DELAY_CARRIER|DELAY_NAS    |
+|ABE      |8   |578               |-6.64                  |-14.06                 |84                |32.02                  |27.98                  |54               |146.96                |144.3                 |DELAY_LATE_AIRCRAFT|DELAY_CARRIER|DELAY_NAS    |
+|ABE      |9   |552               |-6.86                  |-15.9                  |48                |38.08                  |32.88                  |32               |265.06                |261.25                |DELAY_LATE_AIRCRAFT|DELAY_CARRIER|DELAY_WEATHER|
+|ABE      |10  |604               |-6.03                  |-17.9                  |62                |26.23                  |11.97                  |36               |193.17                |183.83                |DELAY_LATE_AIRCRAFT|CANC_WEATHER|DELAY_CARRIER |
++---------+----+------------------+-----------------------+-----------------------+------------------+-----------------------+-----------------------+-----------------+----------------------+----------------------+-----------------------------------------------+
+only showing top 10 rows
+
+[JOB 2] Calcolo completato in 18.52 secondi.
+[JOB 2] Salvataggio dei risultati in HDFS: hdfs://localhost:9000/user/fra/spark-sql/job_2/yarn/flights_x2

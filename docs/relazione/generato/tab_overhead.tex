@@ -2,32 +2,32 @@
 \toprule
 Ambiente & Dataset & Job & Tecnologia & Totale (s) & Calcolo (s) & Overhead (s) & Overhead \\
 \midrule
-Locale & 1\% & Job 1 & Spark Core & 7,5 & 3,9 & 3,7 & 49\,\% \\
-Locale & 1\% & Job 1 & Spark SQL & 7,8 & 5,3 & 2,5 & 32\,\% \\
-Locale & 1\% & Job 1 & Hive & 14,0 & 7,0 & 7,0 & 50\,\% \\
-Locale & 1\% & Job 2 & Spark Core & 7,7 & 4,4 & 3,4 & 44\,\% \\
-Locale & 1\% & Job 2 & Spark SQL & 8,8 & 6,2 & 2,6 & 30\,\% \\
-Locale & 1\% & Job 2 & Hive & 23,4 & 15,8 & 7,6 & 32\,\% \\
+Locale & 1\% & Job 1 & Spark Core & 6,8 & 3,5 & 3,3 & 48\,\% \\
+Locale & 1\% & Job 1 & Spark SQL & 7,3 & 4,9 & 2,4 & 33\,\% \\
+Locale & 1\% & Job 1 & Hive & 12,5 & 6,2 & 6,3 & 50\,\% \\
+Locale & 1\% & Job 2 & Spark Core & 6,9 & 3,9 & 3,0 & 44\,\% \\
+Locale & 1\% & Job 2 & Spark SQL & 8,7 & 6,4 & 2,3 & 26\,\% \\
+Locale & 1\% & Job 2 & Hive & 21,3 & 14,9 & 6,4 & 30\,\% \\
 \midrule
-Locale & 5× & Job 1 & Spark Core & 61,8 & 57,3 & 4,5 & 7\,\% \\
-Locale & 5× & Job 1 & Spark SQL & 104,4 & 100,6 & 3,8 & 4\,\% \\
-Locale & 5× & Job 1 & Hive & 85,0 & 74,8 & 10,2 & 12\,\% \\
-Locale & 5× & Job 2 & Spark Core & 114,9 & 110,4 & 4,5 & 4\,\% \\
-Locale & 5× & Job 2 & Spark SQL & 105,6 & 101,7 & 3,9 & 4\,\% \\
-Locale & 5× & Job 2 & Hive & 114,2 & 103,3 & 10,9 & 10\,\% \\
+Locale & 5× & Job 1 & Spark Core & 32,2 & 29,2 & 3,1 & 9\,\% \\
+Locale & 5× & Job 1 & Spark SQL & 60,1 & 57,4 & 2,7 & 5\,\% \\
+Locale & 5× & Job 1 & Hive & 52,7 & 45,8 & 6,9 & 13\,\% \\
+Locale & 5× & Job 2 & Spark Core & 63,9 & 60,7 & 3,3 & 5\,\% \\
+Locale & 5× & Job 2 & Spark SQL & 58,7 & 56,0 & 2,7 & 5\,\% \\
+Locale & 5× & Job 2 & Hive & 70,1 & 63,4 & 6,8 & 10\,\% \\
 \midrule
-YARN & 1\% & Job 1 & Spark Core & 29,6 & 25,1 & 4,5 & 15\,\% \\
-YARN & 1\% & Job 1 & Spark SQL & 34,2 & 30,3 & 4,0 & 12\,\% \\
-YARN & 1\% & Job 1 & Hive & 57,0 & 47,0 & 10,0 & 18\,\% \\
-YARN & 1\% & Job 2 & Spark Core & 27,8 & 23,8 & 4,0 & 14\,\% \\
-YARN & 1\% & Job 2 & Spark SQL & 22,4 & 19,7 & 2,7 & 12\,\% \\
-YARN & 1\% & Job 2 & Hive & 152,0 & 144,4 & 7,6 & 5\,\% \\
+YARN & 1\% & Job 1 & Spark Core & 18,9 & 15,7 & 3,2 & 17\,\% \\
+YARN & 1\% & Job 1 & Spark SQL & 20,5 & 18,0 & 2,4 & 12\,\% \\
+YARN & 1\% & Job 1 & Hive & 47,7 & 41,6 & 6,1 & 13\,\% \\
+YARN & 1\% & Job 2 & Spark Core & 18,4 & 15,4 & 3,0 & 16\,\% \\
+YARN & 1\% & Job 2 & Spark SQL & 20,2 & 17,8 & 2,4 & 12\,\% \\
+YARN & 1\% & Job 2 & Hive & 130,8 & 124,5 & 6,3 & 5\,\% \\
 \midrule
-YARN & 5× & Job 1 & Spark Core & 65,4 & 62,3 & 3,1 & 5\,\% \\
-YARN & 5× & Job 1 & Spark SQL & 102,7 & 100,1 & 2,7 & 3\,\% \\
-YARN & 5× & Job 1 & Hive & 70,1 & 63,7 & 6,4 & 9\,\% \\
-YARN & 5× & Job 2 & Spark Core & 108,6 & 105,4 & 3,1 & 3\,\% \\
-YARN & 5× & Job 2 & Spark SQL & 117,4 & 114,8 & 2,7 & 2\,\% \\
-YARN & 5× & Job 2 & Hive & 166,1 & 159,3 & 6,8 & 4\,\% \\
+YARN & 5× & Job 1 & Spark Core & 64,5 & 60,8 & 3,7 & 6\,\% \\
+YARN & 5× & Job 1 & Spark SQL & 106,8 & 104,3 & 2,4 & 2\,\% \\
+YARN & 5× & Job 1 & Hive & 72,2 & 65,5 & 6,7 & 9\,\% \\
+YARN & 5× & Job 2 & Spark Core & 114,9 & 111,7 & 3,2 & 3\,\% \\
+YARN & 5× & Job 2 & Spark SQL & 124,6 & 121,7 & 2,9 & 2\,\% \\
+YARN & 5× & Job 2 & Hive & 175,1 & 167,9 & 7,1 & 4\,\% \\
 \bottomrule
 \end{tabular}

@@ -33,7 +33,7 @@ Il benchmark si basa sul popolare dataset pubblico **"Flight Delay Dataset — 2
 La cartella del progetto è organizzata in moduli indipendenti e isolati per tecnologia. Questa separazione architetturale consente di mantenere intatti gli script di lancio locali (`run.sh`), introducendo in parallelo i moduli nativi per il Cloud (`run_aws.sh`) per garantire lo switch DevOps senza conflitti:
 
 ```text
-flight-bigdata-benchmark/
+BigData-FlightAnalysis/
 ├── dataset/               
 │   ├── download.py        # Script Python per il download automatizzato del dataset da Kaggle
 │   ├── generate_data.sh   # Script Bash per orchestrare la sequenza di scaricamento e preparazione
@@ -361,9 +361,9 @@ sudo yum install git -y
 # 2. Installa le librerie Python per la gestione dei dati e della reportistica grafica
 pip3 install matplotlib pandas --user
 
-# 3. Clona la repository del progetto (Sostituisci con il link reale della tua repo)
-git clone COPIA_IL_LINK_DELLA_TUA_REPO_GITHUB
-cd flight-bigdata-benchmark/
+# 3. Clona la repository del progetto
+git clone https://github.com/fragiovis/BigData-FlightAnalysis.git
+cd BigData-FlightAnalysis/
 ```
 
 ### 6. Esecuzione del Benchmark Cloud ed Output (logs/aws/)

@@ -93,9 +93,11 @@ con \Q{righe_iniziali} voli interni degli Stati Uniti e \Q{colonne_iniziali} col
         contata una sola volta, e i conteggi per motivo sono calcolati in un solo passaggio sui dati. Segue la
         rimozione dei duplicati sulla chiave del volo (data, compagnia, numero, tratta, orario programmato).
   \item \textbf{Trasformazioni}, motivate sotto.
-  \item \textbf{Selezione} delle 9 colonne usate dai job: \code{month}, \code{op\_unique\_carrier}, \code{origin},
+  \item \textbf{Selezione} di 9 colonne: \code{month}, \code{op\_unique\_carrier}, \code{origin},
         \code{dest}, \code{dep\_delay}, \code{arr\_delay}, \code{cancelled}, \code{cancellation\_code},
-        \code{delay\_code}. Il file scende a \DS{mb}{flights_cleaned}\,MB.
+        \code{delay\_code}. Otto sono usate dai job; \code{dest} (aeroporto di arrivo) non serve alle due analisi,
+        basate sull'aeroporto di partenza, ma è mantenuta perché la traccia consente di calcolare il Job~1 anche
+        per tratta. Il file scende a \DS{mb}{flights_cleaned}\,MB.
 \end{enumerate}
 
 \begin{table}[H]

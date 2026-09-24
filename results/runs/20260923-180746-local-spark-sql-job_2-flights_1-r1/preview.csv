@@ -1,0 +1,11 @@
+aeroporto,mese,voli_ritardo_basso,ritardo_medio_dep_basso,ritardo_medio_arr_basso,voli_ritardo_medio,ritardo_medio_dep_medio,ritardo_medio_arr_medio,voli_ritardo_alto,ritardo_medio_dep_alto,ritardo_medio_arr_alto,top_3_cause_ritardo_canc
+ABE,1,4,-6.0,-13.5,1,44.0,20.0,0,,,DELAY_LATE_AIRCRAFT
+ABE,2,0,,,0,,,1,97.0,70.0,CANC_WEATHER|DELAY_CARRIER
+ABE,3,5,-7.4,-19.8,0,,,0,,,N/D
+ABE,4,1,-13.0,-42.0,1,22.0,-2.0,0,,,N/D
+ABE,5,1,14.0,-2.0,0,,,0,,,N/D
+ABE,6,3,-7.0,-15.67,0,,,1,173.0,158.0,DELAY_CARRIER
+ABE,7,3,-8.0,-14.0,0,,,0,,,N/D
+ABE,8,3,-9.33,-21.0,0,,,0,,,N/D
+ABE,9,2,-17.0,-28.0,0,,,1,175.0,162.0,DELAY_LATE_AIRCRAFT
+ABE,10,6,-8.0,-18.33,0,,,1,131.0,127.0,DELAY_LATE_AIRCRAFT

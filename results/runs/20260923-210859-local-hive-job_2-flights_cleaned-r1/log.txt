@@ -1,0 +1,370 @@
+[HIVE] Applicazione della patch di rete per sbloccare i container YARN...
+Deleted /user/fra/hive/job_2
+[HIVE] Pre-compilazione del file SQL (Sostituzione variabili in Bash)...
+[HIVE] Avvio esecuzione MapReduce tramite Beeline per il file job_2.hql (local[*])...
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/Users/fra/apache-hive-4.0.0-bin/lib/log4j-slf4j-impl-2.18.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/Users/fra/hadoop-3.4.1/share/hadoop/common/lib/slf4j-reload4j-1.7.36.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/Users/fra/apache-hive-4.0.0-bin/lib/log4j-slf4j-impl-2.18.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/Users/fra/hadoop-3.4.1/share/hadoop/common/lib/slf4j-reload4j-1.7.36.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+Connecting to jdbc:hive2://
+26/09/23 21:09:02 [main]: WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Hive Session ID = 68334c7b-3da2-4db3-a500-4cdaf5193b0c
+26/09/23 21:09:03 [main]: WARN hikari.HikariConfig: objectstore - leakDetectionThreshold is less than 2000ms or more than maxLifetime, disabling it.
+26/09/23 21:09:03 [main]: WARN hikari.HikariConfig: objectstore-secondary - leakDetectionThreshold is less than 2000ms or more than maxLifetime, disabling it.
+26/09/23 21:09:03 [main]: WARN DataNucleus.MetaData: Metadata has jdbc-type of null yet this is not valid. Ignored
+26/09/23 21:09:03 [main]: WARN DataNucleus.MetaData: Metadata has jdbc-type of null yet this is not valid. Ignored
+26/09/23 21:09:03 [main]: WARN DataNucleus.MetaData: Metadata has jdbc-type of null yet this is not valid. Ignored
+26/09/23 21:09:03 [main]: WARN DataNucleus.MetaData: Metadata has jdbc-type of null yet this is not valid. Ignored
+26/09/23 21:09:03 [main]: WARN DataNucleus.MetaData: Metadata has jdbc-type of null yet this is not valid. Ignored
+26/09/23 21:09:03 [main]: WARN DataNucleus.MetaData: Metadata has jdbc-type of null yet this is not valid. Ignored
+26/09/23 21:09:03 [main]: WARN DataNucleus.MetaData: Metadata has jdbc-type of null yet this is not valid. Ignored
+26/09/23 21:09:03 [main]: WARN DataNucleus.MetaData: Metadata has jdbc-type of null yet this is not valid. Ignored
+26/09/23 21:09:03 [main]: WARN DataNucleus.MetaData: Metadata has jdbc-type of null yet this is not valid. Ignored
+26/09/23 21:09:03 [main]: WARN DataNucleus.MetaData: Metadata has jdbc-type of null yet this is not valid. Ignored
+26/09/23 21:09:03 [main]: WARN DataNucleus.MetaData: Metadata has jdbc-type of null yet this is not valid. Ignored
+26/09/23 21:09:03 [main]: WARN DataNucleus.MetaData: Metadata has jdbc-type of null yet this is not valid. Ignored
+26/09/23 21:09:04 [main]: WARN exec.FunctionRegistry: UDF Class org.apache.hive.org.apache.datasketches.hive.cpc.UnionSketchUDF does not have description. Please annotate the class with the org.apache.hadoop.hive.ql.exec.Description annotation and provide the description of the function.
+26/09/23 21:09:04 [main]: WARN exec.FunctionRegistry: UDF Class org.apache.hive.org.apache.datasketches.hive.hll.UnionSketchUDF does not have description. Please annotate the class with the org.apache.hadoop.hive.ql.exec.Description annotation and provide the description of the function.
+26/09/23 21:09:04 [main]: WARN exec.FunctionRegistry: UDF Class org.apache.hive.org.apache.datasketches.hive.theta.IntersectSketchUDF does not have description. Please annotate the class with the org.apache.hadoop.hive.ql.exec.Description annotation and provide the description of the function.
+26/09/23 21:09:04 [main]: WARN exec.FunctionRegistry: UDF Class org.apache.hive.org.apache.datasketches.hive.theta.EstimateSketchUDF does not have description. Please annotate the class with the org.apache.hadoop.hive.ql.exec.Description annotation and provide the description of the function.
+26/09/23 21:09:04 [main]: WARN exec.FunctionRegistry: UDF Class org.apache.hive.org.apache.datasketches.hive.theta.ExcludeSketchUDF does not have description. Please annotate the class with the org.apache.hadoop.hive.ql.exec.Description annotation and provide the description of the function.
+26/09/23 21:09:04 [main]: WARN exec.FunctionRegistry: UDF Class org.apache.hive.org.apache.datasketches.hive.theta.UnionSketchUDF does not have description. Please annotate the class with the org.apache.hadoop.hive.ql.exec.Description annotation and provide the description of the function.
+26/09/23 21:09:04 [main]: WARN exec.FunctionRegistry: UDF Class org.apache.hive.org.apache.datasketches.hive.tuple.ArrayOfDoublesSketchToValuesUDTF does not have description. Please annotate the class with the org.apache.hadoop.hive.ql.exec.Description annotation and provide the description of the function.
+26/09/23 21:09:04 [main]: WARN session.SessionState: Configuration hive.reloadable.aux.jars.path not specified
+Connected to: Apache Hive (version 4.0.0)
+Driver: Hive JDBC (version 4.0.0)
+Transaction isolation: TRANSACTION_REPEATABLE_READ
+0: jdbc:hive2://> SET fs.defaultFS=hdfs://localhost:9000;
+No rows affected (0,03 seconds)
+0: jdbc:hive2://> SET hive.variable.substitute=true;
+No rows affected (0,003 seconds)
+0: jdbc:hive2://> SET mapreduce.framework.name=local;
+No rows affected (0,003 seconds)
+0: jdbc:hive2://> SET mapreduce.jobtracker.staging.root.dir=/tmp/hadoop/staging; 
+No rows affected (0,002 seconds)
+0: jdbc:hive2://> SET hive.exec.local.scratchdir=/tmp/hive/local-scratch;
+No rows affected (0,002 seconds)
+0: jdbc:hive2://> SET hive.exec.scratchdir=/tmp/hive/scratch;
+No rows affected (0,004 seconds)
+0: jdbc:hive2://> -- 1. Pulizia e Creazione della Tabella Esterna mappata sulla  
+cartella HDFS del dataset
+0: jdbc:hive2://> DROP TABLE IF EXISTS flights_input;
+No rows affected (1,362 seconds)
+0: jdbc:hive2://> 
+0: jdbc:hive2://> CREATE EXTERNAL TABLE flights_input (
+. . . . . . . . >     month INT,
+. . . . . . . . >     op_unique_carrier STRING,
+. . . . . . . . >     origin STRING,
+. . . . . . . . >     dest STRING,
+. . . . . . . . >     dep_delay DOUBLE,
+. . . . . . . . >     arr_delay DOUBLE,
+. . . . . . . . >     cancelled INT,
+. . . . . . . . >     cancellation_code STRING,
+. . . . . . . . >     delay_code STRING
+. . . . . . . . > )
+. . . . . . . . > ROW FORMAT DELIMITED
+. . . . . . . . > FIELDS TERMINATED BY ','
+. . . . . . . . > STORED AS TEXTFILE
+. . . . . . . . > LOCATION '/user/fra/data/flights_cleaned'
+. . . . . . . . > TBLPROPERTIES ("skip.header.line.count"="1");
+No rows affected (0,198 seconds)
+0: jdbc:hive2://> 
+0: jdbc:hive2://> -- 2. Elaborazione: Il blocco WITH viene posizionato in cima a 
+ tutto
+0: jdbc:hive2://> WITH 
+. . . . . . . . > -- Fase A: Calcolo dei contatori e dei ritardi medi per ciascu 
+na delle 3 fasce
+. . . . . . . . > stats_fasce AS (
+. . . . . . . . >     SELECT 
+. . . . . . . . >         origin,
+. . . . . . . . >         month,
+. . . . . . . . >         COUNT(CASE WHEN dep_delay < 15 THEN 1 END) as voli_rit 
+ardo_basso,
+. . . . . . . . >         ROUND(AVG(CASE WHEN dep_delay < 15 THEN dep_delay END) 
+, 2) as ritardo_medio_dep_basso,
+. . . . . . . . >         ROUND(AVG(CASE WHEN dep_delay < 15 THEN arr_delay END) 
+, 2) as ritardo_medio_arr_basso,
+. . . . . . . . >         
+. . . . . . . . >         COUNT(CASE WHEN dep_delay >= 15 AND dep_delay <= 60 TH 
+EN 1 END) as voli_ritardo_medio,
+. . . . . . . . >         ROUND(AVG(CASE WHEN dep_delay >= 15 AND dep_delay <= 6 
+0 THEN dep_delay END), 2) as ritardo_medio_dep_medio,
+. . . . . . . . >         ROUND(AVG(CASE WHEN dep_delay >= 15 AND dep_delay <= 6 
+0 THEN arr_delay END), 2) as ritardo_medio_arr_medio,
+. . . . . . . . >         
+. . . . . . . . >         COUNT(CASE WHEN dep_delay > 60 THEN 1 END) as voli_rit 
+ardo_alto,
+. . . . . . . . >         ROUND(AVG(CASE WHEN dep_delay > 60 THEN dep_delay END) 
+, 2) as ritardo_medio_dep_alto,
+. . . . . . . . >         ROUND(AVG(CASE WHEN dep_delay > 60 THEN arr_delay END) 
+, 2) as ritardo_medio_arr_alto
+. . . . . . . . >     FROM flights_input
+. . . . . . . . >     -- Hive 4 non applica skip.header.line.count in questa con 
+figurazione: l'header del CSV
+. . . . . . . . >     -- verrebbe letto come un volo (con month = NULL), quindi  
+lo escludiamo esplicitamente
+. . . . . . . . >     WHERE month IS NOT NULL
+. . . . . . . . >     GROUP BY origin, month
+. . . . . . . . > ),
+. . . . . . . . > -- Fase B: flatMap delle cause (Uniamo i codici cancellazione  
+e ritardo ignorando stringhe vuote o 'None')
+. . . . . . . . > all_causes AS (
+. . . . . . . . >     SELECT origin, month, trim(cancellation_code) as code FROM 
+ flights_input 
+. . . . . . . . >     WHERE cancellation_code IS NOT NULL AND trim(cancellation_ 
+code) != '' AND trim(cancellation_code) != 'None'
+. . . . . . . . >     UNION ALL
+. . . . . . . . >     SELECT origin, month, trim(delay_code) as code FROM flight 
+s_input 
+. . . . . . . . >     WHERE delay_code IS NOT NULL AND trim(delay_code) != '' AN 
+D trim(delay_code) != 'None'
+. . . . . . . . > ),
+. . . . . . . . > -- Fase C: Conteggio frequenze di ciascun codice per gruppo
+. . . . . . . . > counted_causes AS (
+. . . . . . . . >     SELECT origin, month, code, COUNT(*) as freq
+. . . . . . . . >     FROM all_causes
+. . . . . . . . >     GROUP BY origin, month, code
+. . . . . . . . > ),
+. . . . . . . . > -- Fase D: Classifica delle cause tramite Row Number
+. . . . . . . . > -- (a parità di frequenza vince il codice alfabeticamente mino 
+re: risultato deterministico)
+. . . . . . . . > ranked_causes AS (
+. . . . . . . . >     SELECT origin, month, code,
+. . . . . . . . >            ROW_NUMBER() OVER (PARTITION BY origin, month ORDER 
+ BY freq DESC, code ASC) as rn
+. . . . . . . . >     FROM counted_causes
+. . . . . . . . > ),
+. . . . . . . . > -- Fase E: Pivot dei primi 3 codici in ordine di ranking, unit 
+i con '|'
+. . . . . . . . > -- (COLLECT_LIST non garantisce l'ordine, per questo si usa un 
+ MAX per posizione)
+. . . . . . . . > top_3_string AS (
+. . . . . . . . >     SELECT origin, month,
+. . . . . . . . >            CONCAT_WS('|',
+. . . . . . . . >                MAX(CASE WHEN rn = 1 THEN code END),
+. . . . . . . . >                MAX(CASE WHEN rn = 2 THEN code END),
+. . . . . . . . >                MAX(CASE WHEN rn = 3 THEN code END)) as top_3_c 
+ause_ritardo_canc
+. . . . . . . . >     FROM ranked_causes
+. . . . . . . . >     WHERE rn <= 3
+. . . . . . . . >     GROUP BY origin, month
+. . . . . . . . > )
+. . . . . . . . > -- Ora che le CTE sono pronte, inseriamo l'istruzione di scrit 
+tura e selezione finale
+. . . . . . . . > -- NULL DEFINED AS '' scrive i valori mancanti come campi vuot 
+i (come Spark) invece di \N
+. . . . . . . . > INSERT OVERWRITE DIRECTORY '/user/fra/hive/job_2'
+. . . . . . . . > ROW FORMAT DELIMITED
+. . . . . . . . > FIELDS TERMINATED BY ','
+. . . . . . . . > NULL DEFINED AS ''
+. . . . . . . . > SELECT
+. . . . . . . . >     f.origin as aeroporto,
+. . . . . . . . >     f.month as mese,
+. . . . . . . . >     f.voli_ritardo_basso,
+. . . . . . . . >     f.ritardo_medio_dep_basso,
+. . . . . . . . >     f.ritardo_medio_arr_basso,
+. . . . . . . . >     f.voli_ritardo_medio,
+. . . . . . . . >     f.ritardo_medio_dep_medio,
+. . . . . . . . >     f.ritardo_medio_arr_medio,
+. . . . . . . . >     f.voli_ritardo_alto,
+. . . . . . . . >     f.ritardo_medio_dep_alto,
+. . . . . . . . >     f.ritardo_medio_arr_alto,
+. . . . . . . . >     COALESCE(t.top_3_cause_ritardo_canc, 'N/D') as top_3_cause 
+_ritardo_canc
+. . . . . . . . > FROM stats_fasce f
+. . . . . . . . > LEFT OUTER JOIN top_3_string t ON f.origin = t.origin AND f.mo 
+nth = t.month
+. . . . . . . . > ORDER BY aeroporto ASC, mese ASC;
+26/09/23 21:09:07 [9bf72113-84a9-4fc5-96fa-f75df3af0142 main]: WARN parse.RowResolver: Found duplicate column alias in RR: f.voli_ritardo_basso => {f, voli_ritardo_basso, _col2: bigint} adding f.voli_ritardo_basso => {f, voli_ritardo_basso, _col14: bigint}
+26/09/23 21:09:07 [9bf72113-84a9-4fc5-96fa-f75df3af0142 main]: WARN parse.RowResolver: Found duplicate column alias in RR: f.ritardo_medio_dep_basso => {f, ritardo_medio_dep_basso, _col3: double} adding f.ritardo_medio_dep_basso => {f, ritardo_medio_dep_basso, _col15: double}
+26/09/23 21:09:07 [9bf72113-84a9-4fc5-96fa-f75df3af0142 main]: WARN parse.RowResolver: Found duplicate column alias in RR: f.ritardo_medio_arr_basso => {f, ritardo_medio_arr_basso, _col4: double} adding f.ritardo_medio_arr_basso => {f, ritardo_medio_arr_basso, _col16: double}
+26/09/23 21:09:07 [9bf72113-84a9-4fc5-96fa-f75df3af0142 main]: WARN parse.RowResolver: Found duplicate column alias in RR: f.voli_ritardo_medio => {f, voli_ritardo_medio, _col5: bigint} adding f.voli_ritardo_medio => {f, voli_ritardo_medio, _col17: bigint}
+26/09/23 21:09:07 [9bf72113-84a9-4fc5-96fa-f75df3af0142 main]: WARN parse.RowResolver: Found duplicate column alias in RR: f.ritardo_medio_dep_medio => {f, ritardo_medio_dep_medio, _col6: double} adding f.ritardo_medio_dep_medio => {f, ritardo_medio_dep_medio, _col18: double}
+26/09/23 21:09:07 [9bf72113-84a9-4fc5-96fa-f75df3af0142 main]: WARN parse.RowResolver: Found duplicate column alias in RR: f.ritardo_medio_arr_medio => {f, ritardo_medio_arr_medio, _col7: double} adding f.ritardo_medio_arr_medio => {f, ritardo_medio_arr_medio, _col19: double}
+26/09/23 21:09:07 [9bf72113-84a9-4fc5-96fa-f75df3af0142 main]: WARN parse.RowResolver: Found duplicate column alias in RR: f.voli_ritardo_alto => {f, voli_ritardo_alto, _col8: bigint} adding f.voli_ritardo_alto => {f, voli_ritardo_alto, _col20: bigint}
+26/09/23 21:09:07 [9bf72113-84a9-4fc5-96fa-f75df3af0142 main]: WARN parse.RowResolver: Found duplicate column alias in RR: f.ritardo_medio_dep_alto => {f, ritardo_medio_dep_alto, _col9: double} adding f.ritardo_medio_dep_alto => {f, ritardo_medio_dep_alto, _col21: double}
+26/09/23 21:09:07 [9bf72113-84a9-4fc5-96fa-f75df3af0142 main]: WARN parse.RowResolver: Found duplicate column alias in RR: f.ritardo_medio_arr_alto => {f, ritardo_medio_arr_alto, _col10: double} adding f.ritardo_medio_arr_alto => {f, ritardo_medio_arr_alto, _col22: double}
+26/09/23 21:09:07 [9bf72113-84a9-4fc5-96fa-f75df3af0142 main]: WARN calcite.RelOptHiveTable: No Stats for default@flights_input, Columns: arr_delay, month, origin, dep_delay
+No Stats for default@flights_input, Columns: arr_delay, month, origin, dep_delay
+26/09/23 21:09:07 [9bf72113-84a9-4fc5-96fa-f75df3af0142 main]: WARN calcite.RelOptHiveTable: No Stats for default@flights_input, Columns: cancellation_code
+No Stats for default@flights_input, Columns: cancellation_code
+26/09/23 21:09:07 [9bf72113-84a9-4fc5-96fa-f75df3af0142 main]: WARN calcite.RelOptHiveTable: No Stats for default@flights_input, Columns: delay_code
+No Stats for default@flights_input, Columns: delay_code
+26/09/23 21:09:08 [HiveServer2-Background-Pool: Thread-86]: WARN ql.Driver: Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. tez) or using Hive 1.X releases.
+Query ID = fra_20260923210906_c9ffd293-4c4b-405a-8dd9-50e678c1a66c
+Total jobs = 7
+Launching Job 1 out of 7
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+26/09/23 21:09:08 [HiveServer2-Background-Pool: Thread-86]: WARN impl.MetricsSystemImpl: JobTracker metrics system already initialized!
+26/09/23 21:09:08 [HiveServer2-Background-Pool: Thread-86]: WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
+WARN  : Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. tez) or using Hive 1.X releases.
+Job running in-process (local Hadoop)
+26/09/23 21:09:10 [HiveServer2-Background-Pool: Thread-86]: WARN mapreduce.Counters: Group org.apache.hadoop.mapred.Task$Counter is deprecated. Use org.apache.hadoop.mapreduce.TaskCounter instead
+2026-09-23 21:09:10,511 Stage-1 map = 0%,  reduce = 0%
+26/09/23 21:09:13 [pool-14-thread-1]: WARN impl.MetricsSystemImpl: JobTracker metrics system already initialized!
+2026-09-23 21:09:14,537 Stage-1 map = 100%,  reduce = 100%
+Ended Job = job_local109456308_0001
+Launching Job 2 out of 7
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+26/09/23 21:09:14 [HiveServer2-Background-Pool: Thread-86]: WARN impl.MetricsSystemImpl: JobTracker metrics system already initialized!
+26/09/23 21:09:14 [HiveServer2-Background-Pool: Thread-86]: WARN impl.MetricsSystemImpl: JobTracker metrics system already initialized!
+26/09/23 21:09:14 [HiveServer2-Background-Pool: Thread-86]: WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
+Job running in-process (local Hadoop)
+26/09/23 21:09:16 [HiveServer2-Background-Pool: Thread-86]: WARN mapreduce.Counters: Group org.apache.hadoop.mapred.Task$Counter is deprecated. Use org.apache.hadoop.mapreduce.TaskCounter instead
+2026-09-23 21:09:16,239 Stage-4 map = 0%,  reduce = 0%
+26/09/23 21:09:22 [pool-18-thread-1]: WARN impl.MetricsSystemImpl: JobTracker metrics system already initialized!
+2026-09-23 21:09:23,298 Stage-4 map = 100%,  reduce = 100%
+Ended Job = job_local831626135_0002
+Launching Job 3 out of 7
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+26/09/23 21:09:23 [HiveServer2-Background-Pool: Thread-86]: WARN impl.MetricsSystemImpl: JobTracker metrics system already initialized!
+26/09/23 21:09:23 [HiveServer2-Background-Pool: Thread-86]: WARN impl.MetricsSystemImpl: JobTracker metrics system already initialized!
+26/09/23 21:09:23 [HiveServer2-Background-Pool: Thread-86]: WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
+Job running in-process (local Hadoop)
+26/09/23 21:09:24 [pool-22-thread-1]: WARN impl.MetricsSystemImpl: JobTracker metrics system already initialized!
+2026-09-23 21:09:25,055 Stage-5 map = 100%,  reduce = 100%
+Ended Job = job_local358037710_0003
+Launching Job 4 out of 7
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+26/09/23 21:09:25 [HiveServer2-Background-Pool: Thread-86]: WARN impl.MetricsSystemImpl: JobTracker metrics system already initialized!
+26/09/23 21:09:25 [HiveServer2-Background-Pool: Thread-86]: WARN impl.MetricsSystemImpl: JobTracker metrics system already initialized!
+26/09/23 21:09:25 [HiveServer2-Background-Pool: Thread-86]: WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
+Job running in-process (local Hadoop)
+26/09/23 21:09:25 [pool-26-thread-1]: WARN impl.MetricsSystemImpl: JobTracker metrics system already initialized!
+2026-09-23 21:09:26,682 Stage-6 map = 100%,  reduce = 100%
+Ended Job = job_local1156242549_0004
+Stage-10 is selected by condition resolver.
+Stage-2 is filtered out by condition resolver.
+SLF4J: Found binding in [jar:file:/Users/fra/apache-hive-4.0.0-bin/lib/log4j-slf4j-impl-2.18.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
+26/09/23 21:09:28 [main]: WARN common.LogUtils: hive-site.xml not found on CLASSPATH
+java.lang.NullPointerException: Cannot enter synchronized block because "other" is null
+	at org.apache.hadoop.mapred.JobConf.<init>(JobConf.java:476)
+	at org.apache.hadoop.hive.ql.exec.mr.MapredLocalTask.initialize(MapredLocalTask.java:136)
+Execution failed with exit status: 1
+26/09/23 21:09:28 [HiveServer2-Background-Pool: Thread-86]: ERROR exec.Task: Execution failed with exit status: 1
+Obtaining error information
+26/09/23 21:09:28 [HiveServer2-Background-Pool: Thread-86]: ERROR exec.Task: Obtaining error information
+
+Task failed!
+Task ID:
+  Stage-10
+
+Logs:
+
+26/09/23 21:09:28 [HiveServer2-Background-Pool: Thread-86]: ERROR exec.Task: 
+Task failed!
+Task ID:
+  Stage-10
+
+Logs:
+
+null
+26/09/23 21:09:28 [HiveServer2-Background-Pool: Thread-86]: ERROR exec.Task: null
+26/09/23 21:09:28 [HiveServer2-Background-Pool: Thread-86]: ERROR mr.MapredLocalTask: Execution failed with exit status: 1
+FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.mr.MapredLocalTask
+26/09/23 21:09:28 [HiveServer2-Background-Pool: Thread-86]: ERROR ql.Driver: FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.mr.MapredLocalTask
+ATTEMPT: Execute BackupTask: org.apache.hadoop.hive.ql.exec.mr.MapRedTask
+26/09/23 21:09:28 [HiveServer2-Background-Pool: Thread-86]: ERROR ql.Driver: ATTEMPT: Execute BackupTask: org.apache.hadoop.hive.ql.exec.mr.MapRedTask
+Launching Job 6 out of 7
+Number of reduce tasks not specified. Estimated from input data size: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+26/09/23 21:09:28 [HiveServer2-Background-Pool: Thread-86]: WARN impl.MetricsSystemImpl: JobTracker metrics system already initialized!
+26/09/23 21:09:28 [HiveServer2-Background-Pool: Thread-86]: WARN impl.MetricsSystemImpl: JobTracker metrics system already initialized!
+26/09/23 21:09:28 [HiveServer2-Background-Pool: Thread-86]: WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
+Job running in-process (local Hadoop)
+26/09/23 21:09:29 [pool-30-thread-1]: WARN impl.MetricsSystemImpl: JobTracker metrics system already initialized!
+ERROR : Execution failed with exit status: 1
+ERROR : Obtaining error information
+ERROR : 
+Task failed!
+Task ID:
+  Stage-10
+
+Logs:
+
+ERROR : null
+ERROR : FAILED: Execution Error, return code 1 from org.apache.hadoop.hive.ql.exec.mr.MapredLocalTask
+ERROR : ATTEMPT: Execute BackupTask: org.apache.hadoop.hive.ql.exec.mr.MapRedTask
+2026-09-23 21:09:30,387 Stage-2 map = 100%,  reduce = 100%
+Ended Job = job_local1572031809_0005
+Launching Job 7 out of 7
+Number of reduce tasks determined at compile time: 1
+In order to change the average load for a reducer (in bytes):
+  set hive.exec.reducers.bytes.per.reducer=<number>
+In order to limit the maximum number of reducers:
+  set hive.exec.reducers.max=<number>
+In order to set a constant number of reducers:
+  set mapreduce.job.reduces=<number>
+26/09/23 21:09:30 [HiveServer2-Background-Pool: Thread-86]: WARN impl.MetricsSystemImpl: JobTracker metrics system already initialized!
+26/09/23 21:09:30 [HiveServer2-Background-Pool: Thread-86]: WARN impl.MetricsSystemImpl: JobTracker metrics system already initialized!
+26/09/23 21:09:30 [HiveServer2-Background-Pool: Thread-86]: WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
+Job running in-process (local Hadoop)
+26/09/23 21:09:31 [pool-34-thread-1]: WARN impl.MetricsSystemImpl: JobTracker metrics system already initialized!
+2026-09-23 21:09:32,169 Stage-3 map = 100%,  reduce = 100%
+Ended Job = job_local1843164114_0006
+Moving data to directory /user/fra/hive/job_2
+MapReduce Jobs Launched: 
+Stage-Stage-1:  HDFS Read: 430880420 HDFS Write: 0 HDFS EC Read: 0 SUCCESS
+Stage-Stage-4:  HDFS Read: 861760840 HDFS Write: 0 HDFS EC Read: 0 SUCCESS
+Stage-Stage-5:  HDFS Read: 861760840 HDFS Write: 0 HDFS EC Read: 0 SUCCESS
+Stage-Stage-6:  HDFS Read: 861760840 HDFS Write: 0 HDFS EC Read: 0 SUCCESS
+Stage-Stage-2:  HDFS Read: 1292641260 HDFS Write: 0 HDFS EC Read: 0 SUCCESS
+Stage-Stage-3:  HDFS Read: 861760840 HDFS Write: 381086 HDFS EC Read: 0 SUCCESS
+Total MapReduce CPU Time Spent: 0 msec
+No rows affected (25,362 seconds)
+0: jdbc:hive2://> 
+0: jdbc:hive2://> -- 3. Scollegamento finale del catalogo temporaneo
+0: jdbc:hive2://> DROP TABLE flights_input;
+No rows affected (0,213 seconds)
+0: jdbc:hive2://> Closing: 0: jdbc:hive2://
+26/09/23 21:09:32 [shutdown-hook-0]: WARN util.ShutdownHookManager: Shutdown in progress, cannot cancel a deleteOnExit
+26/09/23 21:09:32 [shutdown-hook-0]: WARN util.ShutdownHookManager: Shutdown in progress, cannot cancel a deleteOnExit
+
+--- ANTEPRIMA RISULTATI HIVE job_2 (TOP 10) ---
+ABE,1,275,-5.51,-14.56,30,34.9,32.5,30,241.3,234.03,DELAY_LATE_AIRCRAFT|DELAY_NAS|DELAY_CARRIER
+ABE,2,296,-6.62,-19.57,19,28.53,10.11,14,227.93,217.93,DELAY_CARRIER|DELAY_NAS|DELAY_LATE_AIRCRAFT
+ABE,3,339,-6.19,-18.37,28,30.68,19.89,23,173.43,163.39,DELAY_NAS|DELAY_LATE_AIRCRAFT|DELAY_CARRIER
+ABE,4,303,-6.45,-17.3,29,33.45,27.66,29,258.66,250.38,DELAY_CARRIER|DELAY_LATE_AIRCRAFT|DELAY_NAS
+ABE,5,320,-6.4,-12.5,26,30.08,29.58,39,183.13,177.13,DELAY_LATE_AIRCRAFT|DELAY_NAS|DELAY_CARRIER
+ABE,6,335,-6.85,-16.46,37,26.65,17.22,37,173.24,172.32,DELAY_CARRIER|DELAY_LATE_AIRCRAFT|DELAY_NAS
+ABE,7,280,-6.36,-10.59,41,34.61,30.15,37,138.08,137.08,DELAY_LATE_AIRCRAFT|DELAY_CARRIER|DELAY_NAS
+ABE,8,289,-6.64,-14.06,42,32.02,27.98,27,146.96,144.3,DELAY_LATE_AIRCRAFT|DELAY_CARRIER|DELAY_NAS
+ABE,9,276,-6.86,-15.9,24,38.08,32.88,16,265.06,261.25,DELAY_LATE_AIRCRAFT|DELAY_CARRIER|DELAY_WEATHER
+ABE,10,302,-6.03,-17.9,31,26.23,11.97,18,193.17,183.83,DELAY_LATE_AIRCRAFT|CANC_WEATHER|DELAY_CARRIER
+[HIVE] Ripristino dei file di configurazione originali di Hadoop...

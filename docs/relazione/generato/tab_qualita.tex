@@ -1,0 +1,16 @@
+\begin{tabularx}{\textwidth}{@{}l l X r@{}}
+\toprule
+Passo & Tipo & Descrizione & Righe \\
+\midrule
+\texttt{dirottato} & esclusione & Volo dirottato: atterra in un aeroporto diverso da quello previsto, quindi ritardo in arrivo e cancellazione non sono confrontabili con gli altri voli & 17.499 \\
+\texttt{campi\_chiave\_mancanti} & esclusione & Compagnia, aeroporto di partenza o di arrivo, mese o flag di cancellazione mancanti & 0 \\
+\texttt{mese\_non\_valido} & esclusione & Mese fuori dall'intervallo 1–12 & 0 \\
+\texttt{codice\_aeroporto\_non\_valido} & esclusione & Codice aeroporto diverso da tre lettere maiuscole (IATA) & 0 \\
+\texttt{cancellazione\_incoerente} & esclusione & Flag di cancellazione diverso da 0/1, oppure incoerente con la presenza del codice di cancellazione & 0 \\
+\texttt{ritardi\_mancanti} & esclusione & Volo non cancellato senza ritardo in partenza o in arrivo & 0 \\
+\texttt{cause\_incoerenti} & esclusione & Minuti attribuiti alle cause di ritardo la cui somma differisce dal ritardo in arrivo di oltre 1 minuto & 0 \\
+\texttt{duplicati} & esclusione & Stesso volo ripetuto (data, compagnia, numero di volo, tratta e orario programmato) & 0 \\
+\texttt{ritardo\_cancellati} & trasformazione & Voli cancellati con un ritardo registrato (hanno lasciato il gate prima della cancellazione): ritardi azzerati, così non entrano nelle fasce di ritardo & 3.345 \\
+\texttt{causa\_prevalente} & trasformazione & Voli con minuti attribuiti alle cause di ritardo: delay\_code = causa con più minuti & 1.449.970 \\
+\bottomrule
+\end{tabularx}

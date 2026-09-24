@@ -1,0 +1,136 @@
+2026-09-23 20:09:12,137 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Deleted /user/fra/spark-core/job_2
+26/09/23 20:09:13 WARN Utils: Your hostname, MacBook-Air-di-Francesco-5.local resolves to a loopback address: 127.0.0.1; using 192.168.1.102 instead (on interface en0)
+26/09/23 20:09:13 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+26/09/23 20:09:13 INFO SparkContext: Running Spark version 3.5.5
+26/09/23 20:09:13 INFO SparkContext: OS info Mac OS X, 26.3, aarch64
+26/09/23 20:09:13 INFO SparkContext: Java version 21.0.9
+26/09/23 20:09:13 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+26/09/23 20:09:13 INFO ResourceUtils: ==============================================================
+26/09/23 20:09:13 INFO ResourceUtils: No custom resources configured for spark.driver.
+26/09/23 20:09:13 INFO ResourceUtils: ==============================================================
+26/09/23 20:09:13 INFO SparkContext: Submitted application: spark-core#job-2
+26/09/23 20:09:13 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 1, script: , vendor: , memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+26/09/23 20:09:13 INFO ResourceProfile: Limiting resource is cpus at 1 tasks per executor
+26/09/23 20:09:13 INFO ResourceProfileManager: Added ResourceProfile id: 0
+26/09/23 20:09:13 INFO SecurityManager: Changing view acls to: fra
+26/09/23 20:09:13 INFO SecurityManager: Changing modify acls to: fra
+26/09/23 20:09:13 INFO SecurityManager: Changing view acls groups to: 
+26/09/23 20:09:13 INFO SecurityManager: Changing modify acls groups to: 
+26/09/23 20:09:13 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: fra; groups with view permissions: EMPTY; users with modify permissions: fra; groups with modify permissions: EMPTY
+26/09/23 20:09:14 INFO Utils: Successfully started service 'sparkDriver' on port 57295.
+26/09/23 20:09:14 INFO SparkEnv: Registering MapOutputTracker
+26/09/23 20:09:14 INFO SparkEnv: Registering BlockManagerMaster
+26/09/23 20:09:14 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+26/09/23 20:09:14 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+26/09/23 20:09:14 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+26/09/23 20:09:14 INFO DiskBlockManager: Created local directory at /private/var/folders/8m/r7py2s4j70gd4356xg4b3p3h0000gn/T/blockmgr-8eeade68-0d22-41f5-b72c-df1db2be0a8d
+26/09/23 20:09:14 INFO MemoryStore: MemoryStore started with capacity 434.4 MiB
+26/09/23 20:09:14 INFO SparkEnv: Registering OutputCommitCoordinator
+26/09/23 20:09:14 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+26/09/23 20:09:14 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+26/09/23 20:09:14 INFO DefaultNoHARMFailoverProxyProvider: Connecting to ResourceManager at /0.0.0.0:8032
+26/09/23 20:09:14 INFO Configuration: resource-types.xml not found
+26/09/23 20:09:14 INFO ResourceUtils: Unable to find 'resource-types.xml'.
+26/09/23 20:09:14 INFO Client: Verifying our application has not requested more than the maximum memory capability of the cluster (4096 MB per container)
+26/09/23 20:09:14 INFO Client: Will allocate AM container, with 896 MB memory including 384 MB overhead
+26/09/23 20:09:14 INFO Client: Setting up container launch context for our AM
+26/09/23 20:09:14 INFO Client: Setting up the launch environment for our AM container
+26/09/23 20:09:14 INFO Client: Preparing resources for our AM container
+26/09/23 20:09:14 WARN Client: Neither spark.yarn.jars nor spark.yarn.archive is set, falling back to uploading libraries under SPARK_HOME.
+26/09/23 20:09:18 INFO Client: Uploading resource file:/private/var/folders/8m/r7py2s4j70gd4356xg4b3p3h0000gn/T/spark-388f04e2-7cca-4ff4-82a8-623c329bcd6e/__spark_libs__3336321360831415254.zip -> hdfs://localhost:9000/user/fra/.sparkStaging/application_1790178426160_0070/__spark_libs__3336321360831415254.zip
+26/09/23 20:09:19 INFO Client: Uploading resource file:/Users/fra/spark-3.5.5-bin-hadoop3/python/lib/pyspark.zip -> hdfs://localhost:9000/user/fra/.sparkStaging/application_1790178426160_0070/pyspark.zip
+26/09/23 20:09:19 INFO Client: Uploading resource file:/Users/fra/spark-3.5.5-bin-hadoop3/python/lib/py4j-0.10.9.7-src.zip -> hdfs://localhost:9000/user/fra/.sparkStaging/application_1790178426160_0070/py4j-0.10.9.7-src.zip
+26/09/23 20:09:19 INFO Client: Uploading resource file:/private/var/folders/8m/r7py2s4j70gd4356xg4b3p3h0000gn/T/spark-388f04e2-7cca-4ff4-82a8-623c329bcd6e/__spark_conf__13319909628892086182.zip -> hdfs://localhost:9000/user/fra/.sparkStaging/application_1790178426160_0070/__spark_conf__.zip
+26/09/23 20:09:20 INFO SecurityManager: Changing view acls to: fra
+26/09/23 20:09:20 INFO SecurityManager: Changing modify acls to: fra
+26/09/23 20:09:20 INFO SecurityManager: Changing view acls groups to: 
+26/09/23 20:09:20 INFO SecurityManager: Changing modify acls groups to: 
+26/09/23 20:09:20 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: fra; groups with view permissions: EMPTY; users with modify permissions: fra; groups with modify permissions: EMPTY
+26/09/23 20:09:20 INFO Client: Submitting application application_1790178426160_0070 to ResourceManager
+26/09/23 20:09:20 INFO YarnClientImpl: Submitted application application_1790178426160_0070
+26/09/23 20:09:21 INFO Client: Application report for application_1790178426160_0070 (state: ACCEPTED)
+26/09/23 20:09:21 INFO Client: 
+	 client token: N/A
+	 diagnostics: AM container is launched, waiting for AM container to Register with RM
+	 ApplicationMaster host: N/A
+	 ApplicationMaster RPC port: -1
+	 queue: root.default
+	 start time: 1790186960363
+	 final status: UNDEFINED
+	 tracking URL: http://localhost:8088/proxy/application_1790178426160_0070/
+	 user: fra
+26/09/23 20:09:26 INFO YarnClientSchedulerBackend: Add WebUI Filter. org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter, Map(PROXY_HOSTS -> localhost, PROXY_URI_BASES -> http://localhost:8088/proxy/application_1790178426160_0070), /proxy/application_1790178426160_0070
+26/09/23 20:09:27 INFO YarnSchedulerBackend$YarnSchedulerEndpoint: ApplicationMaster registered as NettyRpcEndpointRef(spark-client://YarnAM)
+26/09/23 20:09:27 INFO Client: Application report for application_1790178426160_0070 (state: RUNNING)
+26/09/23 20:09:27 INFO Client: 
+	 client token: N/A
+	 diagnostics: N/A
+	 ApplicationMaster host: 192.168.1.102
+	 ApplicationMaster RPC port: -1
+	 queue: root.default
+	 start time: 1790186960363
+	 final status: UNDEFINED
+	 tracking URL: http://localhost:8088/proxy/application_1790178426160_0070/
+	 user: fra
+26/09/23 20:09:27 INFO YarnClientSchedulerBackend: Application application_1790178426160_0070 has started running.
+26/09/23 20:09:27 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 57313.
+26/09/23 20:09:27 INFO NettyBlockTransferService: Server created on 192.168.1.102:57313
+26/09/23 20:09:27 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+26/09/23 20:09:27 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 192.168.1.102, 57313, None)
+26/09/23 20:09:27 INFO BlockManagerMasterEndpoint: Registering block manager 192.168.1.102:57313 with 434.4 MiB RAM, BlockManagerId(driver, 192.168.1.102, 57313, None)
+26/09/23 20:09:27 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 192.168.1.102, 57313, None)
+26/09/23 20:09:27 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 192.168.1.102, 57313, None)
+26/09/23 20:09:27 INFO SingleEventLogFileWriter: Logging events to file:/Users/fra/Big_Data/Flight_Analysis/results/runs/20260923-200911-yarn-spark-core-job_2-flights_cleaned-r1/spark-events/application_1790178426160_0070.inprogress
+26/09/23 20:09:27 INFO ServerInfo: Adding filter to /jobs: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/23 20:09:27 INFO ServerInfo: Adding filter to /jobs/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/23 20:09:27 INFO ServerInfo: Adding filter to /jobs/job: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/23 20:09:27 INFO ServerInfo: Adding filter to /jobs/job/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/23 20:09:27 INFO ServerInfo: Adding filter to /stages: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/23 20:09:27 INFO ServerInfo: Adding filter to /stages/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/23 20:09:27 INFO ServerInfo: Adding filter to /stages/stage: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/23 20:09:27 INFO ServerInfo: Adding filter to /stages/stage/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/23 20:09:27 INFO ServerInfo: Adding filter to /stages/pool: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/23 20:09:27 INFO ServerInfo: Adding filter to /stages/pool/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/23 20:09:27 INFO ServerInfo: Adding filter to /storage: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/23 20:09:27 INFO ServerInfo: Adding filter to /storage/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/23 20:09:27 INFO ServerInfo: Adding filter to /storage/rdd: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/23 20:09:27 INFO ServerInfo: Adding filter to /storage/rdd/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/23 20:09:27 INFO ServerInfo: Adding filter to /environment: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/23 20:09:27 INFO ServerInfo: Adding filter to /environment/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/23 20:09:27 INFO ServerInfo: Adding filter to /executors: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/23 20:09:27 INFO ServerInfo: Adding filter to /executors/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/23 20:09:27 INFO ServerInfo: Adding filter to /executors/threadDump: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/23 20:09:27 INFO ServerInfo: Adding filter to /executors/threadDump/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/23 20:09:27 INFO ServerInfo: Adding filter to /executors/heapHistogram: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/23 20:09:27 INFO ServerInfo: Adding filter to /executors/heapHistogram/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/23 20:09:27 INFO ServerInfo: Adding filter to /static: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/23 20:09:27 INFO ServerInfo: Adding filter to /: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/23 20:09:27 INFO ServerInfo: Adding filter to /api: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/23 20:09:27 INFO ServerInfo: Adding filter to /jobs/job/kill: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/23 20:09:27 INFO ServerInfo: Adding filter to /stages/stage/kill: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/23 20:09:27 INFO ServerInfo: Adding filter to /metrics/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
+26/09/23 20:09:28 WARN GarbageCollectionMetrics: To enable non-built-in garbage collector(s) List(G1 Concurrent GC), users should configure it(them) to spark.eventLog.gcMetrics.youngGenerationGarbageCollectors or spark.eventLog.gcMetrics.oldGenerationGarbageCollectors
+26/09/23 20:09:29 INFO YarnSchedulerBackend$YarnDriverEndpoint: Registered executor NettyRpcEndpointRef(spark-client://Executor) (192.168.1.102:57317) with ID 1,  ResourceProfileId 0
+26/09/23 20:09:29 INFO BlockManagerMasterEndpoint: Registering block manager localhost:57318 with 434.4 MiB RAM, BlockManagerId(1, localhost, 57318, None)
+26/09/23 20:09:30 INFO YarnSchedulerBackend$YarnDriverEndpoint: Registered executor NettyRpcEndpointRef(spark-client://Executor) (192.168.1.102:57320) with ID 2,  ResourceProfileId 0
+26/09/23 20:09:30 INFO YarnClientSchedulerBackend: SchedulerBackend is ready for scheduling beginning after reached minRegisteredResourcesRatio: 0.8
+26/09/23 20:09:30 INFO BlockManagerMasterEndpoint: Registering block manager localhost:57321 with 434.4 MiB RAM, BlockManagerId(2, localhost, 57321, None)
+[JOB 2 CORE] Caricamento del dataset da HDFS: hdfs://localhost:9000/user/fra/data/flights_cleaned.csv
+[JOB 2 CORE] Elaborazione Fase 1: Calcolo statistiche fasce di ritardo...
+[JOB 2 CORE] Elaborazione Fase 2: Calcolo classifica TOP 3 cause...
+[JOB 2 CORE] FUSIONE delle pipeline tramite Left Outer Join...
+
+--- ANTEPRIMA RISULTATI SPARK CORE JOB 2 (TOP 10) ---
+('ABE', 1, 275, -5.51, -14.56, 30, 34.9, 32.5, 30, 241.3, 234.03, 'DELAY_LATE_AIRCRAFT|DELAY_NAS|DELAY_CARRIER')
+('ABE', 2, 296, -6.62, -19.57, 19, 28.53, 10.11, 14, 227.93, 217.93, 'DELAY_CARRIER|DELAY_NAS|DELAY_LATE_AIRCRAFT')
+('ABE', 3, 339, -6.19, -18.37, 28, 30.68, 19.89, 23, 173.43, 163.39, 'DELAY_NAS|DELAY_LATE_AIRCRAFT|DELAY_CARRIER')
+('ABE', 4, 303, -6.45, -17.3, 29, 33.45, 27.66, 29, 258.66, 250.38, 'DELAY_CARRIER|DELAY_LATE_AIRCRAFT|DELAY_NAS')
+('ABE', 5, 320, -6.4, -12.5, 26, 30.08, 29.58, 39, 183.13, 177.13, 'DELAY_LATE_AIRCRAFT|DELAY_NAS|DELAY_CARRIER')
+('ABE', 6, 335, -6.85, -16.46, 37, 26.65, 17.22, 37, 173.24, 172.32, 'DELAY_CARRIER|DELAY_LATE_AIRCRAFT|DELAY_NAS')
+('ABE', 7, 280, -6.36, -10.59, 41, 34.61, 30.15, 37, 138.08, 137.08, 'DELAY_LATE_AIRCRAFT|DELAY_CARRIER|DELAY_NAS')
+('ABE', 8, 289, -6.64, -14.06, 42, 32.02, 27.98, 27, 146.96, 144.3, 'DELAY_LATE_AIRCRAFT|DELAY_CARRIER|DELAY_NAS')
+('ABE', 9, 276, -6.86, -15.9, 24, 38.08, 32.88, 16, 265.06, 261.25, 'DELAY_LATE_AIRCRAFT|DELAY_CARRIER|DELAY_WEATHER')
+('ABE', 10, 302, -6.03, -17.9, 31, 26.23, 11.97, 18, 193.17, 183.83, 'DELAY_LATE_AIRCRAFT|CANC_WEATHER|DELAY_CARRIER')
+[JOB 2 CORE] Calcolo completato in 18.55 secondi.
+[JOB 2 CORE] Salvataggio dei risultati in HDFS: hdfs://localhost:9000/user/fra/spark-core/job_2

@@ -1,0 +1,64 @@
+2026-09-23 18:07:46,579 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Deleted /user/fra/spark-sql/job_2
+26/09/23 18:07:47 WARN Utils: Your hostname, MacBook-Air-di-Francesco-5.local resolves to a loopback address: 127.0.0.1; using 192.168.1.102 instead (on interface en0)
+26/09/23 18:07:47 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+26/09/23 18:07:48 INFO SparkContext: Running Spark version 3.5.5
+26/09/23 18:07:48 INFO SparkContext: OS info Mac OS X, 26.3, aarch64
+26/09/23 18:07:48 INFO SparkContext: Java version 21.0.9
+26/09/23 18:07:48 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+26/09/23 18:07:48 INFO ResourceUtils: ==============================================================
+26/09/23 18:07:48 INFO ResourceUtils: No custom resources configured for spark.driver.
+26/09/23 18:07:48 INFO ResourceUtils: ==============================================================
+26/09/23 18:07:48 INFO SparkContext: Submitted application: spark-sql#job-2
+26/09/23 18:07:48 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 1, script: , vendor: , memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+26/09/23 18:07:48 INFO ResourceProfile: Limiting resource is cpu
+26/09/23 18:07:48 INFO ResourceProfileManager: Added ResourceProfile id: 0
+26/09/23 18:07:48 INFO SecurityManager: Changing view acls to: fra
+26/09/23 18:07:48 INFO SecurityManager: Changing modify acls to: fra
+26/09/23 18:07:48 INFO SecurityManager: Changing view acls groups to: 
+26/09/23 18:07:48 INFO SecurityManager: Changing modify acls groups to: 
+26/09/23 18:07:48 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: fra; groups with view permissions: EMPTY; users with modify permissions: fra; groups with modify permissions: EMPTY
+26/09/23 18:07:48 INFO Utils: Successfully started service 'sparkDriver' on port 54057.
+26/09/23 18:07:48 INFO SparkEnv: Registering MapOutputTracker
+26/09/23 18:07:48 INFO SparkEnv: Registering BlockManagerMaster
+26/09/23 18:07:48 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+26/09/23 18:07:48 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+26/09/23 18:07:48 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+26/09/23 18:07:48 INFO DiskBlockManager: Created local directory at /private/var/folders/8m/r7py2s4j70gd4356xg4b3p3h0000gn/T/blockmgr-490a3008-7cd4-4ecc-81cc-faf2f5718bce
+26/09/23 18:07:48 INFO MemoryStore: MemoryStore started with capacity 434.4 MiB
+26/09/23 18:07:48 INFO SparkEnv: Registering OutputCommitCoordinator
+26/09/23 18:07:48 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+26/09/23 18:07:48 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+26/09/23 18:07:48 INFO Executor: Starting executor ID driver on host 192.168.1.102
+26/09/23 18:07:48 INFO Executor: OS info Mac OS X, 26.3, aarch64
+26/09/23 18:07:48 INFO Executor: Java version 21.0.9
+26/09/23 18:07:48 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''
+26/09/23 18:07:48 INFO Executor: Created or updated repl class loader org.apache.spark.util.MutableURLClassLoader@29b83159 for default.
+26/09/23 18:07:48 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 54058.
+26/09/23 18:07:48 INFO NettyBlockTransferService: Server created on 192.168.1.102:54058
+26/09/23 18:07:48 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+26/09/23 18:07:48 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 192.168.1.102, 54058, None)
+26/09/23 18:07:48 INFO BlockManagerMasterEndpoint: Registering block manager 192.168.1.102:54058 with 434.4 MiB RAM, BlockManagerId(driver, 192.168.1.102, 54058, None)
+26/09/23 18:07:48 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 192.168.1.102, 54058, None)
+26/09/23 18:07:48 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 192.168.1.102, 54058, None)
+26/09/23 18:07:49 INFO SingleEventLogFileWriter: Logging events to file:/Users/fra/Big_Data/Flight_Analysis/results/runs/20260923-180746-local-spark-sql-job_2-flights_1-r1/spark-events/local-1790179668895.inprogress
+[JOB 2] Caricamento del dataset da HDFS: hdfs://localhost:9000/user/fra/data/flights_1.csv
+[JOB 2] Esecuzione della query SQL complessa in corso...
++---------+----+------------------+-----------------------+-----------------------+------------------+-----------------------+-----------------------+-----------------+----------------------+----------------------+--------------------------+
+|aeroporto|mese|voli_ritardo_basso|ritardo_medio_dep_basso|ritardo_medio_arr_basso|voli_ritardo_medio|ritardo_medio_dep_medio|ritardo_medio_arr_medio|voli_ritardo_alto|ritardo_medio_dep_alto|ritardo_medio_arr_alto|top_3_cause_ritardo_canc  |
++---------+----+------------------+-----------------------+-----------------------+------------------+-----------------------+-----------------------+-----------------+----------------------+----------------------+--------------------------+
+|ABE      |1   |4                 |-6.0                   |-13.5                  |1                 |44.0                   |20.0                   |0                |NULL                  |NULL                  |DELAY_LATE_AIRCRAFT       |
+|ABE      |2   |0                 |NULL                   |NULL                   |0                 |NULL                   |NULL                   |1                |97.0                  |70.0                  |CANC_WEATHER|DELAY_CARRIER|
+|ABE      |3   |5                 |-7.4                   |-19.8                  |0                 |NULL                   |NULL                   |0                |NULL                  |NULL                  |N/D                       |
+|ABE      |4   |1                 |-13.0                  |-42.0                  |1                 |22.0                   |-2.0                   |0                |NULL                  |NULL                  |N/D                       |
+|ABE      |5   |1                 |14.0                   |-2.0                   |0                 |NULL                   |NULL                   |0                |NULL                  |NULL                  |N/D                       |
+|ABE      |6   |3                 |-7.0                   |-15.67                 |0                 |NULL                   |NULL                   |1                |173.0                 |158.0                 |DELAY_CARRIER             |
+|ABE      |7   |3                 |-8.0                   |-14.0                  |0                 |NULL                   |NULL                   |0                |NULL                  |NULL                  |N/D                       |
+|ABE      |8   |3                 |-9.33                  |-21.0                  |0                 |NULL                   |NULL                   |0                |NULL                  |NULL                  |N/D                       |
+|ABE      |9   |2                 |-17.0                  |-28.0                  |0                 |NULL                   |NULL                   |1                |175.0                 |162.0                 |DELAY_LATE_AIRCRAFT       |
+|ABE      |10  |6                 |-8.0                   |-18.33                 |0                 |NULL                   |NULL                   |1                |131.0                 |127.0                 |DELAY_LATE_AIRCRAFT       |
++---------+----+------------------+-----------------------+-----------------------+------------------+-----------------------+-----------------------+-----------------+----------------------+----------------------+--------------------------+
+only showing top 10 rows
+
+[JOB 2] Calcolo completato in 1.23 secondi.
+[JOB 2] Salvataggio dei risultati in HDFS: hdfs://localhost:9000/user/fra/spark-sql/job_2

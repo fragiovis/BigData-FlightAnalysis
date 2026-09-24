@@ -28,3 +28,6 @@ __pycache__/
 # Risultati del benchmark: si versionano record, log e anteprime, non gli event log grezzi di Spark
 results/runs/*/spark-events/
 results/.runner.lock
+
+# Log di compilazione della relazione
+docs/relazione/*.log

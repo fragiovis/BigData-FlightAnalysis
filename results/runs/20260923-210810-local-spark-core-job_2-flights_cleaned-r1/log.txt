@@ -1,0 +1,70 @@
+2026-09-23 21:08:10,737 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Deleted /user/fra/spark-core/job_2
+26/09/23 21:08:11 WARN Utils: Your hostname, MacBook-Air-di-Francesco-5.local resolves to a loopback address: 127.0.0.1; using 192.168.1.102 instead (on interface en0)
+26/09/23 21:08:11 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+26/09/23 21:08:12 INFO SparkContext: Running Spark version 3.5.5
+26/09/23 21:08:12 INFO SparkContext: OS info Mac OS X, 26.3, aarch64
+26/09/23 21:08:12 INFO SparkContext: Java version 21.0.9
+26/09/23 21:08:12 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+26/09/23 21:08:12 INFO ResourceUtils: ==============================================================
+26/09/23 21:08:12 INFO ResourceUtils: No custom resources configured for spark.driver.
+26/09/23 21:08:12 INFO ResourceUtils: ==============================================================
+26/09/23 21:08:12 INFO SparkContext: Submitted application: spark-core#job-2
+26/09/23 21:08:12 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 1, script: , vendor: , memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+26/09/23 21:08:12 INFO ResourceProfile: Limiting resource is cpu
+26/09/23 21:08:12 INFO ResourceProfileManager: Added ResourceProfile id: 0
+26/09/23 21:08:12 INFO SecurityManager: Changing view acls to: fra
+26/09/23 21:08:12 INFO SecurityManager: Changing modify acls to: fra
+26/09/23 21:08:12 INFO SecurityManager: Changing view acls groups to: 
+26/09/23 21:08:12 INFO SecurityManager: Changing modify acls groups to: 
+26/09/23 21:08:12 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: fra; groups with view permissions: EMPTY; users with modify permissions: fra; groups with modify permissions: EMPTY
+26/09/23 21:08:12 INFO Utils: Successfully started service 'sparkDriver' on port 59858.
+26/09/23 21:08:12 INFO SparkEnv: Registering MapOutputTracker
+26/09/23 21:08:12 INFO SparkEnv: Registering BlockManagerMaster
+26/09/23 21:08:12 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+26/09/23 21:08:12 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+26/09/23 21:08:12 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+26/09/23 21:08:12 INFO DiskBlockManager: Created local directory at /private/var/folders/8m/r7py2s4j70gd4356xg4b3p3h0000gn/T/blockmgr-b66362c0-e26a-4dd7-8439-c90d46aa45cb
+26/09/23 21:08:12 INFO MemoryStore: MemoryStore started with capacity 434.4 MiB
+26/09/23 21:08:12 INFO SparkEnv: Registering OutputCommitCoordinator
+26/09/23 21:08:12 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+26/09/23 21:08:13 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+26/09/23 21:08:13 INFO Executor: Starting executor ID driver on host 192.168.1.102
+26/09/23 21:08:13 INFO Executor: OS info Mac OS X, 26.3, aarch64
+26/09/23 21:08:13 INFO Executor: Java version 21.0.9
+26/09/23 21:08:13 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''
+26/09/23 21:08:13 INFO Executor: Created or updated repl class loader org.apache.spark.util.MutableURLClassLoader@6b716238 for default.
+26/09/23 21:08:13 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 59859.
+26/09/23 21:08:13 INFO NettyBlockTransferService: Server created on 192.168.1.102:59859
+26/09/23 21:08:13 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+26/09/23 21:08:13 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 192.168.1.102, 59859, None)
+26/09/23 21:08:13 INFO BlockManagerMasterEndpoint: Registering block manager 192.168.1.102:59859 with 434.4 MiB RAM, BlockManagerId(driver, 192.168.1.102, 59859, None)
+26/09/23 21:08:13 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 192.168.1.102, 59859, None)
+26/09/23 21:08:13 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 192.168.1.102, 59859, None)
+26/09/23 21:08:13 INFO SingleEventLogFileWriter: Logging events to file:/Users/fra/Big_Data/Flight_Analysis/results/runs/20260923-210810-local-spark-core-job_2-flights_cleaned-r1/spark-events/local-1790190493060.inprogress
+[JOB 2 CORE] Caricamento del dataset da HDFS: hdfs://localhost:9000/user/fra/data/flights_cleaned
+[JOB 2 CORE] Elaborazione Fase 1: Calcolo statistiche fasce di ritardo...
+[JOB 2 CORE] Elaborazione Fase 2: Calcolo classifica TOP 3 cause...
+[JOB 2 CORE] FUSIONE delle pipeline tramite Left Outer Join...
+/Users/fra/spark-3.5.5-bin-hadoop3/python/lib/pyspark.zip/pyspark/shuffle.py:65: UserWarning: Please install psutil to have better support with spilling
+/Users/fra/spark-3.5.5-bin-hadoop3/python/lib/pyspark.zip/pyspark/shuffle.py:65: UserWarning: Please install psutil to have better support with spilling
+/Users/fra/spark-3.5.5-bin-hadoop3/python/lib/pyspark.zip/pyspark/shuffle.py:65: UserWarning: Please install psutil to have better support with spilling
+/Users/fra/spark-3.5.5-bin-hadoop3/python/lib/pyspark.zip/pyspark/shuffle.py:65: UserWarning: Please install psutil to have better support with spilling
+/Users/fra/spark-3.5.5-bin-hadoop3/python/lib/pyspark.zip/pyspark/shuffle.py:65: UserWarning: Please install psutil to have better support with spilling
+/Users/fra/spark-3.5.5-bin-hadoop3/python/lib/pyspark.zip/pyspark/shuffle.py:65: UserWarning: Please install psutil to have better support with spilling
+/Users/fra/spark-3.5.5-bin-hadoop3/python/lib/pyspark.zip/pyspark/shuffle.py:65: UserWarning: Please install psutil to have better support with spilling
+/Users/fra/spark-3.5.5-bin-hadoop3/python/lib/pyspark.zip/pyspark/shuffle.py:65: UserWarning: Please install psutil to have better support with spilling
+
+--- ANTEPRIMA RISULTATI SPARK CORE JOB 2 (TOP 10) ---
+('ABE', 1, 275, -5.51, -14.56, 30, 34.9, 32.5, 30, 241.3, 234.03, 'DELAY_LATE_AIRCRAFT|DELAY_NAS|DELAY_CARRIER')
+('ABE', 2, 296, -6.62, -19.57, 19, 28.53, 10.11, 14, 227.93, 217.93, 'DELAY_CARRIER|DELAY_NAS|DELAY_LATE_AIRCRAFT')
+('ABE', 3, 339, -6.19, -18.37, 28, 30.68, 19.89, 23, 173.43, 163.39, 'DELAY_NAS|DELAY_LATE_AIRCRAFT|DELAY_CARRIER')
+('ABE', 4, 303, -6.45, -17.3, 29, 33.45, 27.66, 29, 258.66, 250.38, 'DELAY_CARRIER|DELAY_LATE_AIRCRAFT|DELAY_NAS')
+('ABE', 5, 320, -6.4, -12.5, 26, 30.08, 29.58, 39, 183.13, 177.13, 'DELAY_LATE_AIRCRAFT|DELAY_NAS|DELAY_CARRIER')
+('ABE', 6, 335, -6.85, -16.46, 37, 26.65, 17.22, 37, 173.24, 172.32, 'DELAY_CARRIER|DELAY_LATE_AIRCRAFT|DELAY_NAS')
+('ABE', 7, 280, -6.36, -10.59, 41, 34.61, 30.15, 37, 138.08, 137.08, 'DELAY_LATE_AIRCRAFT|DELAY_CARRIER|DELAY_NAS')
+('ABE', 8, 289, -6.64, -14.06, 42, 32.02, 27.98, 27, 146.96, 144.3, 'DELAY_LATE_AIRCRAFT|DELAY_CARRIER|DELAY_NAS')
+('ABE', 9, 276, -6.86, -15.9, 24, 38.08, 32.88, 16, 265.06, 261.25, 'DELAY_LATE_AIRCRAFT|DELAY_CARRIER|DELAY_WEATHER')
+('ABE', 10, 302, -6.03, -17.9, 31, 26.23, 11.97, 18, 193.17, 183.83, 'DELAY_LATE_AIRCRAFT|CANC_WEATHER|DELAY_CARRIER')
+[JOB 2 CORE] Calcolo completato in 17.52 secondi.
+[JOB 2 CORE] Salvataggio dei risultati in HDFS: hdfs://localhost:9000/user/fra/spark-core/job_2

@@ -1,0 +1,21 @@
+\begin{tabular}{@{}c l l l r r r@{}}
+\toprule
+Dataset & Job & Tecnologia & Job lanciati & Stage & Task & MB scambiati \\
+\midrule
+100\% & Job 1 & Spark Core & 5 job & 7 & 11 & 0,2 (shuffle) \\
+100\% & Job 1 & Spark SQL & 8 job & 8 & 11 & 0,4 (shuffle) \\
+100\% & Job 1 & Hive & 2 MR & -- & -- & 206 (HDFS) \\
+\midrule
+100\% & Job 2 & Spark Core & 5 job & 10 & 25 & 1,4 (shuffle) \\
+100\% & Job 2 & Spark SQL & 14 job & 14 & 23 & 2,7 (shuffle) \\
+100\% & Job 2 & Hive & 6 MR & -- & -- & 413 (HDFS) \\
+\midrule
+5× & Job 1 & Spark Core & 5 job & 7 & 43 & 0,6 (shuffle) \\
+5× & Job 1 & Spark SQL & 8 job & 8 & 35 & 1,6 (shuffle) \\
+5× & Job 1 & Hive & 2 MR & -- & -- & 1.028 (HDFS) \\
+\midrule
+5× & Job 2 & Spark Core & 5 job & 10 & 113 & 4,5 (shuffle) \\
+5× & Job 2 & Spark SQL & 14 job & 14 & 84 & 10,9 (shuffle) \\
+5× & Job 2 & Hive & 6 MR & -- & -- & 2.057 (HDFS) \\
+\bottomrule
+\end{tabular}

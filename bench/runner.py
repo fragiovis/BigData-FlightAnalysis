@@ -6,6 +6,7 @@ Ogni esecuzione produce la cartella results/runs/<run_id>/ con:
   log.txt       stdout + stderr dello script di lancio
   stages.json   stage Spark o stage MapReduce di Hive
   preview.csv   prime 10 righe dell'output
+  output.csv    output completo (copia di quello scritto su HDFS)
 """
 
 import fcntl
@@ -117,11 +118,14 @@ def run_job(tool, job, dataset, env, repetition=1, batch_id=None, on_line=None, 
         summary, stages = metrics.parse_spark_eventlog(events_dir)
 
     # Anteprima e numero di righe dell'output (Hive non scrive l'header)
-    output_path = f"{config.hdfs_base(env)}/{tool}/{job}/{dataset}"
+    output_path = config.output_path(env, tool, job, dataset)
     output_lines = hdfs(env, "-cat", f"{output_path}/*").stdout.splitlines() if rc == 0 else []
     has_header = bool(output_lines) and output_lines[0].startswith(config.JOB_COLUMNS[job][0])
     data_lines = output_lines[1:] if has_header else output_lines
-    (run_dir / "preview.csv").write_text("\n".join([",".join(config.JOB_COLUMNS[job])] + data_lines[:10]) + "\n")
+    header = ",".join(config.JOB_COLUMNS[job])
+    (run_dir / "preview.csv").write_text("\n".join([header] + data_lines[:10]) + "\n")
+    if data_lines:
+        (run_dir / "output.csv").write_text("\n".join([header] + data_lines) + "\n")
     (run_dir / "stages.json").write_text(json.dumps(stages, indent=1))
 
     engine = summary.get("engine_seconds")
@@ -142,6 +146,7 @@ def run_job(tool, job, dataset, env, repetition=1, batch_id=None, on_line=None, 
         "overhead_seconds": round(wall_seconds - engine, 3) if engine is not None else None,
         "input_bytes": input_size(env, dataset),
         "output_rows": len(data_lines),
+        "output_path": output_path,
         "git_commit": git_commit(),
         **{k: v for k, v in summary.items() if k != "engine_seconds"},
     }

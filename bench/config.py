@@ -56,6 +56,11 @@ def hdfs_base(env):
     return "/user/hadoop" if env == "aws" else f"/user/{getpass.getuser()}"
 
 
+def output_path(env, tool, job, dataset):
+    """Cartella HDFS dell'output di un job: <base>/<tecnologia>/<job>/<ambiente>/<dataset>."""
+    return f"{hdfs_base(env)}/{tool}/{job}/{env}/{dataset}"
+
+
 def dataset_percent(dataset):
     """Dimensione del dataset in % dell'originale: flights_20 -> 20, flights_cleaned -> 100, flights_x5 -> 500."""
     if dataset == "flights_cleaned":

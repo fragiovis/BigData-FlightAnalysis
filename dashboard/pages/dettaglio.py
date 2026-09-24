@@ -89,6 +89,15 @@ if preview.empty or len(preview) == 0:
 else:
     st.dataframe(preview, hide_index=True, width="stretch")
 
+full = store.load_output(run_id)
+if not full.empty:
+    hdfs_path = r.get("output_path")
+    with st.expander(f"Output completo ({len(full):,} righe)"):
+        if isinstance(hdfs_path, str):
+            st.caption(f"Copia dell'output scritto su HDFS in `{hdfs_path}`")
+        st.dataframe(full, hide_index=True, width="stretch")
+    st.download_button("Scarica output completo (CSV)", full.to_csv(index=False), f"{run_id}.csv", "text/csv")
+
 # --- Confronto con le altre ripetizioni ------------------------------------------------------------
 same = runs()
 same = same[(same["env"] == r["env"]) & (same["tool"] == r["tool"]) & (same["job"] == r["job"])

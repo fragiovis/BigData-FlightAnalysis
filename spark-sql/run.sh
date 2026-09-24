@@ -24,11 +24,13 @@ if [ "$3" == "yarn" ]; then
 fi
 
 # Rimuove la cartella di output precedente su HDFS se già esistente
-hdfs dfs -rm -r -f /user/$USER/spark-sql/$1/$2
+# Ambiente di esecuzione, usato nel percorso di output: <tecnologia>/<job>/<ambiente>/<dataset>
+if [ "$3" == "local[*]" ]; then ENV_TAG=local; else ENV_TAG=yarn; fi
+hdfs dfs -rm -r -f /user/$USER/spark-sql/$1/$ENV_TAG/$2
 
 # Ogni dataset è una cartella su HDFS (le repliche contengono più copie del file)
 $SPARK_HOME/bin/spark-submit \
     --master $3 $YARN_OPTS $SPARK_SUBMIT_EXTRA \
     $1.py \
     -input hdfs://localhost:9000/user/$USER/data/$2 \
-    -output hdfs://localhost:9000/user/$USER/spark-sql/$1/$2
+    -output hdfs://localhost:9000/user/$USER/spark-sql/$1/$ENV_TAG/$2

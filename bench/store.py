@@ -88,6 +88,11 @@ def load_preview(run_id):
     return pd.read_csv(path, dtype=str, keep_default_na=False) if path.exists() else pd.DataFrame()
 
 
+def load_output(run_id):
+    path = run_dir(run_id) / "output.csv"
+    return pd.read_csv(path, dtype=str, keep_default_na=False) if path.exists() else pd.DataFrame()
+
+
 def load_log(run_id):
     path = run_dir(run_id) / "log.txt"
     return path.read_text(errors="replace") if path.exists() else ""

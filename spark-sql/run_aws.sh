@@ -10,11 +10,11 @@ fi
 HDFS_BASE="/user/hadoop"
 
 # Rimuove la cartella di output precedente su HDFS
-hdfs dfs -rm -r -f $HDFS_BASE/spark-sql/$1/$2
+hdfs dfs -rm -r -f $HDFS_BASE/spark-sql/$1/aws/$2
 
 # Lancio globale
 spark-submit \
     --master $3 $SPARK_SUBMIT_EXTRA \
     $1.py \
     -input $HDFS_BASE/data/$2 \
-    -output $HDFS_BASE/spark-sql/$1/$2
+    -output $HDFS_BASE/spark-sql/$1/aws/$2

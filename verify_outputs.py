@@ -2,11 +2,12 @@
 """
 verify_outputs.py — Confronta gli output dello stesso job prodotti da Spark Core, Spark SQL e Hive.
 
-Legge i risultati da HDFS (/user/<utente>/<tecnologia>/<job>/<dataset>), li indicizza per chiave
+Legge i risultati da HDFS (/user/<utente>/<tecnologia>/<job>/<ambiente>/<dataset>), li indicizza per chiave
 (le prime due colonne) e confronta campo per campo: i valori numerici con una tolleranza
 pari all'arrotondamento a 2 decimali, le stringhe in modo esatto.
 
-Uso:  python3 verify_outputs.py job_1 [flights_20] [--base /user/hadoop]   (dataset predefinito: flights_cleaned)
+Uso:  python3 verify_outputs.py job_1 [flights_20] [--env local|yarn|aws] [--base /user/hadoop]
+      (predefiniti: dataset flights_cleaned, ambiente local)
 """
 
 import argparse
@@ -78,12 +79,14 @@ def main():
     parser = argparse.ArgumentParser(description="Confronto degli output tra tecnologie")
     parser.add_argument("job", choices=["job_1", "job_2"])
     parser.add_argument("dataset", nargs="?", default="flights_cleaned", help="Dataset di cui confrontare gli output")
-    parser.add_argument("--base", default=f"/user/{getpass.getuser()}", help="Radice HDFS degli output")
+    parser.add_argument("--env", default="local", choices=["local", "yarn", "aws"], help="Ambiente che ha prodotto gli output")
+    parser.add_argument("--base", default=None, help="Radice HDFS degli output (predefinita: /user/<utente>, /user/hadoop su AWS)")
     args = parser.parse_args()
 
-    outputs = {tool: read_output(f"{args.base}/{tool}/{args.job}/{args.dataset}") for tool in TOOLS}
+    base = args.base or ("/user/hadoop" if args.env == "aws" else f"/user/{getpass.getuser()}")
+    outputs = {tool: read_output(f"{base}/{tool}/{args.job}/{args.env}/{args.dataset}") for tool in TOOLS}
 
-    print(f"[VERIFY] {args.job} su {args.dataset}")
+    print(f"[VERIFY] {args.job} su {args.dataset} ({args.env})")
     ok = True
     for other in TOOLS[1:]:
         ok &= compare(TOOLS[0], outputs[TOOLS[0]], other, outputs[other])

@@ -87,8 +87,7 @@ class BatchManager:
         return tools == set(config.TOOLS)
 
     def _verify(self, job, dataset):
-        cmd = [sys.executable, str(config.ROOT_DIR / "verify_outputs.py"), job, dataset,
-               "--base", config.hdfs_base(self.state.env)]
+        cmd = [sys.executable, str(config.ROOT_DIR / "verify_outputs.py"), job, dataset, "--env", self.state.env]
         r = subprocess.run(cmd, env=config.job_env(self.state.env), stdout=subprocess.PIPE,
                            stderr=subprocess.STDOUT, text=True)
         return {"job": job, "dataset": dataset, "ok": r.returncode == 0, "output": r.stdout}

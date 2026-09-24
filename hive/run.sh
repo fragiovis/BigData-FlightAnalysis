@@ -117,7 +117,9 @@ fi
 # Ogni dataset è già una cartella dedicata su HDFS: la tabella esterna punta direttamente lì,
 # senza copiare i dati in una cartella di staging
 INPUT_PATH="/user/$USER/data/$2"
-OUTPUT_PATH="/user/$USER/hive/$1/$2"
+# Ambiente di esecuzione, usato nel percorso di output: <tecnologia>/<job>/<ambiente>/<dataset>
+if [ "$3" == "local[*]" ]; then ENV_TAG=local; else ENV_TAG=yarn; fi
+OUTPUT_PATH="/user/$USER/hive/$1/$ENV_TAG/$2"
 
 hdfs dfs -rm -r -f "$OUTPUT_PATH" 2>/dev/null
 

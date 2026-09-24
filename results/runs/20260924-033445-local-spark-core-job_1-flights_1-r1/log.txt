@@ -1,0 +1,62 @@
+2026-09-24 03:34:46,455 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Deleted /user/fra/spark-core/job_1
+26/09/24 03:34:47 WARN Utils: Your hostname, MacBook-Air-di-Francesco-5.local resolves to a loopback address: 127.0.0.1; using 192.168.1.102 instead (on interface en0)
+26/09/24 03:34:47 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+26/09/24 03:34:48 INFO SparkContext: Running Spark version 3.5.5
+26/09/24 03:34:48 INFO SparkContext: OS info Mac OS X, 26.3, aarch64
+26/09/24 03:34:48 INFO SparkContext: Java version 21.0.9
+26/09/24 03:34:48 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+26/09/24 03:34:48 INFO ResourceUtils: ==============================================================
+26/09/24 03:34:48 INFO ResourceUtils: No custom resources configured for spark.driver.
+26/09/24 03:34:48 INFO ResourceUtils: ==============================================================
+26/09/24 03:34:48 INFO SparkContext: Submitted application: spark-core#job-1
+26/09/24 03:34:48 INFO ResourceProfile: Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 1, script: , vendor: , memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+26/09/24 03:34:48 INFO ResourceProfile: Limiting resource is cpu
+26/09/24 03:34:48 INFO ResourceProfileManager: Added ResourceProfile id: 0
+26/09/24 03:34:48 INFO SecurityManager: Changing view acls to: fra
+26/09/24 03:34:48 INFO SecurityManager: Changing modify acls to: fra
+26/09/24 03:34:48 INFO SecurityManager: Changing view acls groups to: 
+26/09/24 03:34:48 INFO SecurityManager: Changing modify acls groups to: 
+26/09/24 03:34:48 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users with view permissions: fra; groups with view permissions: EMPTY; users with modify permissions: fra; groups with modify permissions: EMPTY
+26/09/24 03:34:48 INFO Utils: Successfully started service 'sparkDriver' on port 50534.
+26/09/24 03:34:48 INFO SparkEnv: Registering MapOutputTracker
+26/09/24 03:34:48 INFO SparkEnv: Registering BlockManagerMaster
+26/09/24 03:34:48 INFO BlockManagerMasterEndpoint: Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+26/09/24 03:34:48 INFO BlockManagerMasterEndpoint: BlockManagerMasterEndpoint up
+26/09/24 03:34:48 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+26/09/24 03:34:48 INFO DiskBlockManager: Created local directory at /private/var/folders/8m/r7py2s4j70gd4356xg4b3p3h0000gn/T/blockmgr-255cf095-5372-4e2e-bc13-afc287d06351
+26/09/24 03:34:48 INFO MemoryStore: MemoryStore started with capacity 434.4 MiB
+26/09/24 03:34:48 INFO SparkEnv: Registering OutputCommitCoordinator
+26/09/24 03:34:48 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
+26/09/24 03:34:48 INFO Utils: Successfully started service 'SparkUI' on port 4040.
+26/09/24 03:34:48 INFO Executor: Starting executor ID driver on host 192.168.1.102
+26/09/24 03:34:48 INFO Executor: OS info Mac OS X, 26.3, aarch64
+26/09/24 03:34:48 INFO Executor: Java version 21.0.9
+26/09/24 03:34:48 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''
+26/09/24 03:34:48 INFO Executor: Created or updated repl class loader org.apache.spark.util.MutableURLClassLoader@3f98c7e1 for default.
+26/09/24 03:34:48 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 50535.
+26/09/24 03:34:48 INFO NettyBlockTransferService: Server created on 192.168.1.102:50535
+26/09/24 03:34:48 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+26/09/24 03:34:48 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 192.168.1.102, 50535, None)
+26/09/24 03:34:48 INFO BlockManagerMasterEndpoint: Registering block manager 192.168.1.102:50535 with 434.4 MiB RAM, BlockManagerId(driver, 192.168.1.102, 50535, None)
+26/09/24 03:34:48 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 192.168.1.102, 50535, None)
+26/09/24 03:34:48 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 192.168.1.102, 50535, None)
+26/09/24 03:34:49 INFO SingleEventLogFileWriter: Logging events to file:/Users/fra/Big_Data/Flight_Analysis/results/runs/20260924-033445-local-spark-core-job_1-flights_1-r1/spark-events/local-1790213688839.inprogress
+[JOB 1 CORE] Lettura del file di testo da HDFS: hdfs://localhost:9000/user/fra/data/flights_1
+[JOB 1 CORE] Elaborazione della pipeline RDD (Map-Reduce cumulativo)...
+/Users/fra/spark-3.5.5-bin-hadoop3/python/lib/pyspark.zip/pyspark/shuffle.py:65: UserWarning: Please install psutil to have better support with spilling
+/Users/fra/spark-3.5.5-bin-hadoop3/python/lib/pyspark.zip/pyspark/shuffle.py:65: UserWarning: Please install psutil to have better support with spilling
+
+--- ANTEPRIMA RISULTATI SPARK CORE (TOP 10) ---
+('9E', 'LGA', 326, -58.0, 332.0, -5.0, 0.0245, '1|2|3|4|5|6|7|8|9|10|11|12')
+('9E', 'ATL', 272, -26.0, 914.0, 4.54, 0.0037, '1|2|3|4|5|6|7|8|9|10|11|12')
+('9E', 'JFK', 166, -41.0, 184.0, -0.17, 0.0361, '1|2|3|4|5|6|7|8|9|10|11|12')
+('9E', 'DTW', 137, -32.0, 176.0, -2.53, 0.0, '1|2|3|4|5|6|7|8|9|10|11|12')
+('9E', 'MSP', 87, -40.0, 73.0, -2.78, 0.0115, '1|2|3|4|5|6|7|8|9|10|11|12')
+('9E', 'RDU', 70, -41.0, 382.0, 12.01, 0.0429, '1|2|3|4|5|6|7|8|9|10|11')
+('9E', 'CVG', 49, -38.0, 142.0, -4.79, 0.0204, '1|2|3|4|5|6|7|8|9|10|11|12')
+('9E', 'CLT', 30, -37.0, 118.0, 2.97, 0.0333, '1|2|3|4|5|6|7|8|9|10|12')
+('9E', 'BTV', 28, -30.0, 350.0, 2.52, 0.0357, '1|2|3|4|5|6|7|8|9|10|11')
+('9E', 'XNA', 27, -38.0, 44.0, -13.37, 0.0, '2|4|6|7|8|9|10|11|12')
+[JOB 1 CORE] Calcolo completato in 0.78 secondi.
+[JOB 1 CORE] Salvataggio dei risultati in HDFS: hdfs://localhost:9000/user/fra/spark-core/job_1

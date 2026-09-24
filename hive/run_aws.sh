@@ -24,9 +24,15 @@ echo "[HIVE AWS] Pre-compilazione del file SQL (Sostituzione variabili in Bash).
 echo "SET hive.variable.substitute=true;" > "temp_aws_$SCRIPT_NAME.hql"
 echo "SET mapreduce.framework.name=yarn;" >> "temp_aws_$SCRIPT_NAME.hql"
 
+# Dataset senza la colonna dest (suffisso -8c): Hive legge per posizione, quindi la colonna
+# va tolta anche dalla definizione della tabella esterna
+DROP_DEST=""
+if [[ "$DATASET_TAG" == *-8c ]]; then DROP_DEST="-e /dest[[:space:]]STRING,/d"; fi
+
 # Accodiamo la query originale sostituendo i percorsi di input e output
 sed -e "s|\${input_path}|$INPUT_PATH|g" \
     -e "s|\${output_path}|$OUTPUT_PATH|g" \
+    $DROP_DEST \
     "$SCRIPT_NAME.hql" >> "temp_aws_$SCRIPT_NAME.hql"
 
 echo "[HIVE AWS] Avvio esecuzione MapReduce tramite Beeline su EMR..."

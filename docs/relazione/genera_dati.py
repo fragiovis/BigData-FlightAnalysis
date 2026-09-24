@@ -79,7 +79,8 @@ cutoff = pd.Timestamp(quality["generato"])
 
 runs = store.load_runs(include_legacy=True)
 measured = runs[(~runs["legacy"]) & (runs["status"] == "ok") & (runs["timestamp"] >= cutoff)
-                & (runs["env"].isin(["local", "yarn"])) & (runs["dataset"].isin(config.DEFAULT_DATASETS))].copy()
+                & (runs["env"].isin(["local", "yarn"])) & (runs["dataset"].isin(config.DEFAULT_DATASETS))
+                & (~runs["batch_id"].str.startswith("esperimento"))].copy()
 keys = ["env", "tool", "job", "dataset"]
 latest = (measured.sort_values("timestamp").groupby(keys)["batch_id"].last().reset_index())
 selected = measured.merge(latest, on=keys + ["batch_id"])
@@ -446,6 +447,41 @@ axes[-1].set_xlabel("Secondi dall'avvio del calcolo")
 fig.tight_layout()
 fig.savefig(OUT / "fig_timeline.pdf")
 plt.close(fig)
+
+# --- Esperimento: dataset con e senza la colonna dest (locale, 3 ripetizioni alternate) ---------
+exp = runs[(~runs["legacy"]) & (runs["batch_id"] == "esperimento-dest") & (runs["status"] == "ok")].copy()
+if not exp.empty:
+    exp["senza_dest"] = exp["dataset"].str.endswith(config.NO_DEST_SUFFIX)
+    exp["base"] = exp["dataset"].str.removesuffix(config.NO_DEST_SUFFIX)
+    rows, diffs = [], {"flights_cleaned": [], "flights_x5": []}
+    for base in ["flights_cleaned", "flights_x5"]:
+        sizes = exp[exp.base == base].groupby("senza_dest")["input_bytes"].first()
+        macro(f"dest:size:{base}", fmt((sizes[True] - sizes[False]) / sizes[False] * 100, 1))
+        for job in JOBS:
+            for tool in TOOLS:
+                sub = exp[(exp.base == base) & (exp.job == job) & (exp.tool == tool)]
+                w9, w8 = (sub[sub.senza_dest == flag]["wall_seconds"] for flag in (False, True))
+                e9, e8 = (sub[sub.senza_dest == flag]["engine_seconds"] for flag in (False, True))
+                if w9.empty or w8.empty:
+                    continue
+                dw = (w8.mean() - w9.mean()) / w9.mean() * 100
+                de = (e8.mean() - e9.mean()) / e9.mean() * 100
+                diffs[base].append(dw)
+                macro(f"dest:diff:{tool}:{job}:{base}", fmt(dw, 1))
+                rows.append(f"{ds_label(base)} & {JOB_LABEL[job]} & {LABEL[tool]} & "
+                            f"{fmt(w9.mean())} $\\pm$ {fmt(w9.std())} & {fmt(w8.mean())} $\\pm$ {fmt(w8.std())} & "
+                            f"{fmt(dw, 1)}\\,\\% & {fmt(de, 1)}\\,\\% \\\\")
+        rows.append(r"\midrule")
+    for base, vals in diffs.items():
+        if vals:
+            macro(f"dest:media:{base}", fmt(sum(vals) / len(vals), 1))
+            macro(f"dest:min:{base}", fmt(min(vals), 1))
+            macro(f"dest:max:{base}", fmt(max(vals), 1))
+    macro("dest:ripetizioni", int(exp.groupby(["dataset", "job", "tool"]).size().min()))
+    write("tab_dest.tex", "\n".join([
+        r"\begin{tabular}{@{}c l l r r r r@{}}", r"\toprule",
+        r"Dataset & Job & Tecnologia & Con dest (s) & Senza dest (s) & $\Delta$ totale & $\Delta$ calcolo \\",
+        r"\midrule", *rows[:-1], r"\bottomrule", r"\end{tabular}"]))
 
 # --- Macro -----------------------------------------------------------------------------------
 macro("n:esecuzioni_local", int(reps[reps.env == "local"].ripetizioni.sum()))

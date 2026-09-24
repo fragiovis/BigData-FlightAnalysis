@@ -61,8 +61,13 @@ def output_path(env, tool, job, dataset):
     return f"{hdfs_base(env)}/{tool}/{job}/{env}/{dataset}"
 
 
+# Suffisso delle varianti a 8 colonne (senza dest), usate nell'esperimento sulla selezione delle colonne
+NO_DEST_SUFFIX = "-8c"
+
+
 def dataset_percent(dataset):
     """Dimensione del dataset in % dell'originale: flights_20 -> 20, flights_cleaned -> 100, flights_x5 -> 500."""
+    dataset = dataset.removesuffix(NO_DEST_SUFFIX)
     if dataset == "flights_cleaned":
         return 100
     m = re.fullmatch(r"flights_x(\d+)", dataset)
@@ -76,7 +81,8 @@ def dataset_label(dataset):
     pct = dataset_percent(dataset)
     if pct is None:
         return dataset
-    return f"{pct // 100}×" if pct > 100 else f"{pct}%"
+    label = f"{pct // 100}×" if pct > 100 else f"{pct}%"
+    return f"{label} senza dest" if dataset.endswith(NO_DEST_SUFFIX) else label
 
 
 def job_env(env):

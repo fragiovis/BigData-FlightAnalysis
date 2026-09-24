@@ -136,9 +136,15 @@ if [ "$FRAMEWORK" == "local" ]; then
     echo "SET hive.exec.scratchdir=/tmp/hive/scratch;" >> "temp_$1.hql"
 fi
 
+# Dataset senza la colonna dest (suffisso -8c): Hive legge per posizione, quindi la colonna
+# va tolta anche dalla definizione della tabella esterna
+DROP_DEST=""
+if [[ "$2" == *-8c ]]; then DROP_DEST="-e /dest[[:space:]]STRING,/d"; fi
+
 # Accodiamo la query originale sostituendo i percorsi di input e output
 sed -e "s|\${input_path}|$INPUT_PATH|g" \
     -e "s|\${output_path}|$OUTPUT_PATH|g" \
+    $DROP_DEST \
     "$1.hql" >> "temp_$1.hql"
 
 echo "[HIVE] Avvio esecuzione MapReduce tramite Beeline per il file $1.hql ($3)..."

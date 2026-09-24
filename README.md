@@ -1,374 +1,311 @@
-# ✈️ Flight Big Data Benchmark Pipeline (Local vs Cloud AWS EMR)
+# ✈️ Flight Analysis — Spark Core, Spark SQL e Hive a confronto
 
-Questo progetto implementa una **pipeline automatizzata di benchmark** per l'elaborazione, l'analisi e il data warehousing massivo di dataset relativi ai voli aerei commerciali americani. L'obiettivo accademico e ingegneristico è mettere a confronto le prestazioni computazionali e la scalabilità di tre dei principali motori di calcolo dell'ecosistema Big Data:
-* **Spark Core (RDD):** Approccio a basso livello basato su strutture dati resilienti e distribuite (Resilient Distributed Datasets).
-* **Spark SQL (DataFrame):** Ottimizzazione dichiarativa di alto livello basata sul motore Catalyst.
-* **Apache Hive:** Data Warehousing distribuito che traduce query SQL-like in job MapReduce eseguiti tramite l'engine di nuova generazione **Tez**.
+**Corso di Big Data — Secondo progetto** · Università degli Studi Roma Tre · Prof. Riccardo Torlone
+**Autore:** Francesco Giovanardi (matricola 577588)
 
-Il confronto viene effettuato mettendo sotto stress i tre framework all'interno di due contesti infrastrutturali diametralmente opposti:
-1. **Ambiente Locale Pseudo-Distribuito:** Simulazione di un intero cluster Hadoop (HDFS + YARN) su una singola macchina host con sistema operativo Ubuntu.
-2. **Ambiente Cloud Distribuito (AWS EMR):** Cluster elastico reale ad alte prestazioni composto da 1 Master Node e 2 Core Nodes basati su istanze Amazon EC2 `m5.xlarge` (4 vCPU, 16 GB di RAM e storage EBS dedicato).
+📄 **Relazione finale:** [`docs/relazione/main.pdf`](docs/relazione/main.pdf) · 📋 **Traccia:** [`docs/Secondo progetto.pdf`](docs/Secondo%20progetto.pdf)
 
-La suite esegue i medesimi algoritmi di analisi (Job 1 e Job 2) su 5 frazioni progressive del dataset, raccogliendo i tempi di risposta (espressi in secondi) e autogenerando report testuali e grafici comparativi tramite *Matplotlib*.
+Il progetto realizza due analisi sul [Flight Delay Dataset 2024](https://www.kaggle.com/datasets/hrishitpatil/flight-data-2024) (circa 7 milioni di voli interni degli Stati Uniti) con tre tecnologie, e ne confronta correttezza, espressività ed efficienza al crescere dei dati e in tre ambienti di esecuzione:
 
----
-
-## 📊 Dataset Considerato
-
-Il benchmark si basa sul popolare dataset pubblico **"Flight Delay Dataset — 2024"** disponibile sulla piattaforma Kaggle. Il file raccoglie i record dettagliati di tutti i voli di linea interni degli Stati Uniti, tracciando ritardi, cancellazioni e metriche operative delle compagnie aeree.
-
-* **Link Ufficiale al Dataset:** [Kaggle - Flight Delay Dataset — 2024](https://www.kaggle.com/datasets/hrishitpatil/flight-data-2024)
-* **Dataset Shape (Matrice dei Dati):**
-  * **Numero di Righe (Record):** ~7 milioni di righe nella versione completa (`flights_cleaned.csv`).
-  * **Numero di Colonne (Attributi):** 9 features selezionate per l'analisi (`month`, `op_unique_carrier`, `origin`, `dest`, `dep_delay`, `arr_delay`, `cancelled`, `cancellation_code`, `delay_code`).
-* **Dimensioni per il Benchmark:** per valutare la scalabilità, su HDFS ogni dataset è una cartella `/user/<utente>/data/<dataset>/`:
-  * `flights_1`, `flights_20`, `flights_50`, `flights_70`: porzioni del dataset pulito (1%, 20%, 50%, 70%). Sono **annidate e riproducibili**: ogni riga riceve un numero casuale con seed fisso e la porzione del p% contiene le righe con valore < p, quindi ogni porzione contiene tutte quelle più piccole;
-  * `flights_cleaned`: il dataset pulito completo (100%);
-  * `flights_x2`, `flights_x5`: **repliche controllate** per le dimensioni maggiori, cioè cartelle con 2 e 5 copie identiche del dataset completo (fino a circa 1 GB). I conteggi si moltiplicano per il fattore di replica, medie e cause restano invariate.
+| | |
+|---|---|
+| **Analisi** | **Job 1** — statistiche delle compagnie aeree (traccia 3.1) · **Job 2** — report dei ritardi per aeroporto e mese (traccia 3.2) |
+| **Tecnologie** | **Spark Core** (RDD) · **Spark SQL** (DataFrame e Catalyst) · **Hive** (MapReduce; Tez su EMR) |
+| **Ambienti** | locale (`local[*]`) · pseudo-cluster Hadoop/YARN · cluster AWS EMR (1 primario + 2 core `m5.xlarge`) |
+| **Dataset** | 7 dimensioni, da 2 MB (1%) a 1 GB (replica 5×) |
 
 ---
 
-## 🏗️ Struttura della Repository
+## Indice
+1. [Struttura del repository](#1-struttura-del-repository)
+2. [Le fasi del progetto](#2-le-fasi-del-progetto)
+3. [Risultati principali](#3-risultati-principali)
+4. [Installazione](#4-installazione)
+5. [Riprodurre i risultati](#5-riprodurre-i-risultati)
+6. [Esecuzione su AWS EMR](#6-esecuzione-su-aws-emr)
 
-La cartella del progetto è organizzata in moduli indipendenti e isolati per tecnologia. Questa separazione architetturale consente di mantenere intatti gli script di lancio locali (`run.sh`), introducendo in parallelo i moduli nativi per il Cloud (`run_aws.sh`) per garantire lo switch DevOps senza conflitti:
+---
+
+## 1. Struttura del repository
 
 ```text
 BigData-FlightAnalysis/
-├── dataset/               
-│   ├── download.py        # Script Python per il download automatizzato del dataset da Kaggle
-│   ├── generate_data.sh   # Script Bash per orchestrare la sequenza di scaricamento e preparazione
-│   ├── preprocessing.py   # Logica di pulizia iniziale, rimozione record inconsistenti e selezione feature
-│   └── generate_portions.py # Algoritmo di campionamento statistico per generare i file all'1%, 20%, 50%, 70%
-├── docs/                  # Documenti di progetto
-├── data/                  
-│   ├── raw/               # Contiene il file ZIP originario e il CSV grezzo scaricato da Kaggle
-│   └── processed/         # Contiene i file finali pronti per HDFS (flights_1.csv, flights_20.csv, ecc.)
-├── spark-core/            
-│   ├── job_1.py           # Algoritmo di analisi Job 1
-│   ├── job_2.py           # Algoritmo di analisi Job 2
-│   ├── run.sh             # Script di lancio per PC Locale (Pseudo-Cluster)
-│   └── run_aws.sh         # Script nativo ottimizzato per AWS EMR
-├── spark-sql/             
-│   ├── job_1.py           # Algoritmo di analisi Job 1
-│   ├── job_2.py           # Algoritmo di analisi Job 2
-│   ├── run.sh             # Script di lancio per PC Locale (Pseudo-Cluster)
-│   └── run_aws.sh         # Script nativo ottimizzato per AWS EMR
-├── hive/                  
-│   ├── job_1.hql          # Query SQL di analisi Job 1
-│   ├── job_2.hql          # Query SQL di analisi Job 2
-│   ├── run.sh             # Script locale con patch per Java 21 e database Derby
-│   └── run_aws.sh         # Script nativo per AWS EMR (connessione a HiveServer2)
-├── logs/                  
-│   ├── local/             # Log ed esecuzioni in modalità Single Thread locale
-│   ├── yarn/              # Log ed esecuzioni in modalità Pseudo-Cluster YARN locale
-│   └── aws/               # Risultati, metriche e grafici reali del Cloud Amazon
-├── benchmark.py           # Motore Python core per il monitoraggio dei tempi e plot dei grafici
-├── experiments.sh         # Orchestratore generale della suite (Accetta parametri: local[*], yarn, aws)
-├── requirements.txt       # Dipendenze Python necessarie per la reportistica (Matplotlib, Pandas)
-└── setup.sh               # Automazione di boot, pulizia e formattazione del cluster locale
+├── dataset/                   # Fase 1-3: dati
+│   ├── download.py            #   download del dataset da Kaggle in data/raw/
+│   ├── preprocessing.py       #   validazione, pulizia e trasformazioni → flights_cleaned.csv
+│   ├── generate_portions.py   #   porzioni annidate 1%, 20%, 50%, 70%
+│   └── generate_data.sh       #   orchestrazione: preprocessing, porzioni, repliche, caricamento su HDFS
+├── spark-core/                # Fase 4: job in Spark Core (job_1.py, job_2.py)
+├── spark-sql/                 # Fase 4: job in Spark SQL  (job_1.py, job_2.py)
+├── hive/                      # Fase 4: job in HiveQL     (job_1.hql, job_2.hql)
+│                              #   ogni cartella ha run.sh (locale/YARN) e run_aws.sh (EMR)
+├── bench/                     # Fase 5: esecuzione dei job e raccolta di tempi e metriche
+│   ├── runner.py              #   lancia un job, misura, salva log/metriche/output
+│   ├── metrics.py             #   metriche da event log di Spark e log di Hive
+│   ├── store.py, cluster.py, config.py
+├── benchmark.py               # Fase 5: benchmark da riga di comando
+├── experiments.sh             # Fase 5: benchmark completo (job 1 e 2) per un ambiente
+├── verify_outputs.py          # Fase 6: confronto riga per riga degli output delle tre tecnologie
+├── dashboard/                 # Fase 7: dashboard Streamlit
+├── results/                   # risultati
+│   ├── runs/<run_id>/         #   una cartella per esecuzione (tempi, metriche, log, output)
+│   ├── qualita_dati.json      #   esito della validazione dei dati
+│   └── aws_emr/               #   tempi della sessione su AWS EMR
+├── docs/
+│   ├── Secondo progetto.pdf   #   traccia
+│   └── relazione/             # Fase 8: relazione LaTeX, script che ne genera tabelle e grafici, PDF
+├── logs/                      # grafici PNG prodotti da benchmark.py
+├── setup.sh                   # primo avvio del cluster locale (formatta HDFS!)
+└── requirements.txt
 ```
 
-## 💻 Configurazione dello Stack Tecnologico sull'Host (Ambiente Locale)
+---
 
-Questa sezione descrive la procedura essenziale per scaricare, configure e avviare l'infrastruttura Big Data in modalità **Pseudo-Distribuita** su sistema operativo Ubuntu, emulando un intero cluster su una singola macchina host.
+## 2. Le fasi del progetto
 
-⚠️ **ATTENZIONE (NOTA CRITICA SUI PERCORSI):** Per garantire il corretto funzionamento degli script automatizzati e l'avvio dei servizi senza errori di permessi negati, tutti i framework devono essere tassativamente scaricati e scompattati all'interno della tua **Home Directory centrale** (`~/`). Non utilizzare sottocartelle come "Scaricati" o "Documenti".
+### Fase 1 — Dataset
+`dataset/download.py` scarica con `kagglehub` il file `flight_data_2024.csv` (1,2 GB, 7.079.081 righe, 35 colonne) in `data/raw/`.
 
-### 1. Framework da Scaricare e Versioni
+### Fase 2 — Preparazione dei dati (`dataset/preprocessing.py`, PySpark)
+1. **Normalizzazione**: tipi espliciti, codici in maiuscolo e senza spazi, minuti per causa di ritardo mancanti posti a 0.
+2. **Validazione**: 7 controlli (volo dirottato, campi chiave mancanti, mese non valido, codice aeroporto non IATA, cancellazione incoerente, volo non cancellato senza ritardi, minuti per causa incoerenti con il ritardo in arrivo). Ogni riga è esclusa dal *primo* controllo che non supera; i conteggi per motivo sono calcolati in un solo passaggio. Segue la rimozione dei duplicati sulla chiave del volo.
+   Esito: il dataset è coerente; vengono esclusi solo i **17.499 voli dirottati** → **7.061.582 righe**.
+3. **Trasformazioni**:
+   - ritardi rimossi per i 3.345 voli cancellati che ne avevano uno (un volo cancellato non è un volo in ritardo);
+   - `delay_code` = **causa prevalente** del ritardo (quella con più minuti attribuiti);
+   - codici espliciti e senza collisioni: `CANC_*` per le cancellazioni, `DELAY_*` per i ritardi (nel dataset la lettera `C` indicava due cause diverse).
+4. **Selezione di 9 colonne**: `month`, `op_unique_carrier`, `origin`, `dest`, `dep_delay`, `arr_delay`, `cancelled`, `cancellation_code`, `delay_code` → `flights_cleaned.csv`, 205 MB.
 
-Esegui questi comandi in sequenza per posizionarti nella tua Home, scaricare i pacchetti stabili e scompattarli nella posizione corretta:
+Il riepilogo di ogni passo è in `results/qualita_dati.json` e nella pagina «Dataset e qualità» della dashboard.
 
-* **Java OpenJDK 21** (Ambiente di runtime fondamentale):
-```bash
-sudo apt update && sudo apt install openjdk-21-jdk -y
-```
-* **Apache Hadoop 3.4.1** (Storage HDFS e Gestore Risorse YARN):
+### Fase 3 — Dataset di dimensione crescente
+| Dataset | Dimensione | Come è costruito | Righe |
+|---|---|---|---|
+| `flights_1`, `_20`, `_50`, `_70` | 1%–70% | **porzioni annidate e riproducibili**: ogni volo riceve una volta un numero casuale (seed fisso), la porzione del p% contiene i voli con valore < p | 71 mila – 4,9 milioni |
+| `flights_cleaned` | 100% | dataset pulito completo | 7,06 milioni |
+| `flights_x2`, `flights_x5` | 2×, 5× | **repliche controllate**: 2 e 5 copie del dataset completo, create con copie interne a HDFS | 14,1 – 35,3 milioni |
+
+Su HDFS ogni dataset è una cartella `/user/<utente>/data/<dataset>/`: Spark e Hive leggono la cartella intera, e la tabella esterna di Hive vi punta direttamente senza copie.
+
+### Fase 4 — Implementazione dei job
+Le tre tecnologie producono **lo stesso CSV** (stesse colonne, ordinamento e arrotondamenti; liste separate da `|`; valori mancanti come campo vuoto).
+
+- **Job 1** — per ogni coppia (compagnia, aeroporto di partenza): voli, ritardo minimo/massimo/medio in arrivo, tasso di cancellazione, mesi di attività.
+- **Job 2** — per ogni coppia (aeroporto, mese): voli nelle fasce di ritardo in partenza (< 15, 15–60, > 60 minuti), ritardo medio in partenza e in arrivo per fascia, le tre cause di ritardo o cancellazione più frequenti.
+
+| Tecnologia | Implementazione |
+|---|---|
+| **Spark Core** | accumulatori per chiave combinati con `reduceByKey` (aggregazione prima dello shuffle); per il Job 2 due pipeline (fasce e cause) unite con `leftOuterJoin` |
+| **Spark SQL** | una query per job: `GROUP BY`, `CASE WHEN` per le fasce, `ROW_NUMBER() OVER` e pivot per posizione per la classifica delle cause |
+| **Hive** | stessa query su una tabella esterna, scritta con `INSERT OVERWRITE DIRECTORY`; eseguita come 2 (Job 1) o 6 (Job 2) job MapReduce |
+
+Lo pseudocodice e le scelte di dettaglio sono nella relazione; la pagina «Risultati dei job» della dashboard mostra per ogni tecnologia le fasi dell'implementazione e il codice.
+
+### Fase 5 — Esecuzione e misura
+Ogni job viene lanciato dal `run.sh` della sua tecnologia tramite `bench/runner.py` (usato da `benchmark.py` e dalla dashboard), che registra per ogni esecuzione, in `results/runs/<run_id>/`:
+
+| File | Contenuto |
+|---|---|
+| `record.json` | esito, **tempo totale**, **tempo di calcolo** (Spark: durata dell'applicazione dall'event log; Hive: durata delle istruzioni), **overhead**, input, righe prodotte, metriche del motore |
+| `stages.json` | stage di Spark (task, byte letti, byte di shuffle) o job MapReduce di Hive (mapper, reducer, letture/scritture HDFS) |
+| `log.txt` | log completo dell'esecuzione |
+| `preview.csv`, `output.csv` | prime 10 righe e output completo |
+
+L'output di ogni job è scritto anche su HDFS in `/user/<utente>/<tecnologia>/<job>/<ambiente>/<dataset>/`.
+
+### Fase 6 — Verifica della correttezza
+`verify_outputs.py` confronta riga per riga gli output delle tre tecnologie (valori numerici con tolleranza pari all'arrotondamento, stringhe in modo esatto). Nel benchmark definitivo le **28 verifiche** (7 dataset × 2 job × 2 ambienti) sono tutte superate: le tre tecnologie producono risultati identici.
+
+### Fase 7 — Dashboard (`dashboard/`, Streamlit)
+- **Esegui job**: lancio di batch (ambiente, tecnologie, job, dataset, ripetizioni) con log in tempo reale e verifica automatica;
+- **Cluster e dati**: stato di HDFS e YARN, avvio e arresto, dataset su HDFS;
+- **Dataset e qualità**: esito della validazione;
+- **Tempi di esecuzione**: scalabilità, calcolo e overhead, confronto tra ambienti, shuffle, tabelle esportabili;
+- **Dettaglio esecuzione**: timeline degli stage, metriche, output completo e log di ogni run;
+- **Risultati dei job**: descrizione dei job, esplorazione degli output, verifica e codice di ogni implementazione.
+La barra laterale mostra sempre l'ora e i dettagli dell'ultima esecuzione.
+
+### Fase 8 — Relazione (`docs/relazione/`)
+`genera_dati.py` produce da `results/` tutte le tabelle, i grafici e i numeri citati nel testo; `main.tex` si compila con [Tectonic](https://tectonic-typesetting.github.io/). Nessun numero della relazione è scritto a mano.
+
+---
+
+## 3. Risultati principali
+
+Tempo totale in secondi sul dataset completo (100%):
+
+| Job | Tecnologia | Locale | YARN | AWS EMR |
+|---|---|---:|---:|---:|
+| Job 1 | Spark Core | 14,6 | 29,7 | 48,3 |
+| | Spark SQL | 14,5 | 37,3 | 52,4 |
+| | Hive | 19,5 | 53,9 | 43,1 |
+| Job 2 | Spark Core | 20,8 | 33,5 | 50,8 |
+| | Spark SQL | 17,1 | 39,1 | 59,1 |
+| | Hive | 30,1 | 138,6 | 54,0 |
+
+- Con questi volumi prevalgono i **costi fissi** di avvio e coordinamento: il locale è il più veloce, YARN ed EMR pagano l'allocazione delle risorse.
+- **Spark Core** è il più veloce sul Job 1 perché legge l'input una sola volta e riusa i risultati dello shuffle.
+- **Spark SQL** è il più semplice da scrivere, ma per la valutazione pigra e l'inferenza dello schema rilegge l'input più volte (3 nel Job 1, 5 nel Job 2).
+- **Hive** ha il costo fisso più alto (un job MapReduce per fase) ma cresce meno al crescere dei dati: su YARN, al 5×, supera Spark SQL nel Job 1.
+- Lo **shuffle** è di pochi MB anche con 1 GB di input, grazie all'aggregazione prima dello scambio: il costo dominante è leggere il CSV, per cui la preparazione dei dati conta più delle differenze negli shuffle.
+
+L'analisi completa (espressività, semplicità, efficienza, scalabilità, shuffle) è nella [relazione](docs/relazione/main.pdf).
+
+---
+
+## 4. Installazione
+
+### Software
+| Componente | Versione usata |
+|---|---|
+| Java | 21 (Temurin) |
+| Apache Hadoop (HDFS + YARN) | 3.4.1 |
+| Apache Spark | 3.5.5 (pre-built per Hadoop 3) |
+| Apache Hive | 4.0.0 (motore MapReduce, metastore Derby integrato) |
+| Python | 3.11 (PySpark 3.5 non supporta ufficialmente versioni successive) |
+
+Gli script cercano i framework nella home: `~/hadoop-3.4.1`, `~/spark-3.5.5-bin-hadoop3`, `~/apache-hive-4.0.0-bin`.
+
 ```bash
 cd ~
-wget [https://archive.apache.org/dist/hadoop/common/hadoop-3.4.1/hadoop-3.4.1.tar.gz](https://archive.apache.org/dist/hadoop/common/hadoop-3.4.1/hadoop-3.4.1.tar.gz)
-tar -xzf hadoop-3.4.1.tar.gz && rm hadoop-3.4.1.tar.gz
-  ```
-* **Apache Spark 3.5.5** (Motore di calcolo in-memory, pre-built per Hadoop 3):
-```bash
-cd ~
-wget [https://archive.apache.org/dist/spark/spark-3.5.5/spark-3.5.5-bin-hadoop3.tgz](https://archive.apache.org/dist/spark/spark-3.5.5/spark-3.5.5-bin-hadoop3.tgz)
-tar -xzf spark-3.5.5-bin-hadoop3.tgz && rm spark-3.5.5-bin-hadoop3.tgz
-```
-* **Apache Hive 4.0.0** (Data Warehousing SQL-like locale):
-```bash
-cd ~
-wget [https://archive.apache.org/dist/hive/hive-4.0.0/apache-hive-4.0.0-bin.tar.gz](https://archive.apache.org/dist/hive/hive-4.0.0/apache-hive-4.0.0-bin.tar.gz)
-tar -xzf apache-hive-4.0.0-bin.tar.gz && rm apache-hive-4.0.0-bin.tar.gz
+curl -LO https://archive.apache.org/dist/hadoop/common/hadoop-3.4.1/hadoop-3.4.1-lean.tar.gz
+curl -LO https://archive.apache.org/dist/spark/spark-3.5.5/spark-3.5.5-bin-hadoop3.tgz
+curl -LO https://archive.apache.org/dist/hive/hive-4.0.0/apache-hive-4.0.0-bin.tar.gz
+for f in *.tar.gz *.tgz; do tar -xzf "$f" && rm "$f"; done
 ```
 
-### 2. Configurazione dell'Ambiente e Automazione File XML
-
-Tutte le altre configurazioni avanzate (come le patch di sicurezza per Java 21, i Classpath e l'iniezione dei parametri in mapred-site.xml) vengono applicate automaticamente a caldo durante l'esecuzione. All'utente è richiesto solo di impostare le variabili e lanciare i comandi di predisposizione dei file XML.
-
-* #### A. Esportazione delle Variabili d'Ambiente (~/.bashrc)
-Apri il file ~/.bashrc, aggiungi in fondo i seguenti percorsi per mappare i comandi di sistema e salva:
+Variabili d'ambiente (in `~/.zshrc` o `~/.bashrc`):
 ```bash
-export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
+export JAVA_HOME=$(/usr/libexec/java_home -v 21)        # su Linux: /usr/lib/jvm/java-21-openjdk-amd64
 export HADOOP_HOME=$HOME/hadoop-3.4.1
+export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
 export SPARK_HOME=$HOME/spark-3.5.5-bin-hadoop3
 export HIVE_HOME=$HOME/apache-hive-4.0.0-bin
-export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
 export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$SPARK_HOME/bin:$HIVE_HOME/bin
 ```
-Applica immediatamente le modifiche lanciando: **source ~/.bashrc**
 
-* #### B. Modifica di core-site.xml ($HADOOP_HOME/etc/hadoop/core-site.xml)
+### Configurazione di Hadoop (`$HADOOP_HOME/etc/hadoop/`)
+Lo pseudo-cluster richiede che `ssh localhost` funzioni senza password (su macOS: *Impostazioni → Condivisione → Login remoto*).
 
-Apri il file e inserisci questa proprietà tra i tag <configuration> per mappare l'indirizzo del File System locale:
+**`hadoop-env.sh`** (in fondo) — Java 21 richiede di aprire alcuni moduli interni:
 ```bash
-<configuration>
-    <property>
-        <name>fs.defaultFS</name>
-        <value>hdfs://localhost:9000</value>
-    </property>
-</configuration>
+export JAVA_HOME=...   # stesso valore di sopra: i demoni avviati via ssh non leggono il profilo
+export HADOOP_OPTS="$HADOOP_OPTS --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.math=ALL-UNNAMED --add-opens=java.base/java.text=ALL-UNNAMED --add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.xml/jdk.xml.internal=ALL-UNNAMED"
 ```
 
-* #### C. Modifica di hdfs-site.xml ($HADOOP_HOME/etc/hadoop/hdfs-site.xml)
-
-Apri il file e inserisci questa proprietà per impostare il fattore di replica dei dati a 1, ideale per l'uso su una macchina singola:
-
-```bash
-<configuration>
-    <property>
-        <name>dfs.replication</name>
-        <value>1</value>
-    </property>
-</configuration>
+**`core-site.xml`** e **`hdfs-site.xml`**:
+```xml
+<property><name>fs.defaultFS</name><value>hdfs://localhost:9000</value></property>
+<property><name>hadoop.tmp.dir</name><value>/percorso/assoluto/hadoop-data</value></property>  <!-- fuori da /tmp -->
+<!-- hdfs-site.xml -->
+<property><name>dfs.replication</name><value>1</value></property>
 ```
 
-* #### D. Patch e Configurazione Automatizzata di yarn-site.xml
-
-Per consentire lo scambio corretto dei dati (fase di Shuffle) durante i job di calcolo senza dover modificare manualmente i file XML interni, esegui questo comando Python direttamente nel tuo terminale. Lo script configurerà in automatico i servizi ausiliari di YARN:
-
-```bash
-python3 -c "
-import xml.etree.ElementTree as ET
-import os
-file_path = os.path.expanduser('~/hadoop-3.4.1/etc/hadoop/yarn-site.xml')
-tree = ET.parse(file_path)
-root = tree.getroot()
-properties = {
-    'yarn.nodemanager.aux-services': 'mapreduce_shuffle',
-    'yarn.nodemanager.aux-services.mapreduce_shuffle.class': 'org.apache.hadoop.mapred.ShuffleHandler'
-}
-for name, val in properties.items():
-    for prop in root.findall('property'):
-        n = prop.find('name')
-        if n is not None and n.text == name:
-            root.remove(prop)
-    p = ET.SubElement(root, 'property')
-    ET.SubElement(p, 'name').text = name
-    ET.SubElement(p, 'value').text = val
-tree.write(file_path, encoding='utf-8', xml_declaration=True)
-print('\n[OK] yarn-site.xml patchato con successo!')
-"
+**`mapred-site.xml`** (usato da Hive):
+```xml
+<property><name>mapreduce.framework.name</name><value>yarn</value></property>
+<property><name>yarn.app.mapreduce.am.env</name><value>HADOOP_MAPRED_HOME=${HADOOP_HOME}</value></property>
+<property><name>mapreduce.map.env</name><value>HADOOP_MAPRED_HOME=${HADOOP_HOME}</value></property>
+<property><name>mapreduce.reduce.env</name><value>HADOOP_MAPRED_HOME=${HADOOP_HOME}</value></property>
+<property><name>mapreduce.map.memory.mb</name><value>1024</value></property>
+<property><name>mapreduce.reduce.memory.mb</name><value>1024</value></property>
+<property><name>yarn.app.mapreduce.am.resource.mb</name><value>1024</value></property>
+<!-- mapreduce.map.java.opts, mapreduce.reduce.java.opts, yarn.app.mapreduce.am.command-opts:
+     gli stessi flag --add-opens di hadoop-env.sh -->
 ```
 
-### 3. Inizializzazione dello Pseudo-Cluster via setup.sh
-
-La formattazione iniziale del File System, l'azzeramento dei residui temporanei e l'avvio sequenziale dei servizi HDFS e YARN sono interamente automatizzati. Spostati nella radice del progetto ed esegui:
-
-```bash
-bash setup.sh
+**`yarn-site.xml`** (valori per una macchina con 8 GB di RAM):
+```xml
+<property><name>yarn.nodemanager.aux-services</name><value>mapreduce_shuffle</value></property>
+<property><name>yarn.nodemanager.aux-services.mapreduce_shuffle.class</name><value>org.apache.hadoop.mapred.ShuffleHandler</value></property>
+<property><name>yarn.nodemanager.env-whitelist</name><value>JAVA_HOME,HADOOP_COMMON_HOME,HADOOP_HDFS_HOME,HADOOP_CONF_DIR,CLASSPATH_PREPEND_DISTCACHE,HADOOP_YARN_HOME,HADOOP_HOME,PATH,LANG,TZ,HADOOP_MAPRED_HOME</value></property>
+<property><name>yarn.nodemanager.resource.memory-mb</name><value>4096</value></property>
+<property><name>yarn.nodemanager.resource.cpu-vcores</name><value>4</value></property>
+<property><name>yarn.scheduler.minimum-allocation-mb</name><value>512</value></property>
+<property><name>yarn.scheduler.maximum-allocation-mb</name><value>4096</value></property>
+<property><name>yarn.nodemanager.vmem-check-enabled</name><value>false</value></property>
+<!-- un nodo con disco oltre la soglia diventa UNHEALTHY e non esegue più container -->
+<property><name>yarn.nodemanager.disk-health-checker.max-disk-utilization-per-disk-percentage</name><value>99.5</value></property>
+<property><name>yarn.nodemanager.disk-health-checker.min-free-space-per-disk-mb</name><value>3072</value></property>
+<!-- limita la cache dei file localizzati da YARN -->
+<property><name>yarn.nodemanager.localizer.cache.target-size-mb</name><value>2048</value></property>
 ```
 
-### 4. Validazione dell'Infrastruttura Locale tramite jps
-
-Per verificare che lo pseudo-cluster sia partito correttamente e che tutti i servizi siano attivi, lancia il comando di controllo di Java:
-
+### Primo avvio
 ```bash
-jps
+bash setup.sh      # SOLO la prima volta: formatta HDFS (cancella i dati) e avvia HDFS e YARN
+jps                # NameNode, DataNode, SecondaryNameNode, ResourceManager, NodeManager
 ```
-Il terminale deve mostrare i 5 processi core di Hadoop attivi:
+Negli avvii successivi: `start-dfs.sh && start-yarn.sh` (arresto: `stop-yarn.sh && stop-dfs.sh`).
+Interfacce web: HDFS http://localhost:9870 · YARN http://localhost:8088
 
-```text
-- NameNode (Supervisore delle directory HDFS)
-
-- DataNode (Responsabile della scrittura dei dati su disco)
-
-- SecondaryNameNode (Gestore dei checkpoint dei log HDFS)
-
-- ResourceManager (Orchestratore globale delle risorse YARN)
-
-- NodeManager (Esecutore locale dei container di calcolo YARN)
-```
-
-Se tutti e cinque i processi sono presenti in lista, lo pseudo-cluster è pronto per eseguire la pipeline di benchmark.
-
-## 📊 Preparazione Dataset
-
-Questa sezione descrive i comandi per configurare l'ambiente Python, scaricare i dati ed eseguire la pipeline di preparazione e caricamento su HDFS.
-
-### 1. Configurazione Ambiente Virtuale e Installazione Dipendenze
-
-Dalla radice del progetto, esegui i seguenti comandi per isolare l'ambiente e installare i pacchetti necessari:
+### Ambiente Python e credenziali Kaggle
 ```bash
-python3 -m venv env
-source env/bin/activate
-pip install --upgrade pip
+python3.11 -m venv env && source env/bin/activate
 pip install -r requirements.txt
+mkdir -p ~/.kaggle && echo "<token>" > ~/.kaggle/access_token && chmod 600 ~/.kaggle/access_token
 ```
-### 2. Download, Preprocessing e Frazionamento del Dataset
+Il token si crea da kaggle.com → *Settings* → *API*.
 
-Esegui lo script Python per scaricare il file originale da Kaggle e, successivamente, l'orchestratore Bash che valida e ripulisce i dati (riepilogo in `results/qualita_dati.json`), genera le porzioni in **data/processed/** e crea su **HDFS** le cartelle dei dataset, comprese le repliche 2× e 5× (fattori modificabili, es. `REPLICAS="2" bash generate_data.sh local[*]`). Lo script carica anche le librerie di Spark in `/spark/jars` su HDFS, usate dai job su YARN al posto dell'upload a ogni esecuzione:
+---
+
+## 5. Riprodurre i risultati
+
+Con HDFS e YARN attivi e l'ambiente virtuale attivato, dalla radice del progetto:
+
 ```bash
-cd dataset/
+# Fasi 1-3: download, preparazione, porzioni, repliche e caricamento su HDFS
+cd dataset && python3 download.py && bash generate_data.sh "local[*]" && cd ..
+#   (carica anche le librerie di Spark in /spark/jars, usate dai job su YARN)
 
-# 1. Download del dataset grezzo dentro data/raw/
-python3 download.py
+# Fase 5: benchmark (tutti i dataset, le tre tecnologie, job 1 e 2)
+bash experiments.sh "local[*]"
+bash experiments.sh yarn
+#   un singolo job:  cd spark-sql && bash run.sh job_2 flights_20 yarn
+#   con ripetizioni: python3 benchmark.py job_1 yarn --repeat 3
 
-# 2. Esecuzione del preprocessing, frazionamento e upload su HDFS
-bash generate_data.sh local[*]
-```
-
-### 3. Verifica dei File su HDFS
-
-Per assicurarti che tutti i dataset siano stati caricati correttamente nello storage distribuito, lancia il comando di controllo:
-```bash
-hdfs dfs -du -h /user/$USER/data/
-```
-
-## 🚀 Esecuzione della Pipeline (HOST)
-
-Questa sezione descrive come lanciare la suite di benchmark sulla macchina host locale e come interpretare i report generati automaticamente al termine dei test.
-
-⚠️ **PREREQUISITO FONDAMENTALE:** Prima di procedere con l'esecuzione, l'ambiente deve essere stato preventivamente configurato per l'avvio dello pseudo-cluster Hadoop (HDFS + YARN) come descritto nella sezione precedente. Assicurati inoltre che la cinquina di demoni sia attiva verificando con il comando `jps`.
-
-### 1. Comando di Avvio e Modalità di Esecuzione
-
-L'intera esecuzione dei test (Job 1 e Job 2 applicati a tutte e 5 le porzioni del dataset per Spark Core, Spark SQL e Hive) è centralizzata nell'orchestratore `experiments.sh`. Prima di lanciarlo, assicurati di aver attivato l'ambiente virtuale (`source env/bin/activate`).
-
-A seconda dell'architettura che desideri testare, esegui uno dei seguenti comandi dalla radice del progetto:
-
-* **Esecuzione in modalità Locale Pura (Single Machine):**
-  ```bash
-  bash experiments.sh local[*]
-  ```
-  In questa modalità, Apache Spark esegue i calcoli sfruttando il multi-threading direttamente sulla macchina host, isolando l'esecuzione all'interno di un singolo processo e utilizzando tutti i core della CPU disponibili (indicati da *). Non viene coinvolto il resource manager YARN.
-
-* **Esecuzione in modalità Pseudo-Distribuita (YARN):**
-  ```bash
-  bash experiments.sh yarn
-  ```
-  I Job vengono sottomessi formalmente all'orchestratore locale Hadoop YARN. Questa modalità simula il comportamento di un vero cluster di produzione distributed, allocando dinamicamente i container di calcolo operai sulla macchina host e testando i limiti di gestione delle risorse dell'infrastruttura locale.
-
-### 2. Output dei Test e Reportistica Grafica (logs/)
-
-Ogni esecuzione viene salvata in `results/runs/<run_id>/`:
-* `record.json`: tempo totale, tempo di calcolo, overhead, dimensione dell'input, righe prodotte e metriche del motore (stage, task e shuffle per Spark; job MapReduce e letture/scritture HDFS per Hive);
-* `stages.json`: dettaglio di ogni stage Spark (dall'event log) o job MapReduce di Hive;
-* `log.txt` e `preview.csv`: log completo e prime 10 righe dell'output.
-
-Al termine, `benchmark.py` genera anche il grafico `logs/<ambiente>/benchmark_<job>.png` (media delle ripetizioni, con deviazione standard). Con `--repeat N` ogni combinazione viene eseguita N volte.
-
-Ogni job scrive il proprio output su HDFS in `/user/<utente>/<tecnologia>/<job>/<ambiente>/<dataset>/` (ambiente `local`, `yarn` o `aws`): resta l'ultimo risultato di ogni combinazione, e ogni esecuzione ne salva anche una copia completa in `results/runs/<run_id>/output.csv`. Per verificare che le tre tecnologie producano gli stessi risultati (predefiniti: dataset `flights_cleaned`, ambiente `local`):
-```bash
+# Fase 6: verifica (predefiniti: dataset flights_cleaned, ambiente local)
 python3 verify_outputs.py job_1
-python3 verify_outputs.py job_2 flights_20 --env yarn
-```
+python3 verify_outputs.py job_2 flights_x5 --env yarn
 
-### 3. Dashboard Streamlit
-
-La dashboard permette di lanciare i job, seguirne il log in tempo reale ed esplorare tempi e risultati:
-```bash
-source env/bin/activate
+# Fase 7: dashboard → http://localhost:8501
 streamlit run dashboard/app.py
-```
-Si apre su http://localhost:8501 con le pagine:
-* **Esegui job**: scelta di ambiente, tecnologie, job, dataset e ripetizioni; i job girano in background (si può cambiare pagina) e al termine viene verificata la coerenza degli output;
-* **Cluster e dati**: stato dei demoni Hadoop, avvio e arresto di HDFS/YARN, nodi YARN e dataset su HDFS;
-* **Tempi di esecuzione**: scalabilità al crescere dell'input, calcolo contro overhead, confronto tra ambienti, shuffle e I/O, tabelle scaricabili in CSV;
-* **Dettaglio esecuzione**: timeline degli stage, metriche, prime 10 righe e log di ogni singola esecuzione;
-* **Risultati dei job**: esplorazione degli output (compagnie, aeroporti, fasce di ritardo, cause).
 
-La dashboard deve girare sulla macchina che ospita il cluster. Su AWS EMR si avvia sul Master Node e si raggiunge con un tunnel SSH (`ssh -i chiave.pem -L 8501:localhost:8501 hadoop@IP-MASTER`). Per portare in locale i risultati del cloud basta copiare le cartelle `results/runs/*` dal master.
-
-## ☁️ Esecuzione della Pipeline su Cloud (AWS - Cluster EMR)
-
-Questa sezione descrive la procedura end-to-end per configurare l'infrastruttura Cloud reale su Amazon Web Services, importare i dati dal servizio di storage S3, configurare il cluster distribuito EMR ed eseguire la suite di benchmark.
-
-### 1. Configurazione di Amazon S3 e Caricamento Dati
-Prima di avviare le macchine computazionali, è necessario memorizzare i dati su Object Storage per renderli accessibili al cluster.
-* Accedi alla console AWS e crea un **Bucket S3** (es. `my-flight-benchmark-bucket`).
-* All'interno del bucket, crea una cartella denominata `data/`.
-* Carica all'interno di questa cartella i 5 file CSV processati in precedenza sull'host locale (all'interno di `data/processed/`), ovvero: `flights_1.csv`, `flights_20.csv`, `flights_50.csv`, `flights_70.csv` e `flights_cleaned.csv`.
-
-
-
-### 2. Creazione del Cluster AWS EMR
-Accedi al pannello di controllo di AWS EMR e avvia la creazione guidata di un cluster personalizzato (Custom) con i seguenti parametri:
-* **Applicazioni (Software Configuration):** Seleziona il pacchetto che include **Hadoop**, **Spark**, **Hive** e **Hue**. Assicurati che l'engine di Hive sia impostato su **Tez**.
-* **Hardware Configuration:** * Configura **1 Primary Node (Master)** e **2 Core Nodes (Worker)**.
-  * Seleziona per tutte le macchine il tipo di istanza **`m5.xlarge`** (4 vCPU, 16 GB RAM).
-  * Verifica che sia associata la chiave EC2 (`.pem`) per l'accesso SSH primario.
-
-
-### 3. Configurazione di Sicurezza e Connessione SSH
-Di default, AWS blocca le connessioni in ingresso verso il cluster. Per abilitare l'accesso da terminale:
-* Nel riepilogo del cluster appena creato, clicca sul link del **Security Group del Master Node**.
-* Seleziona il gruppo e modifica le **Inbound Rules** (Regole in ingresso).
-* Aggiungi una regola che permetta il traffico sulla porta **22 (SSH)** impostando come sorgente il tuo IP attuale (`My IP`) o `0.0.0.0/0`.
-* Apri il terminale del tuo computer locale e connettiti alla shell del Master Node tramite il comando SSH nativo fornito dalla console AWS:
-```bash
-ssh -i /percorso/tua-chiave.pem hadoop@IP-PUBBLICO-MASTER-NODE
+# Fase 8: tabelle e grafici della relazione, poi compilazione
+python3 docs/relazione/genera_dati.py
+cd docs/relazione && tectonic main.tex
 ```
 
-### 4. Importazione Dati da S3 ad HDFS del Cluster
-Una volta all'interno del Master Node, esegui i comandi in sequenza per prelevare i dati da S3 tramite il client AWS CLI preinstallato e caricarli nel File System distribuito del nuovo cluster:
-```bash
-# 1. Crea la cartella temporanea locale sul Master Node
-mkdir -p ~/target_data
+> ⚠️ Durante un benchmark lungo il computer non deve andare in stop (su un portatile a batteria chiudere lo schermo sospende i processi e falsa i tempi misurati). Su macOS gli script possono essere lanciati con `caffeinate -i`.
 
-# 2. Scarica i file CSV da S3 alla cartella locale (Sostituisci il nome reale del tuo bucket)
-aws s3 cp s3://IL-NOME-REALE-DEL-TUO-BUCKET/data/ ~/target_data/ --recursive --exclude "*" --include "*.csv"
+---
 
-# 3. Crea una cartella HDFS per ogni dataset e caricaci il CSV corrispondente
-for f in ~/target_data/*.csv; do
-    name=$(basename "$f" .csv)
-    hdfs dfs -mkdir -p /user/hadoop/data/$name
-    hdfs dfs -put "$f" /user/hadoop/data/$name/
-done
+## 6. Esecuzione su AWS EMR
 
-# 4. Repliche controllate: N copie del dataset completo nella stessa cartella
-for n in 2 5; do
-    hdfs dfs -mkdir -p /user/hadoop/data/flights_x$n
-    for i in $(seq 1 $n); do
-        hdfs dfs -cp /user/hadoop/data/flights_cleaned/flights_cleaned.csv /user/hadoop/data/flights_x$n/part-$i.csv
-    done
-done
+Configurazione usata: **1 nodo primario + 2 nodi core `m5.xlarge`** (4 vCPU, 16 GB), con Hadoop, Spark e Hive (su EMR Hive usa Tez).
 
-# 5. Pulisci la cartella temporanea locale per liberare spazio
-rm -rf ~/target_data
-```
+1. **Dati su S3**: caricare i CSV di `data/processed/` in un bucket, per esempio `s3://<bucket>/data/`.
+2. **Cluster**: EMR con Hadoop, Hive e Spark; abilitare l'accesso SSH al nodo primario solo dal proprio IP e impostare la terminazione automatica dopo un periodo di inattività.
+3. **Dati su HDFS**, dal nodo primario (una cartella per dataset, poi le repliche):
+   ```bash
+   for f in flights_1 flights_20 flights_50 flights_70 flights_cleaned; do
+       hdfs dfs -mkdir -p /user/hadoop/data/$f
+       hdfs dfs -cp s3://<bucket>/data/$f.csv /user/hadoop/data/$f/
+   done
+   for n in 2 5; do
+       hdfs dfs -mkdir -p /user/hadoop/data/flights_x$n
+       for i in $(seq 1 $n); do
+           hdfs dfs -cp /user/hadoop/data/flights_cleaned/flights_cleaned.csv /user/hadoop/data/flights_x$n/part-$i.csv
+       done
+   done
+   ```
+4. **Progetto ed esecuzione**:
+   ```bash
+   sudo dnf install -y git python3.11
+   git clone https://github.com/fragiovis/BigData-FlightAnalysis.git && cd BigData-FlightAnalysis
+   python3.11 -m venv env && env/bin/pip install pandas matplotlib streamlit plotly
+   bash experiments.sh aws            # usa gli script run_aws.sh
+   ```
+   La dashboard si può avviare anche sul nodo primario e raggiungere con un tunnel SSH (`ssh -L 8501:localhost:8501 hadoop@<nodo-primario>`). Le cartelle `results/runs/*` si copiano poi in locale con `scp` per confrontarle con gli altri ambienti.
 
-Per accertarti che i dataset siano stati agganciati dal cluster Cloud, lancia il comando di controllo:
-```bash
-hdfs dfs -du -h /user/hadoop/data/
-```
-
-### 5. Configurazione Ambiente e Clonazione Progetto
-Sempre all'interno del terminale del Master Node, è necessario installare i requisiti software mancanti e scaricare il codice sorgente dell'applicazione:
-```bash
-# 1. Installa Git e gli strumenti di sviluppo sul Master Node
-sudo yum install git -y
-
-# 2. Installa le librerie Python per la gestione dei dati e della reportistica grafica
-pip3 install matplotlib pandas --user
-
-# 3. Clona la repository del progetto
-git clone https://github.com/fragiovis/BigData-FlightAnalysis.git
-cd BigData-FlightAnalysis/
-```
-
-### 6. Esecuzione del Benchmark Cloud ed Output (logs/aws/)
-Avvia l'orchestratore generale passando il parametro specifico per AWS. Questo comando effettuerà lo switch DevOps bypassando i moduli locali e lanciando i job ottimizzati nativamente per parallelizzare il carico di calcolo sui nodi remoti:
-```bash
-bash experiments.sh aws
-```
-Al termine dei test, il framework raccoglierà le metriche aggregate di performance hardware e salverà i risultati testuali e i grafici comparativi PNG generati da Matplotlib all'interno del percorso standard **logs/aws**
+I tempi della sessione su EMR sono in `results/aws_emr/tempi_aws_emr.csv` e compaiono nella dashboard e nella relazione.

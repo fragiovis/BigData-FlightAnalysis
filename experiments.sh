@@ -21,7 +21,7 @@ if [ "$1" == "aws" ]; then
     echo "================================================================="
 else
     echo "================================================================="
-    echo " AVVIO PIPELINE AUTOMATICA DI BENCHMARK - MODALITA': ${1^^} "
+    echo " AVVIO PIPELINE AUTOMATICA DI BENCHMARK - MODALITA': $(echo "$1" | tr '[:lower:]' '[:upper:]') "
     echo "================================================================="
 fi
 
@@ -30,5 +30,5 @@ python3 benchmark.py job_1 "$MASTER_TYPE" $EXTRA_FLAG --fractions "0.01 0.2 0.5 
 python3 benchmark.py job_2 "$MASTER_TYPE" $EXTRA_FLAG --fractions "0.01 0.2 0.5 0.7"
 
 echo "================================================================="
-echo " PIPELINE COMPLETATA. CONTROLLA I RISULTATI NELLA DIRECTORY logs/ "
+echo " PIPELINE COMPLETATA: RISULTATI IN results/runs/, GRAFICI IN logs/ "
 echo "================================================================="

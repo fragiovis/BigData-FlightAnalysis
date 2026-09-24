@@ -14,7 +14,7 @@ DATASET_TAG=$2
 HDFS_BASE="/user/hadoop"
 # La tabella esterna punta direttamente alla cartella del dataset (nessuna copia in staging)
 INPUT_PATH="$HDFS_BASE/data/$DATASET_TAG"
-OUTPUT_PATH="$HDFS_BASE/hive/$SCRIPT_NAME"
+OUTPUT_PATH="$HDFS_BASE/hive/$SCRIPT_NAME/$DATASET_TAG"
 
 hdfs dfs -rm -r -f "$OUTPUT_PATH" 2>/dev/null
 

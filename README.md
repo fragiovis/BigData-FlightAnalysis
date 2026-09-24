@@ -267,10 +267,10 @@ Ogni esecuzione viene salvata in `results/runs/<run_id>/`:
 
 Al termine, `benchmark.py` genera anche il grafico `logs/<ambiente>/benchmark_<job>.png` (media delle ripetizioni, con deviazione standard). Con `--repeat N` ogni combinazione viene eseguita N volte.
 
-Per verificare che le tre tecnologie producano gli stessi risultati:
+Ogni job scrive il proprio output su HDFS in `/user/<utente>/<tecnologia>/<job>/<dataset>/`, quindi per ogni tecnologia resta l'ultimo risultato di ciascun dataset. Per verificare che le tre tecnologie producano gli stessi risultati su un dataset (predefinito: `flights_cleaned`):
 ```bash
 python3 verify_outputs.py job_1
-python3 verify_outputs.py job_2
+python3 verify_outputs.py job_2 flights_20
 ```
 
 ### 3. Dashboard Streamlit

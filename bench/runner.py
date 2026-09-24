@@ -117,7 +117,8 @@ def run_job(tool, job, dataset, env, repetition=1, batch_id=None, on_line=None, 
         summary, stages = metrics.parse_spark_eventlog(events_dir)
 
     # Anteprima e numero di righe dell'output (Hive non scrive l'header)
-    output_lines = hdfs(env, "-cat", f"{config.hdfs_base(env)}/{tool}/{job}/*").stdout.splitlines() if rc == 0 else []
+    output_path = f"{config.hdfs_base(env)}/{tool}/{job}/{dataset}"
+    output_lines = hdfs(env, "-cat", f"{output_path}/*").stdout.splitlines() if rc == 0 else []
     has_header = bool(output_lines) and output_lines[0].startswith(config.JOB_COLUMNS[job][0])
     data_lines = output_lines[1:] if has_header else output_lines
     (run_dir / "preview.csv").write_text("\n".join([",".join(config.JOB_COLUMNS[job])] + data_lines[:10]) + "\n")

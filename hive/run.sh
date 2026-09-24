@@ -117,7 +117,7 @@ fi
 # Ogni dataset è già una cartella dedicata su HDFS: la tabella esterna punta direttamente lì,
 # senza copiare i dati in una cartella di staging
 INPUT_PATH="/user/$USER/data/$2"
-OUTPUT_PATH="/user/$USER/hive/$1"
+OUTPUT_PATH="/user/$USER/hive/$1/$2"
 
 hdfs dfs -rm -r -f "$OUTPUT_PATH" 2>/dev/null
 

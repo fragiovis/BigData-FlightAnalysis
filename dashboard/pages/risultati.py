@@ -17,11 +17,26 @@ on_emr = Path("/usr/lib/spark").exists()
 env = "aws" if on_emr else "local"
 base = config.hdfs_base(env)
 
-c1, c2 = st.columns(2)
+@st.cache_data(ttl=30, show_spinner=False)
+def available_datasets(path):
+    """Dataset per cui esiste un output (una cartella per dataset sotto <tecnologia>/<job>)."""
+    r = subprocess.run(["hdfs", "dfs", "-ls", path], env=config.job_env(env),
+                       stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True)
+    names = [Path(l.split()[-1]).name for l in r.stdout.splitlines() if l.startswith("d")]
+    return sorted([n for n in names if config.dataset_percent(n)], key=config.dataset_percent)
+
+
+c1, c2, c3 = st.columns(3)
 job = c1.selectbox("Job", config.JOBS, format_func=config.JOB_TITLES.get)
 tool = c2.selectbox("Output prodotto da", config.TOOLS, index=1, format_func=config.TOOL_LABELS.get)
-st.caption(f"Legge `{base}/{tool}/{job}` su HDFS, cioè l'output dell'ultima esecuzione di quella tecnologia "
-           "(il dataset è quello dell'ultimo run).")
+datasets = available_datasets(f"{base}/{tool}/{job}")
+if not datasets:
+    st.warning("Nessun output su HDFS per questa combinazione: esegui prima il job.")
+    st.stop()
+dataset = c3.selectbox("Dataset", datasets, index=datasets.index("flights_cleaned") if "flights_cleaned" in datasets else 0,
+                       format_func=lambda d: f"{d} ({config.dataset_label(d)})")
+st.caption(f"Legge `{base}/{tool}/{job}/{dataset}` su HDFS: l'output dell'ultima esecuzione di quella tecnologia "
+           "su quel dataset.")
 
 
 @st.cache_data(ttl=30, show_spinner="Lettura da HDFS…")
@@ -35,7 +50,7 @@ def load_output(path, job):
     return df
 
 
-data = load_output(f"{base}/{tool}/{job}", job)
+data = load_output(f"{base}/{tool}/{job}/{dataset}", job)
 if data.empty:
     st.warning("Nessun output su HDFS per questa combinazione: esegui prima il job.")
     st.stop()
@@ -114,9 +129,9 @@ with st.expander("Output completo"):
 
 st.divider()
 st.subheader("Verifica tra tecnologie")
-st.write("Confronta riga per riga gli output di Spark Core, Spark SQL e Hive attualmente su HDFS.")
+st.write(f"Confronta riga per riga gli output di Spark Core, Spark SQL e Hive sul dataset `{dataset}`.")
 if st.button("Esegui verifica"):
-    r = subprocess.run([sys.executable, str(config.ROOT_DIR / "verify_outputs.py"), job, "--base", base],
+    r = subprocess.run([sys.executable, str(config.ROOT_DIR / "verify_outputs.py"), job, dataset, "--base", base],
                        env=config.job_env(env), stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
     (st.success if r.returncode == 0 else st.error)("Output identici" if r.returncode == 0 else "Ci sono differenze")
     st.code(r.stdout, language=None)

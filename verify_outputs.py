@@ -2,11 +2,11 @@
 """
 verify_outputs.py — Confronta gli output dello stesso job prodotti da Spark Core, Spark SQL e Hive.
 
-Legge i risultati da HDFS (/user/<utente>/<tecnologia>/<job>), li indicizza per chiave
+Legge i risultati da HDFS (/user/<utente>/<tecnologia>/<job>/<dataset>), li indicizza per chiave
 (le prime due colonne) e confronta campo per campo: i valori numerici con una tolleranza
 pari all'arrotondamento a 2 decimali, le stringhe in modo esatto.
 
-Uso:  python3 verify_outputs.py job_1 [--base /user/hadoop]
+Uso:  python3 verify_outputs.py job_1 [flights_20] [--base /user/hadoop]   (dataset predefinito: flights_cleaned)
 """
 
 import argparse
@@ -77,12 +77,13 @@ def compare(name_a, rows_a, name_b, rows_b):
 def main():
     parser = argparse.ArgumentParser(description="Confronto degli output tra tecnologie")
     parser.add_argument("job", choices=["job_1", "job_2"])
+    parser.add_argument("dataset", nargs="?", default="flights_cleaned", help="Dataset di cui confrontare gli output")
     parser.add_argument("--base", default=f"/user/{getpass.getuser()}", help="Radice HDFS degli output")
     args = parser.parse_args()
 
-    outputs = {tool: read_output(f"{args.base}/{tool}/{args.job}") for tool in TOOLS}
+    outputs = {tool: read_output(f"{args.base}/{tool}/{args.job}/{args.dataset}") for tool in TOOLS}
 
-    print(f"[VERIFY] {args.job}")
+    print(f"[VERIFY] {args.job} su {args.dataset}")
     ok = True
     for other in TOOLS[1:]:
         ok &= compare(TOOLS[0], outputs[TOOLS[0]], other, outputs[other])

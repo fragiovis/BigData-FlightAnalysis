@@ -39,6 +39,20 @@ def exclusive_lock():
             fcntl.flock(f, fcntl.LOCK_UN)
 
 
+def is_busy():
+    """True se un'altra esecuzione (dalla dashboard o da riga di comando) tiene il lock."""
+    path = config.RESULTS_DIR / ".runner.lock"
+    if not path.exists():
+        return False
+    with open(path) as f:
+        try:
+            fcntl.flock(f, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            return True
+        fcntl.flock(f, fcntl.LOCK_UN)
+    return False
+
+
 def hdfs(env, *args):
     return subprocess.run(
         ["hdfs", "dfs", *args], env=config.job_env(env),

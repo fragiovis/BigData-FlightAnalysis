@@ -7,8 +7,8 @@ import pandas as pd
 import streamlit as st
 
 from background import build_plan
-from bench import cluster, config, runner
-from common import batch_manager, seconds
+from bench import cluster, config, runner, store
+from common import batch_manager, external_run, seconds
 
 st.title("▶️ Esegui job")
 
@@ -41,8 +41,9 @@ with st.form("batch"):
                          help="Eseguita dopo ogni gruppo (job, dataset) che include tutte e tre le tecnologie")
 
     plan = build_plan(tools, jobs, datasets, int(repetitions))
-    submitted = st.form_submit_button(f"Avvia ({len(plan)} esecuzioni)", type="primary",
-                                      disabled=state.running)
+    busy = state.running or runner.is_busy()
+    submitted = st.form_submit_button(f"Avvia ({len(plan)} esecuzioni)", type="primary", disabled=busy,
+                                      help="Disattivato mentre è in corso un'altra esecuzione" if busy else None)
 
 if submitted:
     if not plan:
@@ -59,6 +60,24 @@ if submitted:
 @st.fragment(run_every="1s")
 def progress():
     s = manager.state
+    ext = external_run()
+    if ext is not None:
+        st.subheader("Esecuzione avviata da riga di comando")
+        st.write(f"In corso: **{ext['label']}**")
+        st.caption(f"Batch `{ext['batch_id']}`: {ext['completate']} esecuzioni completate finora.")
+        with st.expander("Log in tempo reale", expanded=True):
+            st.code(store.log_tail(ext["run_id"]) if ext["run_id"] else "…", language=None)
+        done = ext["ultime"]
+        if not done.empty:
+            st.dataframe(
+                done[["status", "tool_label", "job", "dataset", "wall_seconds", "engine_seconds", "output_rows"]],
+                hide_index=True, width="stretch",
+                column_config={"status": "Esito", "tool_label": "Tecnologia", "job": "Job", "dataset": "Dataset",
+                               "wall_seconds": st.column_config.NumberColumn("Tempo totale (s)", format="%.2f"),
+                               "engine_seconds": st.column_config.NumberColumn("Calcolo (s)", format="%.2f"),
+                               "output_rows": st.column_config.NumberColumn("Righe output")},
+            )
+        return
     if not s.plan:
         st.info("Nessun batch avviato in questa sessione del server.")
         return

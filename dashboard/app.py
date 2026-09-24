@@ -13,7 +13,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import streamlit as st  # noqa: E402
 
-from common import batch_manager  # noqa: E402
+from common import batch_manager, external_run  # noqa: E402
 
 st.set_page_config(page_title="Flight Analysis — Benchmark", page_icon="✈️", layout="wide")
 
@@ -40,6 +40,9 @@ def batch_indicator():
     if state.running:
         st.info(f"⏳ Batch in corso: {state.current + 1}/{len(state.plan)}\n\n{state.current_label}")
         st.progress(len(state.records) / len(state.plan))
+    elif (ext := external_run()) is not None:
+        st.info(f"⏳ Esecuzione da riga di comando\n\n{ext['label']}\n\n"
+                f"Completate nel batch `{ext['batch_id']}`: {ext['completate']}")
     elif state.plan and state.finished_at:
         esito = "interrotto" if state.stop_requested else "completato"
         st.success(f"✅ Ultimo batch {esito}: {len(state.records)}/{len(state.plan)} "

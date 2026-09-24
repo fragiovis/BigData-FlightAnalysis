@@ -2,11 +2,13 @@
 common.py — Funzioni condivise dalle pagine della dashboard.
 """
 
+import re
+
 import pandas as pd
 import streamlit as st
 
 from background import BatchManager
-from bench import config, store
+from bench import config, runner, store
 
 
 @st.cache_resource
@@ -25,6 +27,33 @@ def runs(include_legacy=False):
 
 LEGACY_NOTE = ("I tempi **AWS EMR** provengono dalla sessione eseguita sul cluster (1 primary + 2 core m5.xlarge), "
                "con un'esecuzione per combinazione. Da questa installazione non è possibile lanciare job su AWS.")
+
+
+RUN_ID = re.compile(r"^(\d{8}-\d{6})-(local|yarn|aws)-(spark-core|spark-sql|hive)-(job_\d)-(.+)-r(\d+)$")
+
+
+def external_run():
+    """Esecuzione avviata da riga di comando (benchmark.py o script) mentre la dashboard non ha batch attivi.
+
+    Restituisce un dizionario con l'esecuzione corrente e l'avanzamento del suo batch, oppure None.
+    """
+    if batch_manager().state.running or not runner.is_busy():
+        return None
+    run_id = store.run_in_progress()
+    m = RUN_ID.match(run_id or "")
+    info = {"run_id": run_id, "label": run_id or "avvio in corso…", "batch_id": None, "completate": 0,
+            "ultime": pd.DataFrame()}
+    if m:
+        started, env, tool, job, dataset, rep = m.groups()
+        info["label"] = (f"{config.TOOL_LABELS[tool]} · {job} · {dataset} · "
+                         f"{config.ENVIRONMENTS[env]['label']} (dalle {started[9:11]}:{started[11:13]})")
+    df = runs()
+    if not df.empty:
+        batch = df.iloc[0]["batch_id"]
+        info["batch_id"] = batch
+        info["ultime"] = df[df["batch_id"] == batch]
+        info["completate"] = len(info["ultime"])
+    return info
 
 
 def human_bytes(n):

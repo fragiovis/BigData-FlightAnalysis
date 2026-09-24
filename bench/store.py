@@ -58,6 +58,22 @@ def runs_signature():
     return len(paths), max((p.stat().st_mtime for p in paths), default=0)
 
 
+def run_in_progress():
+    """Esecuzione in corso: la cartella più recente senza record.json (il record si scrive alla fine).
+
+    Ha senso solo mentre il lock del runner è occupato (runner.is_busy()).
+    """
+    dirs = [d for d in config.RUNS_DIR.glob("*") if d.is_dir() and not (d / "record.json").exists()]
+    return max(dirs, key=lambda d: d.stat().st_mtime).name if dirs else None
+
+
+def log_tail(run_id, lines=60):
+    path = run_dir(run_id) / "log.txt"
+    if not path.exists():
+        return ""
+    return "\n".join(path.read_text(errors="replace").splitlines()[-lines:])
+
+
 def run_dir(run_id):
     return config.RUNS_DIR / run_id
 

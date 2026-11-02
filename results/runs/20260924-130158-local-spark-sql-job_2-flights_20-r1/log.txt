@@ -1,5 +1,5 @@
 2026-09-24 13:01:58,554 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
-26/09/24 13:01:59 WARN Utils: Your hostname, MacBook-Air-di-Francesco-5.local resolves to a loopback address: 127.0.0.1; using 192.168.1.102 instead (on interface en0)
+26/09/24 13:01:59 WARN Utils: Your hostname, localhost resolves to a loopback address: 127.0.0.1; using 127.0.0.1 instead (on interface en0)
 26/09/24 13:01:59 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
 26/09/24 13:02:00 INFO SparkContext: Running Spark version 3.5.5
 26/09/24 13:02:00 INFO SparkContext: OS info Mac OS X, 26.3, aarch64
@@ -28,19 +28,19 @@
 26/09/24 13:02:00 INFO SparkEnv: Registering OutputCommitCoordinator
 26/09/24 13:02:00 INFO JettyUtils: Start Jetty 0.0.0.0:4040 for SparkUI
 26/09/24 13:02:00 INFO Utils: Successfully started service 'SparkUI' on port 4040.
-26/09/24 13:02:00 INFO Executor: Starting executor ID driver on host 192.168.1.102
+26/09/24 13:02:00 INFO Executor: Starting executor ID driver on host 127.0.0.1
 26/09/24 13:02:00 INFO Executor: OS info Mac OS X, 26.3, aarch64
 26/09/24 13:02:00 INFO Executor: Java version 21.0.9
 26/09/24 13:02:00 INFO Executor: Starting executor with user classpath (userClassPathFirst = false): ''
 26/09/24 13:02:00 INFO Executor: Created or updated repl class loader org.apache.spark.util.MutableURLClassLoader@48112082 for default.
 26/09/24 13:02:00 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 58776.
-26/09/24 13:02:00 INFO NettyBlockTransferService: Server created on 192.168.1.102:58776
+26/09/24 13:02:00 INFO NettyBlockTransferService: Server created on 127.0.0.1:58776
 26/09/24 13:02:00 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
-26/09/24 13:02:00 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 192.168.1.102, 58776, None)
-26/09/24 13:02:00 INFO BlockManagerMasterEndpoint: Registering block manager 192.168.1.102:58776 with 434.4 MiB RAM, BlockManagerId(driver, 192.168.1.102, 58776, None)
-26/09/24 13:02:00 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 192.168.1.102, 58776, None)
-26/09/24 13:02:00 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 192.168.1.102, 58776, None)
-26/09/24 13:02:00 INFO SingleEventLogFileWriter: Logging events to file:/Users/fra/Big_Data/Flight_Analysis/results/runs/20260924-130158-local-spark-sql-job_2-flights_20-r1/spark-events/local-1790247720424.inprogress
+26/09/24 13:02:00 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 127.0.0.1, 58776, None)
+26/09/24 13:02:00 INFO BlockManagerMasterEndpoint: Registering block manager 127.0.0.1:58776 with 434.4 MiB RAM, BlockManagerId(driver, 127.0.0.1, 58776, None)
+26/09/24 13:02:00 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 127.0.0.1, 58776, None)
+26/09/24 13:02:00 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 127.0.0.1, 58776, None)
+26/09/24 13:02:00 INFO SingleEventLogFileWriter: Logging events to file:/home/user/Big_Data/Flight_Analysis/results/runs/20260924-130158-local-spark-sql-job_2-flights_20-r1/spark-events/local-1790247720424.inprogress
 [JOB 2] Caricamento del dataset da HDFS: hdfs://localhost:9000/user/fra/data/flights_20
 [JOB 2] Esecuzione della query SQL complessa in corso...
 +---------+----+------------------+-----------------------+-----------------------+------------------+-----------------------+-----------------------+-----------------+----------------------+----------------------+----------------------------------------------+

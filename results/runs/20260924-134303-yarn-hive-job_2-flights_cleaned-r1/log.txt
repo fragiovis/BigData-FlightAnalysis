@@ -2,13 +2,13 @@
 [HIVE] Pre-compilazione del file SQL (Sostituzione variabili in Bash)...
 [HIVE] Avvio esecuzione MapReduce tramite Beeline per il file job_2.hql (yarn)...
 SLF4J: Class path contains multiple SLF4J bindings.
-SLF4J: Found binding in [jar:file:/Users/fra/apache-hive-4.0.0-bin/lib/log4j-slf4j-impl-2.18.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-SLF4J: Found binding in [jar:file:/Users/fra/hadoop-3.4.1/share/hadoop/common/lib/slf4j-reload4j-1.7.36.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/user/apache-hive-4.0.0-bin/lib/log4j-slf4j-impl-2.18.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/user/hadoop-3.4.1/share/hadoop/common/lib/slf4j-reload4j-1.7.36.jar!/org/slf4j/impl/StaticLoggerBinder.class]
 SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
 SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
 SLF4J: Class path contains multiple SLF4J bindings.
-SLF4J: Found binding in [jar:file:/Users/fra/apache-hive-4.0.0-bin/lib/log4j-slf4j-impl-2.18.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-SLF4J: Found binding in [jar:file:/Users/fra/hadoop-3.4.1/share/hadoop/common/lib/slf4j-reload4j-1.7.36.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/user/apache-hive-4.0.0-bin/lib/log4j-slf4j-impl-2.18.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/user/hadoop-3.4.1/share/hadoop/common/lib/slf4j-reload4j-1.7.36.jar!/org/slf4j/impl/StaticLoggerBinder.class]
 SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
 SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
 Connecting to jdbc:hive2://
@@ -174,7 +174,7 @@ In order to set a constant number of reducers:
   set mapreduce.job.reduces=<number>
 26/09/24 13:43:12 [HiveServer2-Background-Pool: Thread-82]: WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
 Starting Job = job_1790189154268_0258, Tracking URL = http://localhost:8088/proxy/application_1790189154268_0258/
-Kill Command = /Users/fra/hadoop-3.4.1/bin/mapred job  -kill job_1790189154268_0258
+Kill Command = /home/user/hadoop-3.4.1/bin/mapred job  -kill job_1790189154268_0258
 WARN  : Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. tez) or using Hive 1.X releases.
 Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
 26/09/24 13:43:17 [HiveServer2-Background-Pool: Thread-82]: WARN mapreduce.Counters: Group org.apache.hadoop.mapred.Task$Counter is deprecated. Use org.apache.hadoop.mapreduce.TaskCounter instead
@@ -192,7 +192,7 @@ In order to set a constant number of reducers:
   set mapreduce.job.reduces=<number>
 26/09/24 13:43:33 [HiveServer2-Background-Pool: Thread-82]: WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
 Starting Job = job_1790189154268_0259, Tracking URL = http://localhost:8088/proxy/application_1790189154268_0259/
-Kill Command = /Users/fra/hadoop-3.4.1/bin/mapred job  -kill job_1790189154268_0259
+Kill Command = /home/user/hadoop-3.4.1/bin/mapred job  -kill job_1790189154268_0259
 Hadoop job information for Stage-4: number of mappers: 1; number of reducers: 1
 26/09/24 13:43:41 [HiveServer2-Background-Pool: Thread-82]: WARN mapreduce.Counters: Group org.apache.hadoop.mapred.Task$Counter is deprecated. Use org.apache.hadoop.mapreduce.TaskCounter instead
 2026-09-24 13:43:41,973 Stage-4 map = 0%,  reduce = 0%
@@ -209,7 +209,7 @@ In order to set a constant number of reducers:
   set mapreduce.job.reduces=<number>
 26/09/24 13:43:57 [HiveServer2-Background-Pool: Thread-82]: WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
 Starting Job = job_1790189154268_0260, Tracking URL = http://localhost:8088/proxy/application_1790189154268_0260/
-Kill Command = /Users/fra/hadoop-3.4.1/bin/mapred job  -kill job_1790189154268_0260
+Kill Command = /home/user/hadoop-3.4.1/bin/mapred job  -kill job_1790189154268_0260
 Hadoop job information for Stage-5: number of mappers: 1; number of reducers: 1
 26/09/24 13:44:07 [HiveServer2-Background-Pool: Thread-82]: WARN mapreduce.Counters: Group org.apache.hadoop.mapred.Task$Counter is deprecated. Use org.apache.hadoop.mapreduce.TaskCounter instead
 2026-09-24 13:44:07,913 Stage-5 map = 0%,  reduce = 0%
@@ -226,7 +226,7 @@ In order to set a constant number of reducers:
   set mapreduce.job.reduces=<number>
 26/09/24 13:44:18 [HiveServer2-Background-Pool: Thread-82]: WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
 Starting Job = job_1790189154268_0261, Tracking URL = http://localhost:8088/proxy/application_1790189154268_0261/
-Kill Command = /Users/fra/hadoop-3.4.1/bin/mapred job  -kill job_1790189154268_0261
+Kill Command = /home/user/hadoop-3.4.1/bin/mapred job  -kill job_1790189154268_0261
 Hadoop job information for Stage-6: number of mappers: 1; number of reducers: 1
 26/09/24 13:44:27 [HiveServer2-Background-Pool: Thread-82]: WARN mapreduce.Counters: Group org.apache.hadoop.mapred.Task$Counter is deprecated. Use org.apache.hadoop.mapreduce.TaskCounter instead
 2026-09-24 13:44:27,897 Stage-6 map = 0%,  reduce = 0%
@@ -235,7 +235,7 @@ Hadoop job information for Stage-6: number of mappers: 1; number of reducers: 1
 Ended Job = job_1790189154268_0261
 Stage-10 is selected by condition resolver.
 Stage-2 is filtered out by condition resolver.
-SLF4J: Found binding in [jar:file:/Users/fra/apache-hive-4.0.0-bin/lib/log4j-slf4j-impl-2.18.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/user/apache-hive-4.0.0-bin/lib/log4j-slf4j-impl-2.18.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
 SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
 java.lang.NullPointerException: Cannot enter synchronized block because "other" is null
 	at org.apache.hadoop.hive.ql.exec.mr.ExecDriver.main(ExecDriver.java:766)
@@ -275,7 +275,7 @@ In order to set a constant number of reducers:
   set mapreduce.job.reduces=<number>
 26/09/24 13:44:40 [HiveServer2-Background-Pool: Thread-82]: WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
 Starting Job = job_1790189154268_0262, Tracking URL = http://localhost:8088/proxy/application_1790189154268_0262/
-Kill Command = /Users/fra/hadoop-3.4.1/bin/mapred job  -kill job_1790189154268_0262
+Kill Command = /home/user/hadoop-3.4.1/bin/mapred job  -kill job_1790189154268_0262
 ERROR : Execution failed with exit status: 1
 ERROR : Obtaining error information
 ERROR : 
@@ -304,7 +304,7 @@ In order to set a constant number of reducers:
   set mapreduce.job.reduces=<number>
 26/09/24 13:45:00 [HiveServer2-Background-Pool: Thread-82]: WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
 Starting Job = job_1790189154268_0263, Tracking URL = http://localhost:8088/proxy/application_1790189154268_0263/
-Kill Command = /Users/fra/hadoop-3.4.1/bin/mapred job  -kill job_1790189154268_0263
+Kill Command = /home/user/hadoop-3.4.1/bin/mapred job  -kill job_1790189154268_0263
 Hadoop job information for Stage-3: number of mappers: 1; number of reducers: 1
 26/09/24 13:45:09 [HiveServer2-Background-Pool: Thread-82]: WARN mapreduce.Counters: Group org.apache.hadoop.mapred.Task$Counter is deprecated. Use org.apache.hadoop.mapreduce.TaskCounter instead
 2026-09-24 13:45:09,494 Stage-3 map = 0%,  reduce = 0%

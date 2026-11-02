@@ -18,7 +18,7 @@
  },
  {
   "stage_id": 1,
-  "name": "reduceByKey at /Users/fra/Big_Data/Flight_Analysis/spark-core/job_2.py:117",
+  "name": "reduceByKey at /home/user/Big_Data/Flight_Analysis/spark-core/job_2.py:117",
   "tasks": 2,
   "shuffle_write_records": 64.0,
   "shuffle_read_bytes": 0.0,
@@ -35,7 +35,7 @@
  },
  {
   "stage_id": 3,
-  "name": "groupByKey at /Users/fra/Big_Data/Flight_Analysis/spark-core/job_2.py:120",
+  "name": "groupByKey at /home/user/Big_Data/Flight_Analysis/spark-core/job_2.py:120",
   "tasks": 2,
   "shuffle_write_records": 36.0,
   "shuffle_read_bytes": 383194.0,
@@ -52,7 +52,7 @@
  },
  {
   "stage_id": 2,
-  "name": "reduceByKey at /Users/fra/Big_Data/Flight_Analysis/spark-core/job_2.py:81",
+  "name": "reduceByKey at /home/user/Big_Data/Flight_Analysis/spark-core/job_2.py:81",
   "tasks": 2,
   "shuffle_write_records": 48.0,
   "shuffle_read_bytes": 0.0,
@@ -69,7 +69,7 @@
  },
  {
   "stage_id": 4,
-  "name": "leftOuterJoin at /Users/fra/Big_Data/Flight_Analysis/spark-core/job_2.py:137",
+  "name": "leftOuterJoin at /home/user/Big_Data/Flight_Analysis/spark-core/job_2.py:137",
   "tasks": 4,
   "shuffle_write_records": 72.0,
   "shuffle_read_bytes": 545383.0,
@@ -86,7 +86,7 @@
  },
  {
   "stage_id": 5,
-  "name": "sortBy at /Users/fra/Big_Data/Flight_Analysis/spark-core/job_2.py:146",
+  "name": "sortBy at /home/user/Big_Data/Flight_Analysis/spark-core/job_2.py:146",
   "tasks": 4,
   "shuffle_write_records": 0.0,
   "shuffle_read_bytes": 248326.0,
@@ -103,7 +103,7 @@
  },
  {
   "stage_id": 10,
-  "name": "sortBy at /Users/fra/Big_Data/Flight_Analysis/spark-core/job_2.py:146",
+  "name": "sortBy at /home/user/Big_Data/Flight_Analysis/spark-core/job_2.py:146",
   "tasks": 4,
   "shuffle_write_records": 0.0,
   "shuffle_read_bytes": 248326.0,
@@ -120,7 +120,7 @@
  },
  {
   "stage_id": 15,
-  "name": "sortBy at /Users/fra/Big_Data/Flight_Analysis/spark-core/job_2.py:146",
+  "name": "sortBy at /home/user/Big_Data/Flight_Analysis/spark-core/job_2.py:146",
   "tasks": 4,
   "shuffle_write_records": 112.0,
   "shuffle_read_bytes": 248326.0,

@@ -1,5 +1,5 @@
 2026-09-24 13:18:42,415 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
-26/09/24 13:18:43 WARN Utils: Your hostname, MacBook-Air-di-Francesco-5.local resolves to a loopback address: 127.0.0.1; using 192.168.1.102 instead (on interface en0)
+26/09/24 13:18:43 WARN Utils: Your hostname, localhost resolves to a loopback address: 127.0.0.1; using 127.0.0.1 instead (on interface en0)
 26/09/24 13:18:43 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
 26/09/24 13:18:44 INFO SparkContext: Running Spark version 3.5.5
 26/09/24 13:18:44 INFO SparkContext: OS info Mac OS X, 26.3, aarch64
@@ -288,8 +288,8 @@
 26/09/24 13:18:44 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/zookeeper-3.6.3.jar
 26/09/24 13:18:44 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/zookeeper-jute-3.6.3.jar
 26/09/24 13:18:44 INFO Client: Source and destination file systems are the same. Not copying hdfs://localhost:9000/spark/jars/zstd-jni-1.5.5-4.jar
-26/09/24 13:18:44 INFO Client: Uploading resource file:/Users/fra/spark-3.5.5-bin-hadoop3/python/lib/pyspark.zip -> hdfs://localhost:9000/user/fra/.sparkStaging/application_1790189154268_0208/pyspark.zip
-26/09/24 13:18:45 INFO Client: Uploading resource file:/Users/fra/spark-3.5.5-bin-hadoop3/python/lib/py4j-0.10.9.7-src.zip -> hdfs://localhost:9000/user/fra/.sparkStaging/application_1790189154268_0208/py4j-0.10.9.7-src.zip
+26/09/24 13:18:44 INFO Client: Uploading resource file:/home/user/spark-3.5.5-bin-hadoop3/python/lib/pyspark.zip -> hdfs://localhost:9000/user/fra/.sparkStaging/application_1790189154268_0208/pyspark.zip
+26/09/24 13:18:45 INFO Client: Uploading resource file:/home/user/spark-3.5.5-bin-hadoop3/python/lib/py4j-0.10.9.7-src.zip -> hdfs://localhost:9000/user/fra/.sparkStaging/application_1790189154268_0208/py4j-0.10.9.7-src.zip
 26/09/24 13:18:45 INFO Client: Uploading resource file:/private/var/folders/8m/r7py2s4j70gd4356xg4b3p3h0000gn/T/spark-05306e64-13ea-4c0a-9d5b-0cfdcf7f6777/__spark_conf__18080534994986796227.zip -> hdfs://localhost:9000/user/fra/.sparkStaging/application_1790189154268_0208/__spark_conf__.zip
 26/09/24 13:18:45 INFO SecurityManager: Changing view acls to: fra
 26/09/24 13:18:45 INFO SecurityManager: Changing modify acls to: fra
@@ -314,7 +314,7 @@
 26/09/24 13:18:49 INFO Client: 
 	 client token: N/A
 	 diagnostics: N/A
-	 ApplicationMaster host: 192.168.1.102
+	 ApplicationMaster host: 127.0.0.1
 	 ApplicationMaster RPC port: -1
 	 queue: root.default
 	 start time: 1790248725254
@@ -323,13 +323,13 @@
 	 user: fra
 26/09/24 13:18:49 INFO YarnClientSchedulerBackend: Application application_1790189154268_0208 has started running.
 26/09/24 13:18:49 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 60141.
-26/09/24 13:18:49 INFO NettyBlockTransferService: Server created on 192.168.1.102:60141
+26/09/24 13:18:49 INFO NettyBlockTransferService: Server created on 127.0.0.1:60141
 26/09/24 13:18:49 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
-26/09/24 13:18:49 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 192.168.1.102, 60141, None)
-26/09/24 13:18:49 INFO BlockManagerMasterEndpoint: Registering block manager 192.168.1.102:60141 with 434.4 MiB RAM, BlockManagerId(driver, 192.168.1.102, 60141, None)
-26/09/24 13:18:49 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 192.168.1.102, 60141, None)
-26/09/24 13:18:49 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 192.168.1.102, 60141, None)
-26/09/24 13:18:49 INFO SingleEventLogFileWriter: Logging events to file:/Users/fra/Big_Data/Flight_Analysis/results/runs/20260924-131842-yarn-spark-core-job_2-flights_1-r1/spark-events/application_1790189154268_0208.inprogress
+26/09/24 13:18:49 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(driver, 127.0.0.1, 60141, None)
+26/09/24 13:18:49 INFO BlockManagerMasterEndpoint: Registering block manager 127.0.0.1:60141 with 434.4 MiB RAM, BlockManagerId(driver, 127.0.0.1, 60141, None)
+26/09/24 13:18:49 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(driver, 127.0.0.1, 60141, None)
+26/09/24 13:18:49 INFO BlockManager: Initialized BlockManager: BlockManagerId(driver, 127.0.0.1, 60141, None)
+26/09/24 13:18:49 INFO SingleEventLogFileWriter: Logging events to file:/home/user/Big_Data/Flight_Analysis/results/runs/20260924-131842-yarn-spark-core-job_2-flights_1-r1/spark-events/application_1790189154268_0208.inprogress
 26/09/24 13:18:49 INFO YarnSchedulerBackend$YarnSchedulerEndpoint: ApplicationMaster registered as NettyRpcEndpointRef(spark-client://YarnAM)
 26/09/24 13:18:49 INFO ServerInfo: Adding filter to /jobs: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
 26/09/24 13:18:49 INFO ServerInfo: Adding filter to /jobs/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
@@ -359,9 +359,9 @@
 26/09/24 13:18:49 INFO ServerInfo: Adding filter to /jobs/job/kill: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
 26/09/24 13:18:49 INFO ServerInfo: Adding filter to /stages/stage/kill: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
 26/09/24 13:18:49 INFO ServerInfo: Adding filter to /metrics/json: org.apache.hadoop.yarn.server.webproxy.amfilter.AmIpFilter
-26/09/24 13:18:52 INFO YarnSchedulerBackend$YarnDriverEndpoint: Registered executor NettyRpcEndpointRef(spark-client://Executor) (192.168.1.102:60145) with ID 1,  ResourceProfileId 0
+26/09/24 13:18:52 INFO YarnSchedulerBackend$YarnDriverEndpoint: Registered executor NettyRpcEndpointRef(spark-client://Executor) (127.0.0.1:60145) with ID 1,  ResourceProfileId 0
 26/09/24 13:18:52 INFO BlockManagerMasterEndpoint: Registering block manager localhost:60146 with 434.4 MiB RAM, BlockManagerId(1, localhost, 60146, None)
-26/09/24 13:18:53 INFO YarnSchedulerBackend$YarnDriverEndpoint: Registered executor NettyRpcEndpointRef(spark-client://Executor) (192.168.1.102:60148) with ID 2,  ResourceProfileId 0
+26/09/24 13:18:53 INFO YarnSchedulerBackend$YarnDriverEndpoint: Registered executor NettyRpcEndpointRef(spark-client://Executor) (127.0.0.1:60148) with ID 2,  ResourceProfileId 0
 26/09/24 13:18:53 INFO YarnClientSchedulerBackend: SchedulerBackend is ready for scheduling beginning after reached minRegisteredResourcesRatio: 0.8
 26/09/24 13:18:53 INFO BlockManagerMasterEndpoint: Registering block manager localhost:60149 with 434.4 MiB RAM, BlockManagerId(2, localhost, 60149, None)
 [JOB 2 CORE] Caricamento del dataset da HDFS: hdfs://localhost:9000/user/fra/data/flights_1

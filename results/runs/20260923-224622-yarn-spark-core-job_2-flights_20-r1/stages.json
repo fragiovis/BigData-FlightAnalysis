@@ -18,7 +18,7 @@
  },
  {
   "stage_id": 1,
-  "name": "reduceByKey at /Users/fra/Big_Data/Flight_Analysis/spark-core/job_2.py:118",
+  "name": "reduceByKey at /home/user/Big_Data/Flight_Analysis/spark-core/job_2.py:118",
   "tasks": 2,
   "input_bytes": 43195707.0,
   "executor_run_ms": 2876.0,
@@ -35,7 +35,7 @@
  },
  {
   "stage_id": 2,
-  "name": "groupByKey at /Users/fra/Big_Data/Flight_Analysis/spark-core/job_2.py:121",
+  "name": "groupByKey at /home/user/Big_Data/Flight_Analysis/spark-core/job_2.py:121",
   "tasks": 2,
   "input_bytes": 0.0,
   "executor_run_ms": 615.0,
@@ -52,7 +52,7 @@
  },
  {
   "stage_id": 3,
-  "name": "reduceByKey at /Users/fra/Big_Data/Flight_Analysis/spark-core/job_2.py:82",
+  "name": "reduceByKey at /home/user/Big_Data/Flight_Analysis/spark-core/job_2.py:82",
   "tasks": 2,
   "input_bytes": 43195707.0,
   "executor_run_ms": 4955.0,
@@ -69,7 +69,7 @@
  },
  {
   "stage_id": 4,
-  "name": "leftOuterJoin at /Users/fra/Big_Data/Flight_Analysis/spark-core/job_2.py:138",
+  "name": "leftOuterJoin at /home/user/Big_Data/Flight_Analysis/spark-core/job_2.py:138",
   "tasks": 4,
   "input_bytes": 0.0,
   "executor_run_ms": 676.0,
@@ -86,7 +86,7 @@
  },
  {
   "stage_id": 5,
-  "name": "sortBy at /Users/fra/Big_Data/Flight_Analysis/spark-core/job_2.py:147",
+  "name": "sortBy at /home/user/Big_Data/Flight_Analysis/spark-core/job_2.py:147",
   "tasks": 4,
   "input_bytes": 0.0,
   "executor_run_ms": 272.0,
@@ -103,7 +103,7 @@
  },
  {
   "stage_id": 10,
-  "name": "sortBy at /Users/fra/Big_Data/Flight_Analysis/spark-core/job_2.py:147",
+  "name": "sortBy at /home/user/Big_Data/Flight_Analysis/spark-core/job_2.py:147",
   "tasks": 4,
   "input_bytes": 0.0,
   "executor_run_ms": 255.0,
@@ -120,7 +120,7 @@
  },
  {
   "stage_id": 15,
-  "name": "sortBy at /Users/fra/Big_Data/Flight_Analysis/spark-core/job_2.py:147",
+  "name": "sortBy at /home/user/Big_Data/Flight_Analysis/spark-core/job_2.py:147",
   "tasks": 4,
   "input_bytes": 0.0,
   "executor_run_ms": 337.0,

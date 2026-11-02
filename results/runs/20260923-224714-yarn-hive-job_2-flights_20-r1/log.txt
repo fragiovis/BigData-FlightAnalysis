@@ -3,13 +3,13 @@ Deleted /user/fra/hive/job_2
 [HIVE] Pre-compilazione del file SQL (Sostituzione variabili in Bash)...
 [HIVE] Avvio esecuzione MapReduce tramite Beeline per il file job_2.hql (yarn)...
 SLF4J: Class path contains multiple SLF4J bindings.
-SLF4J: Found binding in [jar:file:/Users/fra/apache-hive-4.0.0-bin/lib/log4j-slf4j-impl-2.18.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-SLF4J: Found binding in [jar:file:/Users/fra/hadoop-3.4.1/share/hadoop/common/lib/slf4j-reload4j-1.7.36.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/user/apache-hive-4.0.0-bin/lib/log4j-slf4j-impl-2.18.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/user/hadoop-3.4.1/share/hadoop/common/lib/slf4j-reload4j-1.7.36.jar!/org/slf4j/impl/StaticLoggerBinder.class]
 SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
 SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
 SLF4J: Class path contains multiple SLF4J bindings.
-SLF4J: Found binding in [jar:file:/Users/fra/apache-hive-4.0.0-bin/lib/log4j-slf4j-impl-2.18.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-SLF4J: Found binding in [jar:file:/Users/fra/hadoop-3.4.1/share/hadoop/common/lib/slf4j-reload4j-1.7.36.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/user/apache-hive-4.0.0-bin/lib/log4j-slf4j-impl-2.18.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/user/hadoop-3.4.1/share/hadoop/common/lib/slf4j-reload4j-1.7.36.jar!/org/slf4j/impl/StaticLoggerBinder.class]
 SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
 SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
 Connecting to jdbc:hive2://
@@ -176,7 +176,7 @@ In order to set a constant number of reducers:
 26/09/23 22:47:23 [HiveServer2-Background-Pool: Thread-82]: WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
 WARN  : Hive-on-MR is deprecated in Hive 2 and may not be available in the future versions. Consider using a different execution engine (i.e. tez) or using Hive 1.X releases.
 Starting Job = job_1790189154268_0023, Tracking URL = http://localhost:8088/proxy/application_1790189154268_0023/
-Kill Command = /Users/fra/hadoop-3.4.1/bin/mapred job  -kill job_1790189154268_0023
+Kill Command = /home/user/hadoop-3.4.1/bin/mapred job  -kill job_1790189154268_0023
 Hadoop job information for Stage-1: number of mappers: 1; number of reducers: 1
 26/09/23 22:47:30 [HiveServer2-Background-Pool: Thread-82]: WARN mapreduce.Counters: Group org.apache.hadoop.mapred.Task$Counter is deprecated. Use org.apache.hadoop.mapreduce.TaskCounter instead
 2026-09-23 22:47:30,609 Stage-1 map = 0%,  reduce = 0%
@@ -193,7 +193,7 @@ In order to set a constant number of reducers:
   set mapreduce.job.reduces=<number>
 26/09/23 22:47:42 [HiveServer2-Background-Pool: Thread-82]: WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
 Starting Job = job_1790189154268_0024, Tracking URL = http://localhost:8088/proxy/application_1790189154268_0024/
-Kill Command = /Users/fra/hadoop-3.4.1/bin/mapred job  -kill job_1790189154268_0024
+Kill Command = /home/user/hadoop-3.4.1/bin/mapred job  -kill job_1790189154268_0024
 Hadoop job information for Stage-4: number of mappers: 1; number of reducers: 1
 26/09/23 22:47:52 [HiveServer2-Background-Pool: Thread-82]: WARN mapreduce.Counters: Group org.apache.hadoop.mapred.Task$Counter is deprecated. Use org.apache.hadoop.mapreduce.TaskCounter instead
 2026-09-23 22:47:52,202 Stage-4 map = 0%,  reduce = 0%
@@ -210,7 +210,7 @@ In order to set a constant number of reducers:
   set mapreduce.job.reduces=<number>
 26/09/23 22:48:04 [HiveServer2-Background-Pool: Thread-82]: WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
 Starting Job = job_1790189154268_0025, Tracking URL = http://localhost:8088/proxy/application_1790189154268_0025/
-Kill Command = /Users/fra/hadoop-3.4.1/bin/mapred job  -kill job_1790189154268_0025
+Kill Command = /home/user/hadoop-3.4.1/bin/mapred job  -kill job_1790189154268_0025
 Hadoop job information for Stage-5: number of mappers: 1; number of reducers: 1
 26/09/23 22:48:13 [HiveServer2-Background-Pool: Thread-82]: WARN mapreduce.Counters: Group org.apache.hadoop.mapred.Task$Counter is deprecated. Use org.apache.hadoop.mapreduce.TaskCounter instead
 2026-09-23 22:48:13,423 Stage-5 map = 0%,  reduce = 0%
@@ -227,7 +227,7 @@ In order to set a constant number of reducers:
   set mapreduce.job.reduces=<number>
 26/09/23 22:48:24 [HiveServer2-Background-Pool: Thread-82]: WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
 Starting Job = job_1790189154268_0026, Tracking URL = http://localhost:8088/proxy/application_1790189154268_0026/
-Kill Command = /Users/fra/hadoop-3.4.1/bin/mapred job  -kill job_1790189154268_0026
+Kill Command = /home/user/hadoop-3.4.1/bin/mapred job  -kill job_1790189154268_0026
 Hadoop job information for Stage-6: number of mappers: 1; number of reducers: 1
 26/09/23 22:48:33 [HiveServer2-Background-Pool: Thread-82]: WARN mapreduce.Counters: Group org.apache.hadoop.mapred.Task$Counter is deprecated. Use org.apache.hadoop.mapreduce.TaskCounter instead
 2026-09-23 22:48:33,609 Stage-6 map = 0%,  reduce = 0%
@@ -236,7 +236,7 @@ Hadoop job information for Stage-6: number of mappers: 1; number of reducers: 1
 Ended Job = job_1790189154268_0026
 Stage-10 is selected by condition resolver.
 Stage-2 is filtered out by condition resolver.
-SLF4J: Found binding in [jar:file:/Users/fra/apache-hive-4.0.0-bin/lib/log4j-slf4j-impl-2.18.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/user/apache-hive-4.0.0-bin/lib/log4j-slf4j-impl-2.18.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
 SLF4J: Actual binding is of type [org.apache.logging.slf4j.Log4jLoggerFactory]
 Exception in thread "main" 
 Execution failed with exit status: 1
@@ -274,7 +274,7 @@ In order to set a constant number of reducers:
   set mapreduce.job.reduces=<number>
 26/09/23 22:48:45 [HiveServer2-Background-Pool: Thread-82]: WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
 Starting Job = job_1790189154268_0027, Tracking URL = http://localhost:8088/proxy/application_1790189154268_0027/
-Kill Command = /Users/fra/hadoop-3.4.1/bin/mapred job  -kill job_1790189154268_0027
+Kill Command = /home/user/hadoop-3.4.1/bin/mapred job  -kill job_1790189154268_0027
 ERROR : Execution failed with exit status: 1
 ERROR : Obtaining error information
 ERROR : 
@@ -303,7 +303,7 @@ In order to set a constant number of reducers:
   set mapreduce.job.reduces=<number>
 26/09/23 22:49:05 [HiveServer2-Background-Pool: Thread-82]: WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
 Starting Job = job_1790189154268_0028, Tracking URL = http://localhost:8088/proxy/application_1790189154268_0028/
-Kill Command = /Users/fra/hadoop-3.4.1/bin/mapred job  -kill job_1790189154268_0028
+Kill Command = /home/user/hadoop-3.4.1/bin/mapred job  -kill job_1790189154268_0028
 Hadoop job information for Stage-3: number of mappers: 1; number of reducers: 1
 26/09/23 22:49:14 [HiveServer2-Background-Pool: Thread-82]: WARN mapreduce.Counters: Group org.apache.hadoop.mapred.Task$Counter is deprecated. Use org.apache.hadoop.mapreduce.TaskCounter instead
 2026-09-23 22:49:14,523 Stage-3 map = 0%,  reduce = 0%
